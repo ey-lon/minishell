@@ -30,7 +30,9 @@ SRC_F = source/
 #files-----------------------------------------
 
 SRC =	main.c \
-		history.c
+		history.c \
+		parsing.c \
+		utils.c
 
 #----------------------------------------------
 
