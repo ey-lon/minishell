@@ -34,7 +34,8 @@ SRC =	main.c \
 		parsing.c \
 		parsing_2.c \
 		utils.c \
-		utils_2.c
+		utils_2.c \
+		cdm_err_check.c
 
 #----------------------------------------------
 

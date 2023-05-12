@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:46:44 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/12 15:37:55 by abettini         ###   ########.fr       */
+/*   Updated: 2023/05/12 16:11:06 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,16 @@ void	ft_print_lst(t_list *lst)
 	n = 1;
 	while (lst)
 	{
-		printf("\nnodo [%d]\n", n);
+		printf("\nNODE [%d]\n", n);
 		tmp = (t_prs *)lst->content;
-		printf("words:\n");
+		printf("___words:_______\n");
 		i = 0;
 		while (tmp->wrd[i])
 		{
 			printf("%s\n", tmp->wrd[i]);
 			i++;
 		}
-		printf("redirects:\n");
+		printf("___redirects:___\n");
 		i = 0;
 		while (tmp->red[i])
 		{
@@ -87,12 +87,15 @@ int	main(void)
 		str = readline("$> ");
 		if (!strncmp(str, "exit", 4))
 			exit (0);
-		ft_parsing(&cmd, str);
-		ft_print_lst(cmd);
-		//execute
+		if (!ft_check_cmd_err(str))
+		{
+			ft_parsing(&cmd, str);
+			ft_print_lst(cmd);
+			//execute cmd
+			ft_free_cmdlst(cmd);
+		}
 		//add_history(str);
 		free(str);
-		ft_free_cmdlst(cmd);
 	}
 	return (0);
 }

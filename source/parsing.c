@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 12:03:09 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/12 15:30:22 by abettini         ###   ########.fr       */
+/*   Updated: 2023/05/12 16:03:58 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	ft_parsing(t_list **lst, char *str)
 		i = ft_fill_cmdlst(tmp, str, i);
 		while (ft_isspace(str[i]))
 			i++;
-		if (str[i])
+		while (str[i] == '|')
 			i++;
 	}
 }
