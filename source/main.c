@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:46:44 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/12 12:37:50 by abettini         ###   ########.fr       */
+/*   Updated: 2023/05/12 12:41:53 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ void	ft_sighandler(int signal)
 		ft_putstr_fd("\n$>", 1);
 }
 
+//stampa la lista di nodi
+//contentente le matrici di parole e redirects
+//(funzione usata solo per vedere se sono linkati per bene)
 void	ft_print_lst(t_list *lst)
 {
 	t_prs	*tmp;

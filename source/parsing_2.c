@@ -6,12 +6,14 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:44:04 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/12 11:26:08 by abettini         ###   ########.fr       */
+/*   Updated: 2023/05/12 12:40:28 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+//conta quanto e' lungo il redirect
+//(lo uso per portare l'indice oltre il redirect)
 static int	ft_skip_red(char *str)
 {
 	int	i;

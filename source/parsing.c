@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 12:03:09 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/12 12:37:34 by abettini         ###   ########.fr       */
+/*   Updated: 2023/05/12 12:40:42 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static int	ft_strlenmod(char *str, int red)
 	return (i);
 }
 
+//toglie spazi superflui dai redirects
 char	*ft_red_trim(char *str)
 {
 	char	*ret;
@@ -77,6 +78,7 @@ char	*ft_red_trim(char *str)
 	return (ret);
 }
 
+//riempie le matrici di parole e redirects
 int	ft_fill_cmdlst(t_prs *tmp, char *str, int i)
 {
 	int		r;
@@ -108,7 +110,6 @@ int	ft_fill_cmdlst(t_prs *tmp, char *str, int i)
 //crea una lista di nodi contenenti:
 //una matrice di parole e una di redirect
 //per ogni pipe
-
 void	ft_parsing(t_list **lst, char *str)
 {
 	t_prs	*tmp;
