@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:46:44 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/12 15:13:24 by abettini         ###   ########.fr       */
+/*   Updated: 2023/05/12 15:37:55 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void	ft_sighandler(int signal)
 {
-	if (signal == SIGQUIT)
+	if (signal == CTRL_BS)
 		;
-	else if (signal == SIGSEGV)
+	else if (signal == CTRL_D)
 	{
 		ft_putstr_fd("exit", 1);
 		exit(0);
 	}
-	else if (signal == SIGINT)
+	else if (signal == CTRL_C)
 		ft_putstr_fd("\n$>", 1);
 }
 

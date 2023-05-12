@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:47:15 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/12 15:16:55 by abettini         ###   ########.fr       */
+/*   Updated: 2023/05/12 15:37:29 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
+
+# define CTRL_C SIGINT
+# define CTRL_D SIGSEGV
+# define CTRL_BS SIGQUIT
 
 # define SPACES "\t\n\v\f\r "
 
