@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 15:38:34 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/10 15:54:28 by abettini         ###   ########.fr       */
+/*   Updated: 2023/05/12 09:54:05 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_add_str_to_history(char *str, t_list **hst)
 {
-	t_list *new;
+	t_list	*new;
 
 	new = ft_lstnew(ft_strdup(str));
 	ft_lstadd_back(hst, new);

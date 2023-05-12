@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 14:48:23 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/10 12:02:52 by abettini         ###   ########.fr       */
+/*   Updated: 2023/05/11 15:48:14 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,5 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 int		ft_printf(const char *str, ...);
 //get_next_line -------------------------------------------------------------
 char	*get_next_line(int fd);
-//other ---------------------------------------------------------------------
-char	*ft_ult_strjoin(int n, ...);
-char	*ft_rev_split(char **mat);
 
 #endif

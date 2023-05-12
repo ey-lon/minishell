@@ -6,45 +6,16 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 12:03:09 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/11 12:57:51 by abettini         ###   ########.fr       */
+/*   Updated: 2023/05/12 12:37:34 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//conta quante parole e quanti redirect ci sono
-static void	ft_prs_count(char *str, int *wc, int *rc)
-{
-	int	i;
+int	ft_red_count(char *str);
+int	ft_wrd_count(char *str);
 
-	*rc = 0;
-	*wc = 0;
-	i = 0;
-	while (str[i] != '|' && str[i])
-	{
-		while (ft_isspace(str[i]))
-				i++;
-		if (str[i] == '>' || str[i] == '<')
-		{
-			*rc += 1;
-			while (str[i] == '>' || str[i] == '<')
-				i++;
-			while (ft_isspace(str[i]))
-				i++;
-			while (!ft_is_special(str[i]) && !ft_isspace(str[i]) && str[i])
-				i++;
-		}
-		else if (str[i])
-		{
-			*wc += 1;
-			while (!ft_is_special(str[i]) && !ft_isspace(str[i]) && str[i])
-				i++;
-		}
-	}
-	printf ("word count = %d\nredirect count = %d\n", *wc, *rc);
-}
-
-int		ft_strlenmod(char *str, int red)
+static int	ft_strlenmod(char *str, int red)
 {
 	int	i;
 
@@ -59,55 +30,107 @@ int		ft_strlenmod(char *str, int red)
 				i++;
 		}
 	}
-	while (!ft_is_special(str[i]) && str[i])
+	while (!ft_is_special(str[i]) && !ft_isspace(str[i]) && str[i])
 		i++;
 	return (i);
 }
 
-//crea una lista di nodi dividendo parole e redirect
-t_list	*ft_parsing(char *str)
+char	*ft_red_trim(char *str)
 {
-	t_list	*lst;
+	char	*ret;
+	char	*tmp;
+	int		i;
+	int		x;
+
+	i = 0;
+	x = 0;
+	tmp = malloc(ft_strlenmod(str, 1) + 1);
+	ft_strlcpy(tmp, str, ft_strlenmod(str, 1) + 1);
+	while (tmp[i] == '>' || tmp[i] == '<')
+		i++;
+	while (ft_isspace(tmp[i]))
+	{
+		i++;
+		x++;
+	}
+	while (tmp[i])
+		i++;
+	ret = malloc(sizeof(char) * (i - x + 1));
+	i = 0;
+	x = 0;
+	while (tmp[i] == '>' || tmp[i] == '<')
+	{
+		ret[x] = tmp[i];
+		i++;
+		x++;
+	}
+	while (ft_isspace(tmp[i]))
+		i++;
+	while (tmp[i])
+	{
+		ret[x] = tmp[i];
+		i++;
+		x++;
+	}
+	ret[x] = '\0';
+	free(tmp);
+	return (ret);
+}
+
+int	ft_fill_cmdlst(t_prs *tmp, char *str, int i)
+{
+	int		r;
+	int		w;
+
+	r = 0;
+	w = 0;
+	while (str[i] != '|' && str[i])
+	{
+		if (ft_isspace(str[i]))
+			i++;
+		else if (str[i] == '>' || str[i] == '<')
+		{
+			tmp->red[r] = ft_red_trim(&str[i]);
+			i += ft_strlenmod(&str[i], 1);
+			r++;
+		}
+		else if (str[i] != '|')
+		{
+			tmp->wrd[w] = malloc(ft_strlenmod(&str[i], 0) + 1);
+			ft_strlcpy(tmp->wrd[w], &str[i], ft_strlenmod(&str[i], 0) + 1);
+			i += ft_strlenmod(&str[i], 0);
+			w++;
+		}
+	}
+	return (i);
+}
+
+//crea una lista di nodi contenenti:
+//una matrice di parole e una di redirect
+//per ogni pipe
+
+void	ft_parsing(t_list **lst, char *str)
+{
 	t_prs	*tmp;
 	int		i;
 	int		wc;
 	int		rc;
-	int		r;
-	int		w;
 
-	lst = NULL;
-	r = 0;
-	w = 0;
 	i = 0;
 	while (str[i])
 	{
 		tmp = malloc(sizeof(t_prs));
-		if (!lst)
-			lst = ft_lstnew((void *)tmp);
-		else
-			ft_lstadd_front(&lst, ft_lstnew((void *)tmp));
-		ft_prs_count(&str[i], &wc, &rc);
-		tmp->wrd = malloc(sizeof(char *) * wc);
-		tmp->red = malloc(sizeof(char *) * rc);
-		while (str[i] != '|' && str[i])
-		{
-			while (ft_isspace(str[i]))
-				i++;
-			if (str[i] == '>' || str[i] == '<')
-			{
-				tmp->red[r] = malloc(ft_strlenmod(&str[i], 1) + 1);
-				ft_strlcpy(tmp->red[r], &str[i], ft_strlenmod(&str[i], 1) + 1);
-				i += ft_strlenmod(&str[i], 1);
-				r++;
-			}
-			else
-			{
-				tmp->wrd[w] = malloc(ft_strlenmod(&str[i], 0) + 1);
-				ft_strlcpy(tmp->wrd[w], &str[i], ft_strlenmod(&str[i], 0) + 1);
-				i += ft_strlenmod(&str[i], 0);
-				w++;
-			}
-		}
+		ft_lstadd_front(lst, ft_lstnew((void *)tmp));
+		rc = ft_red_count(&str[i]);
+		wc = ft_wrd_count(&str[i]);
+		tmp->wrd = malloc(sizeof(char *) * (wc + 1));
+		tmp->red = malloc(sizeof(char *) * (rc + 1));
+		tmp->wrd[wc] = NULL;
+		tmp->red[rc] = NULL;
+		i = ft_fill_cmdlst(tmp, str, i);
+		while (ft_isspace(str[i]))
+			i++;
+		if (str[i])
+			i++;
 	}
-	return (lst);
 }

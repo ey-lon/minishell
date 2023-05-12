@@ -32,6 +32,7 @@ SRC_F = source/
 SRC =	main.c \
 		history.c \
 		parsing.c \
+		parsing_2.c \
 		utils.c
 
 #----------------------------------------------
