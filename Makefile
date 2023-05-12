@@ -33,7 +33,8 @@ SRC =	main.c \
 		history.c \
 		parsing.c \
 		parsing_2.c \
-		utils.c
+		utils.c \
+		utils_2.c
 
 #----------------------------------------------
 

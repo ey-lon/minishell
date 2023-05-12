@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 12:03:09 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/12 12:40:42 by abettini         ###   ########.fr       */
+/*   Updated: 2023/05/12 15:22:00 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,33 +47,7 @@ char	*ft_red_trim(char *str)
 	x = 0;
 	tmp = malloc(ft_strlenmod(str, 1) + 1);
 	ft_strlcpy(tmp, str, ft_strlenmod(str, 1) + 1);
-	while (tmp[i] == '>' || tmp[i] == '<')
-		i++;
-	while (ft_isspace(tmp[i]))
-	{
-		i++;
-		x++;
-	}
-	while (tmp[i])
-		i++;
-	ret = malloc(sizeof(char) * (i - x + 1));
-	i = 0;
-	x = 0;
-	while (tmp[i] == '>' || tmp[i] == '<')
-	{
-		ret[x] = tmp[i];
-		i++;
-		x++;
-	}
-	while (ft_isspace(tmp[i]))
-		i++;
-	while (tmp[i])
-	{
-		ret[x] = tmp[i];
-		i++;
-		x++;
-	}
-	ret[x] = '\0';
+	ret = ft_rm_chars(tmp, SPACES, ft_strlen(tmp));
 	free(tmp);
 	return (ret);
 }

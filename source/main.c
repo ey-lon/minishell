@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:46:44 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/12 12:41:53 by abettini         ###   ########.fr       */
+/*   Updated: 2023/05/12 15:13:24 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	main(void)
 		if (!strncmp(str, "exit", 4))
 			exit (0);
 		ft_parsing(&cmd, str);
-		//ft_print_lst(cmd);
+		ft_print_lst(cmd);
 		//execute
 		//add_history(str);
 		free(str);

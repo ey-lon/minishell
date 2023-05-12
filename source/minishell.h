@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:47:15 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/12 11:53:18 by abettini         ###   ########.fr       */
+/*   Updated: 2023/05/12 15:16:55 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,8 @@ int		ft_print_history(t_list *hst);
 int		ft_is_special(char c);
 int		ft_isspace(char c);
 void	ft_free_mat(char **mat);
+//utils_2-----------------------------------------------------------------------
+char	*ft_rm_chars(char *str, char *rm, int len);
+int		ft_count_chars(char *str, char *c, int n);
 
 #endif
