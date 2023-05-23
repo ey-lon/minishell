@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:47:15 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/12 16:49:40 by abettini         ###   ########.fr       */
+/*   Updated: 2023/05/23 11:35:15 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
+# include <stdbool.h>
 
 # define CTRL_C SIGINT
 # define CTRL_D SIGSEGV
@@ -32,8 +33,16 @@ typedef struct s_prs
 
 //cmd_err_check-----------------------------------------------------------------
 int		ft_check_cmd_err(char *str);
-//parsing-----------------------------------------------------------------------
+
+//PARSING-----------------------------------------------------------------------
 void	ft_parsing(t_list **lst, char *str);
+//words & redirects (count & lenght)
+int		ft_red_count(char *str);
+int		ft_wrd_count(char *str);
+int		ft_red_len(char *str);
+int		ft_wrd_len(char *str);
+//------------------------------------------------------------------------------
+
 //history-----------------------------------------------------------------------
 int		ft_add_str_to_history(char *str, t_list **hst);
 int		ft_print_history(t_list *hst);

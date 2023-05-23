@@ -6,53 +6,40 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 12:03:09 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/12 16:03:58 by abettini         ###   ########.fr       */
+/*   Updated: 2023/05/23 11:57:54 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_red_count(char *str);
-int	ft_wrd_count(char *str);
-
-static int	ft_strlenmod(char *str, int red)
-{
-	int	i;
-
-	i = 0;
-	if (red == 1)
-	{
-		while (str[i] == '>' || str[i] == '<')
-			i++;
-		if (ft_isspace(str[i]))
-		{
-			while (ft_isspace(str[i]))
-				i++;
-		}
-	}
-	while (!ft_is_special(str[i]) && !ft_isspace(str[i]) && str[i])
-		i++;
-	return (i);
-}
-
-//toglie spazi superflui dai redirects
+//rimuove spazi superflui dai redirects
 static char	*ft_red_trim(char *str)
 {
-	char	*ret;
 	char	*tmp;
 	int		i;
 	int		x;
 
 	i = 0;
-	x = 0;
-	tmp = malloc(ft_strlenmod(str, 1) + 1);
-	ft_strlcpy(tmp, str, ft_strlenmod(str, 1) + 1);
-	ret = ft_rm_chars(tmp, SPACES, ft_strlen(tmp));
-	free(tmp);
-	return (ret);
+	while (str[i] == '>' || str[i] == '<')
+		i++;
+	x = i;
+	while (ft_isspace(str[i]))
+		i++;
+	tmp = malloc(ft_red_len(str) - (i - x) + 1);
+	i = 0;
+	while (str[i] == '>' || str[i] == '<')
+	{
+		tmp[i] = str[i];
+		i++;
+	}
+	x = i;
+	while (ft_isspace(str[i]))
+		i++;
+	ft_strlcpy(&tmp[x], &str[i], ft_wrd_len(&str[i]) + 1);
+	return (tmp);
 }
 
-//riempie le matrici di parole e redirects
+//riempie le matrici di parole e redirects del nodo
 static int	ft_fill_cmdlst(t_prs *tmp, char *str, int i)
 {
 	int		r;
@@ -66,24 +53,25 @@ static int	ft_fill_cmdlst(t_prs *tmp, char *str, int i)
 			i++;
 		else if (str[i] == '>' || str[i] == '<')
 		{
-			tmp->red[r] = ft_red_trim(&str[i]);
-			i += ft_strlenmod(&str[i], 1);
+			tmp->red[r] = ft_red_trim(&(str[i]));
+			i += ft_red_len(&str[i]);
 			r++;
 		}
 		else if (str[i] != '|')
 		{
-			tmp->wrd[w] = malloc(ft_strlenmod(&str[i], 0) + 1);
-			ft_strlcpy(tmp->wrd[w], &str[i], ft_strlenmod(&str[i], 0) + 1);
-			i += ft_strlenmod(&str[i], 0);
+			tmp->wrd[w] = malloc(ft_wrd_len(&str[i]) + 1);
+			ft_strlcpy(tmp->wrd[w], &str[i], ft_wrd_len(&str[i]) + 1);
+			i += ft_wrd_len(&str[i]);
 			w++;
 		}
 	}
 	return (i);
 }
 
-//crea una lista di nodi contenenti:
-//una matrice di parole e una di redirect
-//per ogni pipe
+/* crea una lista di nodi contenenti:
+- una matrice di parole
+- una matrice di redirect
+(un nodo per ogni pipe) */
 void	ft_parsing(t_list **lst, char *str)
 {
 	t_prs	*tmp;

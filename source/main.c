@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:46:44 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/12 16:11:06 by abettini         ###   ########.fr       */
+/*   Updated: 2023/05/23 11:58:40 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ void	ft_sighandler(int signal)
 		exit(0);
 	}
 	else if (signal == CTRL_C)
-		ft_putstr_fd("\n$>", 1);
+		ft_putstr_fd("\n$> ", 1);
 }
 
-//stampa la lista di nodi
-//contentente le matrici di parole e redirects
-//(funzione usata solo per vedere se sono linkati per bene)
+/* stampa la lista di nodi
+contentente le matrici di parole e redirects
+(funzione usata solo per vedere se sono linkati per bene) */
 void	ft_print_lst(t_list *lst)
 {
 	t_prs	*tmp;
@@ -78,9 +78,9 @@ int	main(void)
 	char	*str;
 	t_list	*cmd;
 
-	signal(SIGINT, ft_sighandler);
-	signal(SIGSEGV, ft_sighandler);
-	signal(SIGQUIT, ft_sighandler);
+	signal(CTRL_C, ft_sighandler);
+	signal(CTRL_D, ft_sighandler);
+	signal(CTRL_BS, ft_sighandler);
 	while (1)
 	{
 		cmd = NULL;
