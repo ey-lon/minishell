@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 16:10:50 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/22 14:10:38 by abettini         ###   ########.fr       */
+/*   Updated: 2023/05/23 12:01:42 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	ft_check_cmd_err(char *str)
 		return (printf("syntax error\n") * 0 + 1);
 	if (ft_max_consec_char(str, '>') > 2)
 		return (printf("syntax error\n") * 0 + 1);
-	if (ft_max_consec_char(str, '<') > 1)
+	if (ft_max_consec_char(str, '<') > 2)
 		return (printf("syntax error\n") * 0 + 1);
 	return (0);
 }
