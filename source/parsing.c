@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 12:03:09 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/23 11:57:54 by abettini         ###   ########.fr       */
+/*   Updated: 2023/05/24 16:26:17 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static int	ft_fill_cmdlst(t_prs *tmp, char *str, int i)
 - una matrice di parole
 - una matrice di redirect
 (un nodo per ogni pipe) */
-void	ft_parsing(t_list **lst, char *str)
+void	ft_first_split(t_list **lst, char *str)
 {
 	t_prs	*tmp;
 	int		i;
@@ -91,9 +91,13 @@ void	ft_parsing(t_list **lst, char *str)
 		tmp->wrd[wc] = NULL;
 		tmp->red[rc] = NULL;
 		i = ft_fill_cmdlst(tmp, str, i);
-		while (ft_isspace(str[i]))
-			i++;
-		while (str[i] == '|')
+		while (ft_isspace(str[i]) || str[i] == '|')
 			i++;
 	}
+}
+
+void	ft_parsing(t_list **lst, char *str, char **env, t_list *vars)
+{
+	ft_first_split(lst, str);
+	ft_check_expand(lst, env, vars);
 }

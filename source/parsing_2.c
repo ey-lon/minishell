@@ -6,29 +6,21 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:44:04 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/23 11:57:27 by abettini         ###   ########.fr       */
+/*   Updated: 2023/05/24 11:11:07 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	ft_quotes_len(char *str)
+int	ft_char_char_len(char *str, char c)
 {
 	int		i;
 
 	i = 0;
-	if (str[i] == '\'')
+	if (str[i] == c)
 	{
 		i++;
-		while (str[i] != '\'' && str[i])
-			i++;
-		if (str[i])
-			i++;
-	}
-	if (str[i] == '\"')
-	{
-		i++;
-		while (str[i] != '\"' && str[i])
+		while (str[i] != c && str[i])
 			i++;
 		if (str[i])
 			i++;
@@ -50,7 +42,8 @@ int	ft_red_len(char *str)
 	end = 0;
 	while (!end)
 	{
-		i += ft_quotes_len(&str[i]);
+		i += ft_char_char_len(&str[i], '\'');
+		i += ft_char_char_len(&str[i], '\"');
 		if (!str[i] || ft_is_special(str[i]) || ft_isspace(str[i]))
 			end = 1;
 		else
@@ -70,7 +63,8 @@ int	ft_wrd_len(char *str)
 	end = 0;
 	while (!end)
 	{
-		i += ft_quotes_len(&str[i]);
+		i += ft_char_char_len(&str[i], '\'');
+		i += ft_char_char_len(&str[i], '\"');
 		if (!str[i] || ft_is_special(str[i]) || ft_isspace(str[i]))
 			end = 1;
 		else

@@ -33,6 +33,7 @@ SRC =	main.c \
 		history.c \
 		parsing.c \
 		parsing_2.c \
+		parsing_3.c \
 		utils.c \
 		utils_2.c \
 		cdm_err_check.c

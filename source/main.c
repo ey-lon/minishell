@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:46:44 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/23 11:58:40 by abettini         ###   ########.fr       */
+/*   Updated: 2023/05/24 16:27:51 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,10 @@ void	ft_print_lst(t_list *lst)
 	int		n;
 
 	n = 1;
+	printf("\n");
 	while (lst)
 	{
-		printf("\nNODE [%d]\n", n);
+		printf("NODE [%d]\n", n);
 		tmp = (t_prs *)lst->content;
 		printf("___words:_______\n");
 		i = 0;
@@ -56,6 +57,7 @@ void	ft_print_lst(t_list *lst)
 		lst = lst->next;
 		n++;
 	}
+	printf("\n");
 }
 
 void	ft_free_cmdlst(t_list *lst)
@@ -73,10 +75,13 @@ void	ft_free_cmdlst(t_list *lst)
 	}
 }
 
-int	main(void)
+int	main(int ac, char **av, char **env)
 {
 	char	*str;
 	t_list	*cmd;
+
+	//char	**env;
+	t_list	*vars;
 
 	signal(CTRL_C, ft_sighandler);
 	signal(CTRL_D, ft_sighandler);
@@ -89,7 +94,7 @@ int	main(void)
 			exit (0);
 		if (!ft_check_cmd_err(str))
 		{
-			ft_parsing(&cmd, str);
+			ft_parsing(&cmd, str, env, vars);
 			ft_print_lst(cmd);
 			//execute cmd
 			ft_free_cmdlst(cmd);
