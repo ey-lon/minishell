@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 16:27:35 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/29 18:09:24 by abettini         ###   ########.fr       */
+/*   Updated: 2023/05/29 18:15:15 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_var_name_len(char *str)
 	return (i);
 }
 
-//------------------------------------------------------------------------------
+//FT_QUOTES_VARS_LEN------------------------------------------------------------
 //calcola la lunghezza di line
 //considerando il contenuto delle variabili
 static int	ft_var_cont_len(char *str, char **env, t_list **vars)
@@ -68,7 +68,7 @@ int	ft_quotes_vars_len(char *str, char **env, t_list **vars)
 	return (len);
 }
 
-//------------------------------------------------------------------------------
+//FT_QUOTES_VARS_CPY------------------------------------------------------------
 //copia il contenuto delle variabili dentro line
 //(solo se non all'interno di single quotes)
 //e copia tutto il resto sempre dentro line
