@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:46:44 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/26 12:15:30 by abettini         ###   ########.fr       */
+/*   Updated: 2023/05/29 11:43:49 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,9 @@ void	ft_vars_ex(t_list **vars)
 	ft_lstadd_front(vars, ft_lstnew((void *)new));
 	new = malloc(sizeof(t_var) * 1);
 	new->str = ft_strdup("VAR2=banana");
+	ft_lstadd_front(vars, ft_lstnew((void *)new));
+	new = malloc(sizeof(t_var) * 1);
+	new->str = ft_strdup("VAR11=test");
 	ft_lstadd_front(vars, ft_lstnew((void *)new));
 }
 
