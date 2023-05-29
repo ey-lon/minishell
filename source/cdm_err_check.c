@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 16:10:50 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/29 12:21:28 by abettini         ###   ########.fr       */
+/*   Updated: 2023/05/29 12:24:20 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	ft_max_consec_char(char *str, char c)
 	return (count_max);
 }
 
-int	ft_check_weird(char *str)
+int	ft_check_weird_1(char *str)
 {
 	int		i;
 	int		check;
@@ -122,7 +122,7 @@ int	ft_check_cmd_err(char *str)
 		return (printf("syntax error\n") * 0 + 1);
 	if (ft_max_consec_char(str, '<') > 2)
 		return (printf("syntax error\n") * 0 + 1);
-	if (ft_check_weird(str))
+	if (ft_check_weird_1(str))
 		return (printf("syntax error\n") * 0 + 1);
 	if (ft_check_weird_2(str, '|'))
 		return (printf("syntax error\n") * 0 + 1);
