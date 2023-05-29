@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:46:44 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/29 18:04:38 by abettini         ###   ########.fr       */
+/*   Updated: 2023/05/29 18:21:15 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	ft_free_varslst(t_list *lst)
 
 //-------------------------------------------------------
 //funzione per creare dei nodi nella lista di variabili
-//ustata per testare
+//(usata per testare)
 void	ft_vars_ex(t_list **vars)
 {
 	t_var	*new;
