@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 12:03:09 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/24 16:26:17 by abettini         ###   ########.fr       */
+/*   Updated: 2023/05/26 10:47:10 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	ft_first_split(t_list **lst, char *str)
 	}
 }
 
-void	ft_parsing(t_list **lst, char *str, char **env, t_list *vars)
+void	ft_parsing(t_list **lst, char *str, char **env, t_list **vars)
 {
 	ft_first_split(lst, str);
 	ft_check_expand(lst, env, vars);

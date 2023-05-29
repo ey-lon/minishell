@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 13:29:50 by abettini          #+#    #+#             */
-/*   Updated: 2023/03/12 20:56:15 by marvin           ###   ########.fr       */
+/*   Updated: 2023/05/26 10:38:47 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_s_count(char const *s, char c)
+static int	ft_str_count(char const *s, char c)
 {
 	int	i;
 	int	count;
@@ -50,23 +50,20 @@ char	**ft_split(char const *s, char c)
 	int		i;
 	int		j;
 
+	count = ft_str_count(s, c);
+	mat = malloc(sizeof(char *) * (count + 1));
 	i = 0;
 	j = 0;
-	count = ft_s_count(s, c);
-	mat = malloc(sizeof(char *) * (count + 1));
 	while (j < count)
 	{
-		while (1)
+		if (s[i] != c)
 		{
-			if (s[i] != c)
-			{
-				mat[j] = ft_substr(s, i, ft_strlenmod(&s[i], c));
-				i = i + ft_strlenmod(&s[i], c);
-				break ;
-			}
-			i++;
+			mat[j] = ft_substr(&s[i], 0, ft_strlenmod(&s[i], c));
+			i = i + ft_strlenmod(&s[i], c);
+			j++;
 		}
-		j++;
+		else
+			i++;
 	}
 	mat[j] = NULL;
 	return (mat);

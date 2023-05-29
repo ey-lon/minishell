@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:46:44 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/24 16:27:51 by abettini         ###   ########.fr       */
+/*   Updated: 2023/05/26 12:15:30 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,18 @@ void	ft_free_cmdlst(t_list *lst)
 	}
 }
 
+void	ft_vars_ex(t_list **vars)
+{
+	t_var	*new;
+
+	new = malloc(sizeof(t_var) * 1);
+	new->str = ft_strdup("VAR1=cho");
+	ft_lstadd_front(vars, ft_lstnew((void *)new));
+	new = malloc(sizeof(t_var) * 1);
+	new->str = ft_strdup("VAR2=banana");
+	ft_lstadd_front(vars, ft_lstnew((void *)new));
+}
+
 int	main(int ac, char **av, char **env)
 {
 	char	*str;
@@ -86,6 +98,10 @@ int	main(int ac, char **av, char **env)
 	signal(CTRL_C, ft_sighandler);
 	signal(CTRL_D, ft_sighandler);
 	signal(CTRL_BS, ft_sighandler);
+
+	vars = NULL;
+	ft_vars_ex(&vars);
+
 	while (1)
 	{
 		cmd = NULL;
@@ -94,12 +110,12 @@ int	main(int ac, char **av, char **env)
 			exit (0);
 		if (!ft_check_cmd_err(str))
 		{
-			ft_parsing(&cmd, str, env, vars);
+			ft_parsing(&cmd, str, env, &vars);
 			ft_print_lst(cmd);
 			//execute cmd
 			ft_free_cmdlst(cmd);
 		}
-		//add_history(str);
+		add_history(str);
 		free(str);
 	}
 	return (0);
