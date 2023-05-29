@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:46:44 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/29 16:44:23 by abettini         ###   ########.fr       */
+/*   Updated: 2023/05/29 18:04:38 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,9 @@ void	ft_free_varslst(t_list *lst)
 	}
 }
 
+//-------------------------------------------------------
+//funzione per creare dei nodi nella lista di variabili
+//ustata per testare
 void	ft_vars_ex(t_list **vars)
 {
 	t_var	*new;
@@ -68,6 +71,7 @@ void	ft_vars_ex(t_list **vars)
 	new->str = ft_strdup("VAR11=test");
 	ft_lstadd_front(vars, ft_lstnew((void *)new));
 }
+//-------------------------------------------------------
 
 int	main(int ac, char **av, char **env)
 {
@@ -80,9 +84,12 @@ int	main(int ac, char **av, char **env)
 	signal(CTRL_D, ft_sighandler);
 	signal(CTRL_BS, ft_sighandler);
 
+	//---------------------------------
+	//lista di variabili (provvisoria)
 	vars = NULL;
 	ft_vars_ex(&vars);
-
+	//---------------------------------
+	
 	while (1)
 	{
 		cmd = NULL;
@@ -92,14 +99,30 @@ int	main(int ac, char **av, char **env)
 		if (!ft_check_cmd_err(str))
 		{
 			ft_parsing(&cmd, str, env, &vars);
+
+			//---------------------------------
+			//stampa di controllo del parsing
+			//(da rimuovere)
 			ft_print_lst(cmd);
-			//execute cmd
+			//---------------------------------
+
+			//---------------------------------
+			//qui vanno eseguiti i comandi
+			//ft_exec_cmd(cmd, my env, vars)???
+			//---------------------------------
+			
 			ft_free_cmdlst(cmd);
 		}
 		add_history(str);
 		free(str);
 	}
+
+	//---------------------------------
+	//libero in caso si digiti exit
+	//(soluzione provvisoria)
 	free(str);
 	ft_free_varslst(vars);
+	//---------------------------------
+	
 	return (0);
 }

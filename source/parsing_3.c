@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 11:01:18 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/29 16:34:52 by abettini         ###   ########.fr       */
+/*   Updated: 2023/05/29 18:07:18 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ char	*ft_find_var(char *var_name, char **env, t_list **vars)
 }
 
 //FT_QUOTES_VARS---------------------------------------------------------------
-//calcola lenght del content della variabile
-//alloca memoria
-//copia content dalla variabile in nuova stringa
+//- calcola lenght del content della variabile
+//- alloca memoria
+//- copia content dalla variabile in nuova stringa
 char	*ft_quotes_vars(char *str, char **env, t_list **vars)
 {
 	int		len;
