@@ -6,34 +6,19 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 11:01:18 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/29 11:33:52 by abettini         ###   ########.fr       */
+/*   Updated: 2023/05/29 16:34:52 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		ft_var_len(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (ft_isalpha(str[i]))
-	{
-		i++;
-		while (ft_isalnum(str[i]))
-			i++;
-	}
-	return (i);
-}
-
-//FIND_VAR-----------------------------------------------------------------------
+//FIND_VAR----------------------------------------------------------------------
 //cerca variabile:
 // - nell'env, oppure
 // - nella lista di vars
 //restituisce:
 // - stringa dopo l'uguale (=), oppure
 // - "\0" se non la trova
-
 char	*ft_find_var(char *var_name, char **env, t_list **vars)
 {
 	t_list	*tmp;
@@ -42,7 +27,8 @@ char	*ft_find_var(char *var_name, char **env, t_list **vars)
 
 	len = ft_strlen(var_name);
 	i = 0;
-	while (env[i] && !(!ft_strncmp(var_name, env[i], len) && env[i][len] == '='))
+	while (env[i] && !(!ft_strncmp(var_name, env[i], len) \
+		&& env[i][len] == '='))
 		i++;
 	if (env[i])
 		return (env[i] + len + 1);
@@ -54,79 +40,13 @@ char	*ft_find_var(char *var_name, char **env, t_list **vars)
 		return (((t_var *)tmp->content)->str + len + 1);
 	return ("\0");
 }
-//-------------------------------------------------------------------------------
 
-int		ft_quotes_vars_len(char *str, char **env, t_list **vars)
-{
-	int		i;
-	int		len;
-	char	*var_name;
-
-	i = 0;
-	len = 0;
-	while (str[i])
-	{
-		if (str[i] == '\"')
-			i++;
-		else if (str[i] == '\'')
-		{
-			len += ft_char_char_len(&str[i], '\'') - 2;
-			i += ft_char_char_len(&str[i], '\'');
-		}
-		else if (str[i] == '$')
-		{
-			var_name = ft_substr(&str[i + 1], 0, ft_var_len(&str[i + 1]));
-			len += ft_strlen(ft_find_var(var_name, env, vars));
-			free(var_name);
-			i += 1 + ft_var_len(&str[i + 1]);
-		}
-		else if (++i)
-			len++;
-	}
-	return (len);
-}
-
-void	ft_quotes_vars_cpy(char *line, char *str, char **env, t_list **vars)
-{
-	int		i;
-	int		len;
-	char	*var_name;
-
-	i = 0;
-	len = 0;
-	while (str[i])
-	{
-		if (str[i] == '\"')
-			i++;
-		else if (str[i] == '\'')
-		{
-			i++;
-			while (str[i] != '\'' && str[i])
-				line[len++] = str[i++];
-			if (str[i])
-				i++;
-		}
-		else if (str[i] == '$')
-		{
-			var_name = ft_substr(&str[i + 1], 0, ft_var_len(&str[i + 1]));
-			ft_strlcpy(&line[len], ft_find_var(var_name, env, vars), \
-				ft_strlen(ft_find_var(var_name, env, vars)) + 1);
-			len += ft_strlen(ft_find_var(var_name, env, vars));
-			free(var_name);
-			i += 1 + ft_var_len(&str[i + 1]);
-		}
-		else
-			line[len++] = str[i++];
-	}
-	line[len] = '\0';
-}
-
+//FT_QUOTES_VARS---------------------------------------------------------------
+//calcola lenght del content della variabile
+//alloca memoria
+//copia content dalla variabile in nuova stringa
 char	*ft_quotes_vars(char *str, char **env, t_list **vars)
 {
-	//calcola lenght
-	//allocare
-	//copiare
-
 	int		len;
 	char	*line;
 
@@ -139,6 +59,7 @@ char	*ft_quotes_vars(char *str, char **env, t_list **vars)
 	free(str);
 	return (line);
 }
+//----------------------------------------------------------------------------
 
 void	ft_check_expand(t_list **lst, char **env, t_list **vars)
 {

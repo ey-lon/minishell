@@ -31,12 +31,14 @@ SRC_F = source/
 
 SRC =	main.c \
 		history.c \
-		parsing.c \
+		parsing_1.c \
 		parsing_2.c \
 		parsing_3.c \
+		parsing_4.c \
 		utils.c \
 		utils_2.c \
-		cdm_err_check.c
+		cdm_err_check.c \
+		print_cmd_nodes.c
 
 #----------------------------------------------
 

@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:47:15 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/29 09:50:08 by abettini         ###   ########.fr       */
+/*   Updated: 2023/05/29 16:35:02 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,9 @@ int		ft_wrd_len(char *str);
 int		ft_char_char_len(char *str, char c);
 //------------------------------------------------------------------------------
 void	ft_check_expand(t_list **lst, char **env, t_list **vars);
+char	*ft_find_var(char *var_name, char **env, t_list **vars);
+int		ft_quotes_vars_len(char *str, char **env, t_list **vars);
+void	ft_quotes_vars_cpy(char *line, char *str, char **env, t_list **vars);
 
 //history-----------------------------------------------------------------------
 int		ft_add_str_to_history(char *str, t_list **hst);
@@ -62,4 +65,6 @@ void	ft_free_mat(char **mat);
 char	*ft_rm_chars(char *str, char *rm, int len);
 int		ft_count_chars(char *str, char *c, int n);
 
+//PRINT-------------------------------------------------------------------------
+void	ft_print_lst(t_list *lst);
 #endif

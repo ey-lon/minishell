@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:44:04 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/24 11:11:07 by abettini         ###   ########.fr       */
+/*   Updated: 2023/05/29 16:12:01 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int	ft_red_len(char *str)
 		else
 			i++;
 	}
-	//printf ("redlen = %d\n", i);
 	return (i);
 }
 
@@ -70,7 +69,6 @@ int	ft_wrd_len(char *str)
 		else
 			i++;
 	}
-	//printf ("wrdlen = %d\n", i);
 	return (i);
 }
 
@@ -94,7 +92,6 @@ int	ft_red_count(char *str)
 		else
 			i += ft_wrd_len(&str[i]);
 	}
-	//printf ("rec count = %d\n", red_count);
 	return (red_count);
 }
 
@@ -118,6 +115,5 @@ int	ft_wrd_count(char *str)
 			i += ft_wrd_len(&(str[i]));
 		}
 	}
-	//printf ("wrd count = %d\n", wrd_count);
 	return (wrd_count);
 }

@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:46:44 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/29 11:43:49 by abettini         ###   ########.fr       */
+/*   Updated: 2023/05/29 16:44:23 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,42 +22,7 @@ void	ft_sighandler(int signal)
 		exit(0);
 	}
 	else if (signal == CTRL_C)
-		ft_putstr_fd("\n$> ", 1);
-}
-
-/* stampa la lista di nodi
-contentente le matrici di parole e redirects
-(funzione usata solo per vedere se sono linkati per bene) */
-void	ft_print_lst(t_list *lst)
-{
-	t_prs	*tmp;
-	int		i;
-	int		n;
-
-	n = 1;
-	printf("\n");
-	while (lst)
-	{
-		printf("NODE [%d]\n", n);
-		tmp = (t_prs *)lst->content;
-		printf("___words:_______\n");
-		i = 0;
-		while (tmp->wrd[i])
-		{
-			printf("%s\n", tmp->wrd[i]);
-			i++;
-		}
-		printf("___redirects:___\n");
-		i = 0;
-		while (tmp->red[i])
-		{
-			printf("%s\n", tmp->red[i]);
-			i++;
-		}
-		lst = lst->next;
-		n++;
-	}
-	printf("\n");
+		ft_putstr_fd("\n$>", 1);
 }
 
 void	ft_free_cmdlst(t_list *lst)
@@ -70,6 +35,20 @@ void	ft_free_cmdlst(t_list *lst)
 		ft_free_cmdlst(lst->next);
 		ft_free_mat(tmp->wrd);
 		ft_free_mat(tmp->red);
+		free(tmp);
+		free(lst);
+	}
+}
+
+void	ft_free_varslst(t_list *lst)
+{
+	t_var	*tmp;
+
+	if (lst)
+	{
+		tmp = (t_var *)lst->content;
+		ft_free_varslst(lst->next);
+		free(tmp->str);
 		free(tmp);
 		free(lst);
 	}
@@ -94,9 +73,8 @@ int	main(int ac, char **av, char **env)
 {
 	char	*str;
 	t_list	*cmd;
-
-	//char	**env;
 	t_list	*vars;
+	//char	**my_env;
 
 	signal(CTRL_C, ft_sighandler);
 	signal(CTRL_D, ft_sighandler);
@@ -108,9 +86,9 @@ int	main(int ac, char **av, char **env)
 	while (1)
 	{
 		cmd = NULL;
-		str = readline("$> ");
+		str = readline("$>");
 		if (!strncmp(str, "exit", 4))
-			exit (0);
+			break ;
 		if (!ft_check_cmd_err(str))
 		{
 			ft_parsing(&cmd, str, env, &vars);
@@ -121,5 +99,7 @@ int	main(int ac, char **av, char **env)
 		add_history(str);
 		free(str);
 	}
+	free(str);
+	ft_free_varslst(vars);
 	return (0);
 }
