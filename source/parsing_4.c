@@ -6,13 +6,13 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 16:27:35 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/30 15:17:28 by abettini         ###   ########.fr       */
+/*   Updated: 2023/05/30 18:05:47 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//calcola la lunghezza del nome della variabile
+//measure the lenght of the name of the variable
 int	ft_var_name_len(char *str)
 {
 	int	i;
@@ -28,8 +28,8 @@ int	ft_var_name_len(char *str)
 }
 
 //FT_QUOTES_VARS_LEN------------------------------------------------------------
-//calcola la lunghezza di line
-//considerando il contenuto delle variabili
+//calculate the leanght of line
+//considering the content of the variables
 static int	ft_var_cont_len(char *str, t_list **vars)
 {
 	char	*var_name;
@@ -69,9 +69,9 @@ int	ft_quotes_vars_len(char *str, t_list **vars)
 }
 
 //FT_QUOTES_VARS_CPY------------------------------------------------------------
-//copia il contenuto delle variabili dentro line
-//(solo se non all'interno di single quotes)
-//e copia tutto il resto sempre dentro line
+//copies the content of the variables into line
+//(only if not inside single quotes)
+//and copies all the rest into line
 static int	ft_var_cpy(char *line, char *str, t_list **vars)
 {
 	char	*var_name;

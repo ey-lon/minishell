@@ -24,7 +24,7 @@ LIBFT = libft.a
 
 #paths-----------------------------------------
 
-LBT_F = Libft/
+LBT_F = libft/
 SRC_F = source/
 
 #files-----------------------------------------
@@ -73,13 +73,13 @@ re: fclean all
 bonus:
 
 libcomp:
-		@make -C Libft
+		@make -C $(LBT_F)
 
 libclean:
-		@make clean -C Libft
+		@make clean -C $(LBT_F)
 
 libfclean:
-		@make fclean -C Libft
+		@make fclean -C $(LBT_F)
 
 .PHONY: all $(NAME) re clean fclean bonus
 

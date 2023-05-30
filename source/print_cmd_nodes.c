@@ -6,15 +6,15 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 16:13:04 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/29 18:19:39 by abettini         ###   ########.fr       */
+/*   Updated: 2023/05/30 18:06:58 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* stampa la lista di nodi
-contentente le matrici di parole e redirects
-(funzione usata solo per vedere se sono linkati per bene) */
+/* prints the node list
+containing the words and redirects matrixes
+(function used to see if the parsing is correct) */
 void	ft_print_lst(t_list *lst)
 {
 	t_prs	*tmp;

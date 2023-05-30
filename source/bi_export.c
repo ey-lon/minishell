@@ -6,15 +6,15 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 16:06:47 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/30 17:25:09 by abettini         ###   ########.fr       */
+/*   Updated: 2023/05/30 17:55:44 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 //FT_FIND_VAR-------------------------------------------------------------------
-//cerca variabile:
-// - nella lista di vars
+//looks for the variable:
+// - in the vars list
 t_list	*ft_find_var(t_list **vars, char *var_name)
 {
 	t_list	*tmp;

@@ -6,13 +6,13 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 12:03:09 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/30 15:48:07 by abettini         ###   ########.fr       */
+/*   Updated: 2023/05/30 17:57:59 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//rimuove spazi superflui dai redirects
+//removes unecessary spaces in the redirects
 static char	*ft_red_trim(char *str)
 {
 	char	*tmp;
@@ -39,7 +39,7 @@ static char	*ft_red_trim(char *str)
 	return (tmp);
 }
 
-//riempie le matrici di parole e redirects del nodo
+//fills the words matrix and the redirects matrix inside the node
 static int	ft_fill_cmdlst(t_prs *tmp, char *str, int i)
 {
 	int		r;
@@ -67,11 +67,12 @@ static int	ft_fill_cmdlst(t_prs *tmp, char *str, int i)
 	}
 	return (i);
 }
-
-/* crea una lista di nodi contenenti:
-- una matrice di parole
-- una matrice di redirect
-(un nodo per ogni pipe) */
+/*
+creates a list of nodes containing:
+- a matrix of words
+- a matrix of redirects
+(one node per pipe)
+*/
 static void	ft_first_split(t_list **lst, char *str)
 {
 	t_prs	*tmp;

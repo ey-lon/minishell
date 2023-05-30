@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:44:04 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/29 16:12:01 by abettini         ###   ########.fr       */
+/*   Updated: 2023/05/30 17:58:56 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_char_char_len(char *str, char c)
 	return (i);
 }
 
-//calcola la lunghezza del redirect
+//measure the lenght of the redirect
 int	ft_red_len(char *str)
 {
 	int		i;
