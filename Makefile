@@ -38,7 +38,11 @@ SRC =	main.c \
 		utils.c \
 		utils_2.c \
 		cdm_err_check.c \
-		print_cmd_nodes.c
+		print_cmd_nodes.c \
+		variables.c \
+		bi_env.c \
+		bi_export.c \
+		bi_unset.c
 
 #----------------------------------------------
 

@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:46:44 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/29 18:21:15 by abettini         ###   ########.fr       */
+/*   Updated: 2023/05/30 17:19:59 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,30 +63,50 @@ void	ft_vars_ex(t_list **vars)
 
 	new = malloc(sizeof(t_var) * 1);
 	new->str = ft_strdup("VAR1=cho");
-	ft_lstadd_front(vars, ft_lstnew((void *)new));
+	new->exp = false;
+	ft_lstadd_back(vars, ft_lstnew((void *)new));
 	new = malloc(sizeof(t_var) * 1);
 	new->str = ft_strdup("VAR2=banana");
-	ft_lstadd_front(vars, ft_lstnew((void *)new));
+	new->exp = true;
+	ft_lstadd_back(vars, ft_lstnew((void *)new));
 	new = malloc(sizeof(t_var) * 1);
 	new->str = ft_strdup("VAR11=test");
-	ft_lstadd_front(vars, ft_lstnew((void *)new));
+	new->exp = false;
+	ft_lstadd_back(vars, ft_lstnew((void *)new));
 }
 //-------------------------------------------------------
+
+void	ft_clone_env(t_list **vars, char **env)
+{
+	int		i;
+	t_var	*new;
+
+	i = 0;
+	while (env[i])
+	{
+		new = malloc(sizeof(t_var));
+		new->str = ft_strdup(env[i]);
+		new->exp = true;
+		ft_lstadd_back(vars, ft_lstnew((void *)new));
+		i++;
+	}
+}
 
 int	main(int ac, char **av, char **env)
 {
 	char	*str;
 	t_list	*cmd;
 	t_list	*vars;
-	//char	**my_env;
 
 	signal(CTRL_C, ft_sighandler);
 	signal(CTRL_D, ft_sighandler);
 	signal(CTRL_BS, ft_sighandler);
 
-	//---------------------------------
-	//lista di variabili (provvisoria)
 	vars = NULL;
+	ft_clone_env(&vars, env);
+
+	//---------------------------------
+	//lista di variabili aggiuntive (provvisoria)
 	ft_vars_ex(&vars);
 	//---------------------------------
 	
@@ -98,7 +118,7 @@ int	main(int ac, char **av, char **env)
 			break ;
 		if (!ft_check_cmd_err(str))
 		{
-			ft_parsing(&cmd, str, env, &vars);
+			ft_parsing(&cmd, str, &vars);
 
 			//---------------------------------
 			//stampa di controllo del parsing
