@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:47:15 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/30 18:08:02 by abettini         ###   ########.fr       */
+/*   Updated: 2023/05/31 12:11:53 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,14 @@ int		ft_count_chars(char *str, char *c, int n);
 //PRINT-------------------------------------------------------------------------
 void	ft_print_lst(t_list *lst);
 
+//variables---------------------------------------------------------------------
 t_list	*ft_find_var(t_list **vars, char *var_name);
 void	ft_add_var(t_list **vars, char *str);
+void	ft_free_varslst(t_list **lst);
 //build-ins---------------------------------------------------------------------
 void	ft_env(t_list **vars);
 void	ft_export(t_list **vars, char *var_name);
 void	ft_unset(t_list **vars, char *var_name);
-int		ft_echo(char *str, int fd, int flag);
+void	ft_echo(char *str, int fd, int flag);
+void	ft_exit(t_list **vars, char *str);
 #endif

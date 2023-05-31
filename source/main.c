@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:46:44 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/30 17:19:59 by abettini         ###   ########.fr       */
+/*   Updated: 2023/05/31 12:11:02 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,6 @@ void	ft_free_cmdlst(t_list *lst)
 		ft_free_cmdlst(lst->next);
 		ft_free_mat(tmp->wrd);
 		ft_free_mat(tmp->red);
-		free(tmp);
-		free(lst);
-	}
-}
-
-void	ft_free_varslst(t_list *lst)
-{
-	t_var	*tmp;
-
-	if (lst)
-	{
-		tmp = (t_var *)lst->content;
-		ft_free_varslst(lst->next);
-		free(tmp->str);
 		free(tmp);
 		free(lst);
 	}
@@ -130,7 +116,7 @@ int	main(int ac, char **av, char **env)
 			//qui vanno eseguiti i comandi
 			//ft_exec_cmd(cmd, my env, vars)???
 			//---------------------------------
-			
+			ft_lstclear(&vars, free);
 			ft_free_cmdlst(cmd);
 		}
 		add_history(str);

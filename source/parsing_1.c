@@ -6,13 +6,13 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 12:03:09 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/30 17:57:59 by abettini         ###   ########.fr       */
+/*   Updated: 2023/05/31 12:15:49 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//removes unecessary spaces in the redirects
+//removes unnecessary spaces in the redirects
 static char	*ft_red_trim(char *str)
 {
 	char	*tmp;
@@ -67,6 +67,7 @@ static int	ft_fill_cmdlst(t_prs *tmp, char *str, int i)
 	}
 	return (i);
 }
+
 /*
 creates a list of nodes containing:
 - a matrix of words

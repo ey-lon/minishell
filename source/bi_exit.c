@@ -1,39 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   variables.c                                        :+:      :+:    :+:   */
+/*   bi_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/30 15:32:12 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/31 12:15:07 by abettini         ###   ########.fr       */
+/*   Created: 2023/05/31 10:23:28 by abettini          #+#    #+#             */
+/*   Updated: 2023/05/31 12:15:11 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_add_var(t_list **vars, char *str)
+void	ft_exit(t_list **vars, char *str)
 {
-	t_var	*new;
-
-	new = malloc(sizeof(t_var));
-	if (!new)
-		return ;
-	new->str = ft_strdup(str);
-	new->exp = false;
-	ft_lstadd_back(vars, ft_lstnew((void *)new));
-}
-
-void	ft_free_varslst(t_list **lst)
-{
-	t_var	*tmp;
-
-	if (lst && *lst)
-	{
-		tmp = (t_var *)(*lst)->content;
-		ft_free_varslst(&(*lst)->next);
-		free(tmp->str);
-		free(tmp);
-		free(*lst);
-	}
+	free(str);
+	ft_free_varslst(vars);
+	exit(0);
 }

@@ -6,16 +6,16 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 17:36:28 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/30 17:40:30 by abettini         ###   ########.fr       */
+/*   Updated: 2023/05/31 12:14:47 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_echo(char *str, int fd, int flag)
+void	ft_echo(char *str, int fd, int flag)
 {
 	while (*str)
 		write(fd, str++, 1);
 	if (!flag)
-		write(1, "\n", 1);
+		write(fd, "\n", 1);
 }

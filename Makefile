@@ -30,19 +30,20 @@ SRC_F = source/
 #files-----------------------------------------
 
 SRC =	main.c \
+		utils.c \
+		utils_2.c \
+		cdm_err_check.c \
+		print_cmd_nodes.c \
 		history.c \
 		parsing_1.c \
 		parsing_2.c \
 		parsing_3.c \
 		parsing_4.c \
-		utils.c \
-		utils_2.c \
-		cdm_err_check.c \
-		print_cmd_nodes.c \
 		variables.c \
 		bi_env.c \
 		bi_export.c \
-		bi_unset.c
+		bi_unset.c \
+		bi_exit.c
 
 #----------------------------------------------
 

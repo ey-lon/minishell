@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 17:10:37 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/30 17:25:32 by abettini         ###   ########.fr       */
+/*   Updated: 2023/05/31 12:06:02 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	ft_unset(t_list **vars, char *var_name)
 	if (scr && (!ft_strncmp(var_name, ((t_var *)scr->content)->str, len) \
 		&& ((t_var *)scr->content)->str[len] == '='))
 	{
-		ft_free_node(scr);
 		*vars = scr->next;
+		ft_free_node(scr);
 	}
 	else
 	{
