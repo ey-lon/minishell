@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 15:32:12 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/31 12:15:07 by abettini         ###   ########.fr       */
+/*   Updated: 2023/05/31 14:30:37 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	ft_free_varslst(t_list **lst)
 
 	if (lst && *lst)
 	{
-		tmp = (t_var *)(*lst)->content;
 		ft_free_varslst(&(*lst)->next);
+		tmp = (t_var *)(*lst)->content;
 		free(tmp->str);
 		free(tmp);
 		free(*lst);

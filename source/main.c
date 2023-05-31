@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:46:44 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/31 12:11:02 by abettini         ###   ########.fr       */
+/*   Updated: 2023/05/31 14:33:01 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	ft_free_cmdlst(t_list *lst)
 
 	if (lst)
 	{
-		tmp = (t_prs *)lst->content;
 		ft_free_cmdlst(lst->next);
+		tmp = (t_prs *)lst->content;
 		ft_free_mat(tmp->wrd);
 		ft_free_mat(tmp->red);
 		free(tmp);
@@ -116,7 +116,7 @@ int	main(int ac, char **av, char **env)
 			//qui vanno eseguiti i comandi
 			//ft_exec_cmd(cmd, my env, vars)???
 			//---------------------------------
-			ft_lstclear(&vars, free);
+			//ft_lstclear(&cmd, free);
 			ft_free_cmdlst(cmd);
 		}
 		add_history(str);
@@ -127,7 +127,8 @@ int	main(int ac, char **av, char **env)
 	//libero in caso si digiti exit
 	//(soluzione provvisoria)
 	free(str);
-	ft_free_varslst(vars);
+	//ft_lstclear(&vars, free);
+	ft_free_varslst(&vars);
 	//---------------------------------
 	
 	return (0);
