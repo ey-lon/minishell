@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 17:10:37 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/09 10:09:16 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/09 15:21:25 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_unset(t_list **vars, char *var_name)
 
 	len = ft_strlen(var_name);
 	scr = *vars;
-	if (scr && (!ft_strncmp(var_name, ((t_var *)scr->content)->name, len + 1)))
+	if (scr && !ft_strncmp(var_name, ((t_var *)scr->content)->name, len + 1))
 	{
 		*vars = scr->next;
 		ft_free_node(scr);
@@ -38,7 +38,8 @@ void	ft_unset(t_list **vars, char *var_name)
 	else
 	{
 		while (scr && scr->next \
-			&& !(!ft_strncmp(var_name, ((t_var *)scr->next->content)->name, len + 1)))
+			&& ft_strncmp(var_name, \
+			((t_var *)scr->next->content)->name, len + 1))
 			scr = scr->next;
 		if (scr && scr->next)
 		{
