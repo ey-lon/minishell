@@ -6,11 +6,28 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 15:32:12 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/09 10:19:15 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/09 17:02:04 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+//FT_FIND_VAR-------------------------------------------------------------------
+//looks for the variable:
+// - in the vars list
+t_list	*ft_find_var(t_list **vars, char *var_name)
+{
+	t_list	*tmp;
+	int		len;
+
+	len = ft_strlen(var_name);
+	tmp = *vars;
+	while (tmp && ft_strncmp(var_name, ((t_var *)tmp->content)->name, len + 1))
+		tmp = tmp->next;
+	if (tmp)
+		return (tmp);
+	return (NULL);
+}
 
 void	ft_add_var(t_list **vars, char *str, int exp)
 {
@@ -29,6 +46,17 @@ void	ft_add_var(t_list **vars, char *str, int exp)
 	ft_lstadd_back(vars, ft_lstnew((void *)new));
 }
 
+void	ft_free_varsnode(t_list *vars)
+{
+	t_var	*tmp;
+
+	tmp = (t_var *)(vars->content);
+	free(tmp->name);
+	free(tmp->value);
+	free(tmp);
+	free(vars);
+}
+
 void	ft_free_varslst(t_list **lst)
 {
 	t_var	*tmp;
@@ -36,10 +64,6 @@ void	ft_free_varslst(t_list **lst)
 	if (lst && *lst)
 	{
 		ft_free_varslst(&(*lst)->next);
-		tmp = (t_var *)(*lst)->content;
-		free(tmp->name);
-		free(tmp->value);
-		free(tmp);
-		free(*lst);
+		ft_free_varsnode(*lst);
 	}
 }

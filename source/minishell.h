@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:47:15 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/09 10:17:40 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/09 17:16:11 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	ft_quotes_vars_cpy(char *line, char *str, t_list **vars);
 //history-----------------------------------------------------------------------
 int		ft_add_str_to_history(char *str, t_list **hst);
 int		ft_print_history(t_list *hst);
+
 //utils-------------------------------------------------------------------------
 int		ft_is_special(char c);
 int		ft_isspace(char c);
@@ -74,10 +75,12 @@ void	ft_print_lst(t_list *lst);
 t_list	*ft_find_var(t_list **vars, char *var_name);
 void	ft_add_var(t_list **vars, char *str, int exp);
 void	ft_free_varslst(t_list **lst);
+void	ft_free_varsnode(t_list *vars);
+
 //build-ins---------------------------------------------------------------------
 void	ft_env(t_list **vars);
-void	ft_export(t_list **vars, char *var_name);
-void	ft_unset(t_list **vars, char *var_name);
-void	ft_echo(char **mat, int fd, int flag);
+void	ft_export(t_list **vars, char **args);
+void	ft_unset(t_list **vars, char **args);
+void	ft_echo(char **args, int fd, int flag);
 void	ft_exit(t_list **vars, char *str);
 #endif
