@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 16:07:27 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/30 17:16:58 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/09 10:16:11 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ void	ft_env(t_list **vars)
 	tmp = *vars;
 	while (tmp)
 	{
-		if (((t_var *)tmp->content)->exp == true)
-			printf("%s\n", ((t_var *)tmp->content)->str);
+		if (((t_var *)tmp->content)->exp == 1)
+			printf("%s=%s\n", ((t_var *)tmp->content)->name, \
+				((t_var *)tmp->content)->value);
 		tmp = tmp->next;
 	}
 }

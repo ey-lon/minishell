@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:11:23 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/12 15:25:21 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/09 10:10:55 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,14 @@ char	*ft_rm_chars(char *str, char *rm, int len)
 	}
 	ret[x] = '\0';
 	return (ret);
+}
+
+int	ft_strlen_mod(char *str, char end)
+{
+	int	i;
+
+	i = 0;
+	while (str && str[i] && str[i] != end)
+		i++;
+	return (i);
 }

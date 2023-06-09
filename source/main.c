@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:46:44 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/31 14:33:01 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/09 10:23:56 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,19 @@ void	ft_vars_ex(t_list **vars)
 	t_var	*new;
 
 	new = malloc(sizeof(t_var) * 1);
-	new->str = ft_strdup("VAR1=cho");
-	new->exp = false;
+	new->name = ft_strdup("VAR1");
+	new->value = ft_strdup("cho");
+	new->exp = 0;
 	ft_lstadd_back(vars, ft_lstnew((void *)new));
 	new = malloc(sizeof(t_var) * 1);
-	new->str = ft_strdup("VAR2=banana");
-	new->exp = true;
+	new->name = ft_strdup("VAR2");
+	new->value = ft_strdup("banana");
+	new->exp = 1;
 	ft_lstadd_back(vars, ft_lstnew((void *)new));
 	new = malloc(sizeof(t_var) * 1);
-	new->str = ft_strdup("VAR11=test");
-	new->exp = false;
+	new->name = ft_strdup("VAR11");
+	new->value = ft_strdup("test");
+	new->exp = 0;
 	ft_lstadd_back(vars, ft_lstnew((void *)new));
 }
 //-------------------------------------------------------
@@ -65,14 +68,17 @@ void	ft_vars_ex(t_list **vars)
 void	ft_clone_env(t_list **vars, char **env)
 {
 	int		i;
+	int		len;
 	t_var	*new;
 
 	i = 0;
 	while (env[i])
 	{
 		new = malloc(sizeof(t_var));
-		new->str = ft_strdup(env[i]);
-		new->exp = true;
+		len = ft_strlen_mod(env[i], '=');
+		new->name = ft_substr(env[i], 0, len);
+		new->value = ft_substr(env[i], len + 1, ft_strlen(env[i]) - len);
+		new->exp = 1;
 		ft_lstadd_back(vars, ft_lstnew((void *)new));
 		i++;
 	}
