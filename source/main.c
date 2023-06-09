@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:46:44 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/09 10:23:56 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/09 17:22:58 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	ft_vars_ex(t_list **vars)
 	new = malloc(sizeof(t_var) * 1);
 	new->name = ft_strdup("VAR11");
 	new->value = ft_strdup("test");
-	new->exp = 0;
+	new->exp = 2;
 	ft_lstadd_back(vars, ft_lstnew((void *)new));
 }
 //-------------------------------------------------------
@@ -106,8 +106,12 @@ int	main(int ac, char **av, char **env)
 	{
 		cmd = NULL;
 		str = readline("$>");
-		if (!strncmp(str, "exit", 4))
+		if (!strncmp(str, "exit", 5))
 			break ;
+		if (!strncmp(str, "env", 4))
+			ft_env(&vars);
+		if (!strncmp(str, "export", 7))
+			ft_export(&vars, NULL);
 		if (!ft_check_cmd_err(str))
 		{
 			ft_parsing(&cmd, str, &vars);
