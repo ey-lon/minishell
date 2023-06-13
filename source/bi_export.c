@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 16:06:47 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/09 17:01:57 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/13 10:26:58 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ static void	ft_export_var(t_list **vars, t_list *var, char *str, int len)
 	if (var)
 	{
 		((t_var *)(var->content))->exp = 1;
-		if (len != ft_strlen(str))
+		if (str[len] == '=')
 		{
 			free(((t_var *)(var->content))->value);
 			((t_var *)(var->content))->value = ft_strdup(&str[len + 1]);
 		}
 	}
-	else if (len != ft_strlen(str))
+	else if (str[len] == '=')
 		ft_add_var(vars, str, 1);
 	else
 		ft_add_var(vars, str, 2);

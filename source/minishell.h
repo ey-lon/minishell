@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:47:15 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/09 17:16:11 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/09 17:24:54 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,5 @@ void	ft_export(t_list **vars, char **args);
 void	ft_unset(t_list **vars, char **args);
 void	ft_echo(char **args, int fd, int flag);
 void	ft_exit(t_list **vars, char *str);
+
 #endif

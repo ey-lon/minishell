@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 15:32:12 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/09 17:02:04 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/13 09:34:12 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	ft_add_var(t_list **vars, char *str, int exp)
 		return ;
 	len = ft_strlen_mod(str, '=');
 	new->name = ft_substr(str, 0, len);
-	if (ft_strlen(str) != len)
+	if (str[len] == '=')
 		len++;
 	new->value = ft_substr(str, len, ft_strlen(str) - len);
 	new->exp = exp;
