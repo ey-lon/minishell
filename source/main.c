@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:46:44 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/09 17:22:58 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/13 17:03:16 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,12 +106,6 @@ int	main(int ac, char **av, char **env)
 	{
 		cmd = NULL;
 		str = readline("$>");
-		if (!strncmp(str, "exit", 5))
-			break ;
-		if (!strncmp(str, "env", 4))
-			ft_env(&vars);
-		if (!strncmp(str, "export", 7))
-			ft_export(&vars, NULL);
 		if (!ft_check_cmd_err(str))
 		{
 			ft_parsing(&cmd, str, &vars);
@@ -126,7 +120,7 @@ int	main(int ac, char **av, char **env)
 			//qui vanno eseguiti i comandi
 			//ft_exec_cmd(cmd, my env, vars)???
 			//---------------------------------
-			//ft_lstclear(&cmd, free);
+			ft_pipes(&cmd, &vars, 1);
 			ft_free_cmdlst(cmd);
 		}
 		add_history(str);

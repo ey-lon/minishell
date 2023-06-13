@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:47:15 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/09 17:24:54 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/13 16:47:29 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@
 # include <readline/history.h>
 # include <signal.h>
 # include <stdbool.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
+
 
 # define CTRL_C SIGINT
 # define CTRL_D SIGSEGV
@@ -77,11 +81,19 @@ void	ft_add_var(t_list **vars, char *str, int exp);
 void	ft_free_varslst(t_list **lst);
 void	ft_free_varsnode(t_list *vars);
 
+//env---------------------------------------------------------------------------
+char	**ft_env_matrix(t_list **vars);
+
 //build-ins---------------------------------------------------------------------
 void	ft_env(t_list **vars);
 void	ft_export(t_list **vars, char **args);
 void	ft_unset(t_list **vars, char **args);
-void	ft_echo(char **args, int fd, int flag);
+void	ft_echo(char **args, int flag);
 void	ft_exit(t_list **vars, char *str);
+
+//execution---------------------------------------------------------------------
+void	ft_pipes(t_list **cmd, t_list **vars, int fd_out);
+void	ft_check_and_execute(char **words, t_list **vars);
+int		ft_redirects(char *str);
 
 #endif

@@ -40,10 +40,14 @@ SRC =	main.c \
 		parsing_3.c \
 		parsing_4.c \
 		variables.c \
+		bi_echo.c \
 		bi_env.c \
 		bi_export.c \
 		bi_unset.c \
-		bi_exit.c
+		bi_exit.c \
+		exec_commands.c \
+		exec_pipes.c \
+		exec_redirects.c
 
 #----------------------------------------------
 
