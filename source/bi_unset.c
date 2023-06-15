@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 17:10:37 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/09 17:17:58 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/14 16:50:29 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ static int	ft_unset_name_check(char *str)
 void	ft_unset(t_list **vars, char **args)
 {
 	int	i;
-	int	x;
 	int	check;
 
 	if (args && *args)
@@ -72,7 +71,7 @@ void	ft_unset(t_list **vars, char **args)
 				ft_unset_var(vars, args[i]);
 			else if (!check)
 			{
-				ft_printf("unset: %s: invalid parameter name", args[i]);
+				ft_printf("unset: %s: invalid parameter name\n", args[i]);
 				check = 1;
 			}
 			i++;

@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 15:32:12 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/13 09:34:12 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/14 16:23:01 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,6 @@ void	ft_free_varsnode(t_list *vars)
 
 void	ft_free_varslst(t_list **lst)
 {
-	t_var	*tmp;
-
 	if (lst && *lst)
 	{
 		ft_free_varslst(&(*lst)->next);

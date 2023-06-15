@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 09:54:25 by aconta            #+#    #+#             */
-/*   Updated: 2023/06/13 17:16:31 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/14 16:30:10 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	ft_try_path(char **cmd_w_flag, t_list **vars)
 	perror("Command not found");
 }
 
-int	ft_cmd_or_builtin(char **wrd, t_list **vars)
+int	ft_check_and_execute(char **wrd, t_list **vars)
 {
 	int	ret;
 
@@ -94,15 +94,9 @@ int	ft_cmd_or_builtin(char **wrd, t_list **vars)
 	else if (ft_strchr(*wrd, '='))
 	{
 		; //gestisci variabile (aggiungi o modifica)
-		ret = ft_cmd_or_builtin(wrd + 1, vars);
+		ret = ft_check_and_execute(wrd + 1, vars);
 	}
 	else
 		ft_try_path(wrd, vars);
 	return (ret);
-}
-
-//controlla tutto l'array di comandi
-void ft_check_and_execute(char **words, t_list **vars)
-{
-	ft_cmd_or_builtin(words, vars);
 }

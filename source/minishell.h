@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:47:15 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/13 16:47:29 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/14 14:36:15 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,8 @@ void	ft_echo(char **args, int flag);
 void	ft_exit(t_list **vars, char *str);
 
 //execution---------------------------------------------------------------------
-void	ft_pipes(t_list **cmd, t_list **vars, int fd_out);
-void	ft_check_and_execute(char **words, t_list **vars);
+int		ft_pipes(t_list **cmd, t_list **vars, int fd_out);
+int		ft_check_and_execute(char **words, t_list **vars);
 int		ft_redirects(char *str);
 
 #endif

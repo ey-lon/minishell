@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 16:07:27 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/13 16:44:06 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/14 16:54:50 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,13 @@ char	**ft_env_matrix(t_list **vars)
 	int		count;
 	char	**env;
 	t_list	*tmp;
-	char	*sup;
 
 	count = ft_count_exp(vars);
-	env = malloc(sizeof(char) * (count + 1));
+	env = malloc(sizeof(char *) * (count + 1));
 	if (!env)
 		return (NULL);
 	env[count] = NULL;
+	tmp = *vars;
 	i = 0;
 	while (i < count)
 	{

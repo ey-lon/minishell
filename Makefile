@@ -12,7 +12,7 @@ CMP = $(GREEN)successfully compiled$(NOCOL)
 
 CC = cc
 
-RM = /bin/rm -f
+RM = /bin/rm -rf
 
 FLAGS = -Wall -Werror -Wextra -g
 
@@ -26,6 +26,7 @@ LIBFT = libft.a
 
 LBT_F = libft/
 SRC_F = source/
+OBJ_F = obj/
 
 #files-----------------------------------------
 
@@ -52,24 +53,31 @@ SRC =	main.c \
 #----------------------------------------------
 
 LIBFT := $(addprefix $(LBT_F),$(LIBFT))
-SRC := $(addprefix $(SRC_F),$(SRC))
 
 OBJ_S = $(SRC:.c=.o)
+OBJ_S := $(addprefix $(OBJ_F),$(OBJ_S))
+
+$(OBJ_F)%.o : $(SRC_F)%.c
+	$(CC) $(FLAGS) -c $< -o $@
 
 #rules-----------------------------------------
 
 all: $(NAME)
 
-$(NAME): libcomp $(OBJ_S)
+objects:
+	mkdir $(OBJ_F)
+
+$(NAME): libcomp objects $(OBJ_S)
 	$(CC) $(FLAGS) $(OBJ_S) $(LIBFT) $(FLAGS_2) -o $(NAME)
 	echo "$(TCOL)$(NAME) $(CMP)"
 
 clean:	libclean
 	$(RM) $(OBJ_S)
+	$(RM) $(OBJ_F)
 
 fclean:	clean libfclean
 		if [ -f $(NAME) ]; then\
-			rm -rf $(NAME);\
+			$(RM) $(NAME);\
 			echo "$(TCOL)$(NAME) $(RMD)";\
 		fi
 

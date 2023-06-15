@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:46:44 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/13 17:03:16 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/14 16:53:44 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,9 @@ int	main(int ac, char **av, char **env)
 	char	*str;
 	t_list	*cmd;
 	t_list	*vars;
+
+	ac = ac;
+	av = av;
 
 	signal(CTRL_C, ft_sighandler);
 	signal(CTRL_D, ft_sighandler);
