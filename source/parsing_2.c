@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:44:04 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/30 17:58:56 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/15 15:08:48 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_char_char_len(char *str, char c)
 		i++;
 		while (str[i] != c && str[i])
 			i++;
-		if (str[i])
+		if (str[i] == c)
 			i++;
 	}
 	return (i);
@@ -42,12 +42,14 @@ int	ft_red_len(char *str)
 	end = 0;
 	while (!end)
 	{
-		i += ft_char_char_len(&str[i], '\'');
-		i += ft_char_char_len(&str[i], '\"');
-		if (!str[i] || ft_is_special(str[i]) || ft_isspace(str[i]))
-			end = 1;
-		else
+		if (str[i] == '\'')
+			i += ft_char_char_len(&str[i], '\'');
+		else if (str[i] == '\"')
+			i += ft_char_char_len(&str[i], '\"');
+		else if (str[i] && !ft_is_special(str[i]) && !ft_isspace(str[i]))
 			i++;
+		else
+			end = 1;
 	}
 	return (i);
 }
@@ -62,12 +64,14 @@ int	ft_wrd_len(char *str)
 	end = 0;
 	while (!end)
 	{
-		i += ft_char_char_len(&str[i], '\'');
-		i += ft_char_char_len(&str[i], '\"');
-		if (!str[i] || ft_is_special(str[i]) || ft_isspace(str[i]))
-			end = 1;
-		else
+		if (str[i] == '\'')
+			i += ft_char_char_len(&str[i], '\'');
+		else if (str[i] == '\"')
+			i += ft_char_char_len(&str[i], '\"');
+		else if (str[i] && !ft_is_special(str[i]) && !ft_isspace(str[i]))
 			i++;
+		else
+			end = 1;
 	}
 	return (i);
 }

@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:46:44 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/14 16:53:44 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/15 14:49:58 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,6 @@ void	ft_sighandler(int signal)
 	}
 	else if (signal == CTRL_C)
 		ft_putstr_fd("\n$>", 1);
-}
-
-void	ft_free_cmdlst(t_list *lst)
-{
-	t_prs	*tmp;
-
-	if (lst)
-	{
-		ft_free_cmdlst(lst->next);
-		tmp = (t_prs *)lst->content;
-		ft_free_mat(tmp->wrd);
-		ft_free_mat(tmp->red);
-		free(tmp);
-		free(lst);
-	}
 }
 
 //-------------------------------------------------------
@@ -64,25 +49,6 @@ void	ft_vars_ex(t_list **vars)
 	ft_lstadd_back(vars, ft_lstnew((void *)new));
 }
 //-------------------------------------------------------
-
-void	ft_clone_env(t_list **vars, char **env)
-{
-	int		i;
-	int		len;
-	t_var	*new;
-
-	i = 0;
-	while (env[i])
-	{
-		new = malloc(sizeof(t_var));
-		len = ft_strlen_mod(env[i], '=');
-		new->name = ft_substr(env[i], 0, len);
-		new->value = ft_substr(env[i], len + 1, ft_strlen(env[i]) - len);
-		new->exp = 1;
-		ft_lstadd_back(vars, ft_lstnew((void *)new));
-		i++;
-	}
-}
 
 int	main(int ac, char **av, char **env)
 {
@@ -112,31 +78,22 @@ int	main(int ac, char **av, char **env)
 		if (!ft_check_cmd_err(str))
 		{
 			ft_parsing(&cmd, str, &vars);
-
+			add_history(str);
+			free(str);
 			//---------------------------------
 			//stampa di controllo del parsing
 			//(da rimuovere)
 			ft_print_lst(cmd);
 			//---------------------------------
 
-			//---------------------------------
-			//qui vanno eseguiti i comandi
-			//ft_exec_cmd(cmd, my env, vars)???
-			//---------------------------------
 			ft_pipes(&cmd, &vars, 1);
-			ft_free_cmdlst(cmd);
+			ft_free_cmdlst(&cmd);
 		}
-		add_history(str);
-		free(str);
-	}
-
-	//---------------------------------
-	//libero in caso si digiti exit
-	//(soluzione provvisoria)
-	free(str);
-	//ft_lstclear(&vars, free);
-	ft_free_varslst(&vars);
-	//---------------------------------
-	
+		else
+		{
+			add_history(str);
+			free(str);
+		}
+	}	
 	return (0);
 }

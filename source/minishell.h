@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:47:15 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/14 14:36:15 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/15 14:50:08 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
-
 
 # define CTRL_C SIGINT
 # define CTRL_D SIGSEGV
@@ -44,6 +43,8 @@ typedef struct s_var
 
 //cmd_err_check-----------------------------------------------------------------
 int		ft_check_cmd_err(char *str);
+//env_clone---------------------------------------------------------------------
+void	ft_clone_env(t_list **vars, char **env);
 
 //PARSING-----------------------------------------------------------------------
 void	ft_parsing(t_list **lst, char *str, t_list **vars);
@@ -77,23 +78,30 @@ void	ft_print_lst(t_list *lst);
 
 //variables---------------------------------------------------------------------
 t_list	*ft_find_var(t_list **vars, char *var_name);
+void	ft_handle_var(t_list **vars, char *str);
 void	ft_add_var(t_list **vars, char *str, int exp);
-void	ft_free_varslst(t_list **lst);
-void	ft_free_varsnode(t_list *vars);
+void	ft_mod_var_value(t_list *vars, char *str);
 
 //env---------------------------------------------------------------------------
 char	**ft_env_matrix(t_list **vars);
 
 //build-ins---------------------------------------------------------------------
 void	ft_env(t_list **vars);
+int		ft_pwd(t_list **vars);
+int		ft_cd(t_list **vars, char **args);
 void	ft_export(t_list **vars, char **args);
 void	ft_unset(t_list **vars, char **args);
 void	ft_echo(char **args, int flag);
-void	ft_exit(t_list **vars, char *str);
+void	ft_exit(t_list **vars);
 
 //execution---------------------------------------------------------------------
 int		ft_pipes(t_list **cmd, t_list **vars, int fd_out);
 int		ft_check_and_execute(char **words, t_list **vars);
 int		ft_redirects(char *str);
+
+//free_stuff--------------------------------------------------------------------
+void	ft_free_varslst(t_list **lst);
+void	ft_free_varsnode(t_list *vars);
+void	ft_free_cmdlst(t_list **lst);
 
 #endif

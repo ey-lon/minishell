@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 09:54:25 by aconta            #+#    #+#             */
-/*   Updated: 2023/06/14 16:30:10 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/15 14:48:59 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static char	**ft_get_path(t_list **vars)
 	return (arr_paths);
 }
 
-static void ft_execute_cmd(char *cmd_path, char **cmd_w_flag, t_list **vars)
+static void	ft_execute_cmd(char *cmd_path, char **cmd_w_flag, t_list **vars)
 {
 	char	**env;
 
@@ -82,18 +82,18 @@ int	ft_check_and_execute(char **wrd, t_list **vars)
 	else if (!ft_strncmp(*wrd, "env", 4))
 		ft_env(vars);
 	else if (!ft_strncmp(*wrd, "cd", 3))
-		; //cd
+		ft_cd(vars, &wrd[1]);
 	else if (!ft_strncmp(*wrd, "pwd", 4))
-		; //pwd
+		ft_pwd(vars);
 	else if (!ft_strncmp(*wrd, "export", 7))
 		ft_export(vars, &wrd[1]);
 	else if (!ft_strncmp(*wrd, "unset", 6))
 		ft_unset(vars, &wrd[1]);
 	else if (!ft_strncmp(*wrd, "exit", 5))
-		; //exit
+		ft_exit(vars);
 	else if (ft_strchr(*wrd, '='))
 	{
-		; //gestisci variabile (aggiungi o modifica)
+		ft_handle_var(vars, *wrd);
 		ret = ft_check_and_execute(wrd + 1, vars);
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 15:32:12 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/14 16:23:01 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/15 14:24:43 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,16 @@ t_list	*ft_find_var(t_list **vars, char *var_name)
 	return (NULL);
 }
 
+void	ft_mod_var_value(t_list *vars, char *str)
+{
+	if (vars)
+	{
+		if (((t_var *)(vars->content))->value)
+			free(((t_var *)(vars->content))->value);
+		((t_var *)(vars->content))->value = ft_strdup(str);
+	}
+}
+
 void	ft_add_var(t_list **vars, char *str, int exp)
 {
 	t_var	*new;
@@ -46,22 +56,18 @@ void	ft_add_var(t_list **vars, char *str, int exp)
 	ft_lstadd_back(vars, ft_lstnew((void *)new));
 }
 
-void	ft_free_varsnode(t_list *vars)
+void	ft_handle_var(t_list **vars, char *str)
 {
-	t_var	*tmp;
+	t_list	*tmp;
+	int		len;
+	char	*var_name;
 
-	tmp = (t_var *)(vars->content);
-	free(tmp->name);
-	free(tmp->value);
-	free(tmp);
-	free(vars);
-}
-
-void	ft_free_varslst(t_list **lst)
-{
-	if (lst && *lst)
-	{
-		ft_free_varslst(&(*lst)->next);
-		ft_free_varsnode(*lst);
-	}
+	len = ft_strlen_mod(str, '=');
+	var_name = ft_substr(str, 0, len);
+	tmp = ft_find_var(vars, var_name);
+	free(var_name);
+	if (!tmp)
+		ft_add_var(vars, str, 0);
+	else
+		ft_mod_var_value(tmp, &str[len + 1]);
 }

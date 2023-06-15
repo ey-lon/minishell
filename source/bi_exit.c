@@ -6,15 +6,14 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 10:23:28 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/13 15:53:01 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/15 14:39:35 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_exit(t_list **vars, char *str)
+void	ft_exit(t_list **vars)
 {
-	free(str);
 	ft_free_varslst(vars);
 	exit(0);
 }

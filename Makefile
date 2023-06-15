@@ -33,7 +33,9 @@ OBJ_F = obj/
 SRC =	main.c \
 		utils.c \
 		utils_2.c \
+		free_struct.c \
 		cdm_err_check.c \
+		env_clone.c \
 		print_cmd_nodes.c \
 		history.c \
 		parsing_1.c \
@@ -46,6 +48,8 @@ SRC =	main.c \
 		bi_export.c \
 		bi_unset.c \
 		bi_exit.c \
+		bi_pwd.c \
+		bi_cd.c \
 		exec_commands.c \
 		exec_pipes.c \
 		exec_redirects.c
