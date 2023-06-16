@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 09:42:05 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/16 14:06:16 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/16 14:14:17 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_cd_1_arg(t_list **vars, char *str)
 				ft_cd_relative(((t_var *)(pwd->content))->value, str);
 	}
 	else
-		perror("cd: ");
+		perror("cd");
 	return (0);
 }
 
