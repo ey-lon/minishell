@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_commands.c                                    :+:      :+:    :+:   */
+/*   exec_3_commands.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 09:54:25 by aconta            #+#    #+#             */
-/*   Updated: 2023/06/15 14:48:59 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/16 13:26:21 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,12 @@ static void	ft_execute_cmd(char *cmd_path, char **cmd_w_flag, t_list **vars)
 	env = ft_env_matrix(vars);
 	if (execve(cmd_path, cmd_w_flag, env) == -1)
 	{
-		//free(cmd_w_flag);
 		free(cmd_path);
 		ft_free_mat(env);
 		exit(EXIT_FAILURE);
 	}
+	else
+		ft_free_mat(env);
 }
 
 void	ft_try_path(char **cmd_w_flag, t_list **vars)
@@ -47,25 +48,28 @@ void	ft_try_path(char **cmd_w_flag, t_list **vars)
 
 	arr_paths = ft_get_path(vars);
 	i = 0;
-	while (arr_paths[i])
+	if (arr_paths)
 	{
-		add_slash = ft_strjoin(arr_paths[i], "/");
-		cmd_path = ft_strjoin(add_slash, cmd_w_flag[0]);
-		free(add_slash);
-		if (access(cmd_path, F_OK) == 0)
+		while (arr_paths[i])
 		{
-			ft_free_mat(arr_paths);
-			ft_execute_cmd(cmd_path, cmd_w_flag, vars);
+			add_slash = ft_strjoin(arr_paths[i], "/");
+			cmd_path = ft_strjoin(add_slash, cmd_w_flag[0]);
+			free(add_slash);
+			if (!access(cmd_path, F_OK))
+			{
+				ft_free_mat(arr_paths);
+				ft_execute_cmd(cmd_path, cmd_w_flag, vars);
+			}
+			else
+				free(cmd_path);
+			i++;
 		}
-		else
-			free(cmd_path);
-		i++;
+		ft_free_mat(arr_paths);
 	}
-	ft_free_mat(arr_paths);
-	perror("Command not found");
+	ft_putstr_fd("Command not found\n", 2);
 }
 
-int	ft_check_and_execute(char **wrd, t_list **vars)
+int	ft_execution(char **wrd, t_list **vars)
 {
 	int	ret;
 
@@ -94,7 +98,7 @@ int	ft_check_and_execute(char **wrd, t_list **vars)
 	else if (ft_strchr(*wrd, '='))
 	{
 		ft_handle_var(vars, *wrd);
-		ret = ft_check_and_execute(wrd + 1, vars);
+		ret = ft_execution(wrd + 1, vars);
 	}
 	else
 		ft_try_path(wrd, vars);

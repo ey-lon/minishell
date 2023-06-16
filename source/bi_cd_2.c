@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bi_cd.c                                            :+:      :+:    :+:   */
+/*   bi_cd_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/15 09:42:05 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/15 12:05:38 by abettini         ###   ########.fr       */
+/*   Created: 2023/06/16 13:45:36 by abettini          #+#    #+#             */
+/*   Updated: 2023/06/16 13:54:08 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,37 +78,4 @@ char	*ft_cd_relative(char *old_pwd, char *str)
 	}
 	ft_free_mat(moves);
 	return (new_pwd);
-}
-
-int	ft_cd_1_arg(t_list **vars, char *str)
-{
-	t_list	*tmp;
-
-	tmp = (ft_find_var(vars, "PWD"));
-	if (!tmp)
-		return (1);
-	if (!chdir(str))
-	{
-		if (str[0] == '/')
-			ft_mod_var_value(tmp, str);
-		else
-			((t_var *)(tmp->content))->value = \
-				ft_cd_relative(((t_var *)(tmp->content))->value, str);
-	}
-	else
-		perror("Error");
-	return (0);
-}
-
-int	ft_cd(t_list **vars, char **args)
-{
-	int	ret;
-
-	if (args[0] && args[1])
-		return (printf("cd: too many arguments\n") * 0 + 1);
-	else if (args[0])
-		ret = ft_cd_1_arg(vars, *args);
-	else
-		ret = ft_cd_1_arg(vars, "/nfs/homes");
-	return (ret);
 }

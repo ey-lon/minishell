@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 12:03:28 by abettini          #+#    #+#             */
-/*   Updated: 2023/05/12 10:01:12 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/16 10:22:51 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,14 @@ void	ft_free_mat(char **mat)
 {
 	int	y;
 
-	y = 0;
-	while (mat[y])
+	if (mat)
 	{
-		free(mat[y]);
-		y++;
+		y = 0;
+		while (mat[y])
+		{
+			free(mat[y]);
+			y++;
+		}
+		free(mat);
 	}
-	free(mat);
 }

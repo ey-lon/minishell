@@ -6,29 +6,11 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 10:14:37 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/15 12:03:53 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/16 10:00:30 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-//checks if PWD doesn't exist or if it's broken
-void	ft_check_pwd(t_list **vars)
-{
-	t_list	*tmp;
-
-	tmp = ft_find_var(vars, "PWD");
-	if (!tmp)
-	{
-		ft_add_var(vars, "PWD=/nfs/homes", 1);
-		chdir("/nfs/homes");
-	}
-	else if (chdir(((t_var *)(tmp->content))->value))
-	{
-		ft_mod_var_value(tmp, "PWD=/nfs/homes");
-		chdir("/nfs/homes");
-	}
-}
 
 void	ft_clone_env(t_list **vars, char **env)
 {
