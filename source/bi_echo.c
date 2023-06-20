@@ -6,17 +6,24 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 17:36:28 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/13 12:05:27 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/20 11:25:33 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_echo(char **args, int flag)
+void	ft_echo(char **args)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
+	bool	flag;
 
+	flag = 0;
+	if (*args && !ft_strncmp(*args, "-n", 3))
+	{
+		flag = 1;
+		args++;
+	}
 	i = 0;
 	while (args[i])
 	{

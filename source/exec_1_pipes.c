@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 10:39:29 by aconta            #+#    #+#             */
-/*   Updated: 2023/06/16 12:08:04 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/20 14:50:56 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@ int ft_handle_node(t_list *cmd, t_list **vars, int fd_in, int fd_out)
 	int		s_in;
 	int		s_out;
 
+	//fork();
 	(void)fd_in;
 	(void)fd_out;
 	s_in = dup(STDIN_FILENO);
-	s_out = dup(STDOUT_FILENO);
+	s_out = dup (STDOUT_FILENO);
 	ft_redirects(cmd);
 	ft_execution(((t_prs *)(cmd->content))->wrd, vars);
 	dup2(s_in, STDIN_FILENO);

@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 09:42:05 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/16 14:14:17 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/20 11:15:36 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ int	ft_cd_no_args(t_list **vars)
 	t_list	*home;
 	int		ret;
 
-	home = (ft_find_var(vars, "HOME"));
 	ret = 1;
+	home = (ft_find_var(vars, "HOME"));
 	if (home)
 		ret = ft_cd_1_arg(vars, ((t_var *)(home->content))->value);
 	return (ret);

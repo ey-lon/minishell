@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 09:54:25 by aconta            #+#    #+#             */
-/*   Updated: 2023/06/16 13:26:21 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/20 11:25:02 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,7 @@ int	ft_execution(char **wrd, t_list **vars)
 	if (!*wrd || !**wrd)
 		return (1);
 	if (!ft_strncmp(*wrd, "echo", 5))
-	{
-		if (wrd[1] && !ft_strncmp(wrd[1], "-n", 3))
-			ft_echo(wrd + 2, 1);
-		else
-			ft_echo(wrd + 1, 0);
-	}
+		ft_echo(&wrd[1]);
 	else if (!ft_strncmp(*wrd, "env", 4))
 		ft_env(vars);
 	else if (!ft_strncmp(*wrd, "cd", 3))

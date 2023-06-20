@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 09:43:13 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/16 13:28:45 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/20 11:15:07 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int	ft_update_oldpwd(t_list **vars)
 	t_var	*pwd;
 	char	*tmp;
 
-	oldpwd = ft_find_var(vars, "OLDPWD");
 	pwd = (t_var *)(ft_find_var(vars, "PWD")->content);
+	oldpwd = ft_find_var(vars, "OLDPWD");
 	if (oldpwd)
 		ft_mod_var_value(oldpwd, pwd->value);
 	else
@@ -40,14 +40,14 @@ void	ft_check_pwd(t_list **vars)
 	tmp = ft_find_var(vars, "PWD");
 	if (!tmp)
 	{
-		ft_add_var(vars, "PWD=/nfs/homes", 1);
-		chdir("/nfs/homes");
+		ft_add_var(vars, "PWD=/", 1);
+		chdir("/");
 		ft_update_oldpwd(vars);
 	}
 	else if (chdir(((t_var *)(tmp->content))->value))
 	{
-		ft_mod_var_value(tmp, "/nfs/homes");
-		chdir("/nfs/homes");
+		ft_mod_var_value(tmp, "/");
+		chdir("/");
 		ft_update_oldpwd(vars);
 	}
 }

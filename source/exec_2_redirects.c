@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_redirects.c                                   :+:      :+:    :+:   */
+/*   exec_2_redirects.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:02:20 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/16 12:05:11 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/19 14:53:43 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	ft_redir_one(char *str)
 	}
 	else if (!ft_strncmp(str, "<", 1))
 	{
-		fd = open(str + 1, O_CREAT | O_RDONLY);
+		fd = open(str + 1, O_RDONLY);
 		if (fd == -1)
 			return (ft_in_open_err());
 		dup2(fd, STDIN_FILENO);

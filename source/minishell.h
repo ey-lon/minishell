@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:47:15 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/16 13:46:14 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/20 11:25:16 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int		ft_cd(t_list **vars, char **args);
 char	*ft_cd_relative(char *old_pwd, char *str);
 void	ft_export(t_list **vars, char **args);
 void	ft_unset(t_list **vars, char **args);
-void	ft_echo(char **args, int flag);
+void	ft_echo(char **args);
 void	ft_exit(t_list **vars);
 
 //execution---------------------------------------------------------------------
