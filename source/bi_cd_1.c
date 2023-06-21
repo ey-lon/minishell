@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 09:42:05 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/20 11:15:36 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/21 10:28:55 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_cd_1_arg(t_list **vars, char *str)
 
 	ft_check_pwd(vars);
 	pwd = (ft_find_var(vars, "PWD"));
-	if (!chdir(str))
+	if (*str && !chdir(str))
 	{
 		ft_update_oldpwd(vars);
 		if (str[0] == '/')
@@ -31,7 +31,7 @@ int	ft_cd_1_arg(t_list **vars, char *str)
 			((t_var *)(pwd->content))->value = \
 				ft_cd_relative(((t_var *)(pwd->content))->value, str);
 	}
-	else
+	else if (*str)
 		perror("cd");
 	return (0);
 }
@@ -54,8 +54,19 @@ int	ft_cd(t_list **vars, char **args)
 
 	if (args[0] && args[1])
 		return (printf("cd: too many arguments\n") * 0 + 1);
-	else if (args[0])
+	else if (args[0] && args[0][0] != '~')
 		ret = ft_cd_1_arg(vars, *args);
+	else if (args[0] && args[0][0] == '~' && args[0][1] == '/')
+	{
+		if (!ft_cd_no_args(vars))
+			ret = ft_cd_1_arg(vars, &args[0][2]);
+		else
+			ret = 1;
+	}
+	else if (args[0] && args[0][0] == '~' && !args[0][1])
+		ret = ft_cd_no_args(vars);
+	else if (args[0])
+		ret = ft_cd_1_arg(vars, args[0]);
 	else
 		ret = ft_cd_no_args(vars);
 	return (ret);

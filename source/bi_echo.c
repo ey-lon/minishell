@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 17:36:28 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/20 11:25:33 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/21 09:39:53 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,10 @@ void	ft_echo(char **args)
 	int		j;
 	bool	flag;
 
+	i = 0;
 	flag = 0;
 	if (*args && !ft_strncmp(*args, "-n", 3))
-	{
-		flag = 1;
-		args++;
-	}
-	i = 0;
+		flag = ++i;
 	while (args[i])
 	{
 		j = 0;
