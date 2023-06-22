@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:47:15 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/21 16:23:15 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/22 14:12:35 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ typedef struct s_msh
 {
 	t_list	**vars;
 	t_list	**cmd;
-	int		fd_in;
-	int		fd_out;
+	int		fd[2];
+	int		std[2];
 }	t_msh;
 
 //cmd_err_check-----------------------------------------------------------------
@@ -109,7 +109,7 @@ void	ft_exit(t_msh *msh);
 
 //execution---------------------------------------------------------------------
 int		ft_pipes(t_list **cmd, t_msh *msh, int fd_out);
-int		ft_redirects(t_list *cmd);
+int		ft_redirects(t_list *cmd, t_msh *msh);
 int		ft_execution(char **wrd, t_msh *msh);
 
 //free_stuff--------------------------------------------------------------------

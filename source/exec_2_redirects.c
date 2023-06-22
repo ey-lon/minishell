@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:02:20 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/19 14:53:43 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/22 12:20:37 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,8 @@ int	ft_error_open(void)
 	return (1);
 }
 
-int	ft_redir_one(char *str)
+int	ft_redir_one(char *str, t_msh *msh)
 {
-	int	fd;
-	int check;
-
-	check = 0;
 	if (!ft_strncmp(str, "<<", 2))
 	{
 		//heredoc
@@ -41,40 +37,72 @@ int	ft_redir_one(char *str)
 	}
 	else if (!ft_strncmp(str, ">>", 2))
 	{
-		fd = open(str + 2, O_CREAT | O_WRONLY | O_APPEND, 0644);
-		if (fd == -1)
-			return (ft_error_open());
-		dup2(fd, STDOUT_FILENO);
+		if (msh->fd[1] != 1)
+			close(msh->fd[1]);
+		msh->fd[1] = open(str + 2, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	}
 	else if (!ft_strncmp(str, ">", 1))
 	{
-		fd = open(str + 1, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-		if (fd == -1)
-			return (ft_error_open());
-		dup2(fd, STDOUT_FILENO);
+		if (msh->fd[1] != 1)
+			close(msh->fd[1]);
+		msh->fd[1] = open(str + 1, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	}
 	else if (!ft_strncmp(str, "<", 1))
 	{
-		fd = open(str + 1, O_RDONLY);
-		if (fd == -1)
-			return (ft_in_open_err());
-		dup2(fd, STDIN_FILENO);
+		if (msh->fd[0] != 0)
+			close(msh->fd[0]);
+		msh->fd[0] = open(str + 1, O_RDONLY);
 	}
-	else
-		check = 1;
-	if (!check)
-		close(fd);
 	return (0);
 }
 
-int	ft_redirects(t_list *cmd)
+/* int	ft_redir_one(char *str, t_msh *msh)
+{
+	//int	fd;
+	//int check;
+
+	//check = 0;
+	if (!ft_strncmp(str, "<<", 2))
+	{
+		//heredoc
+		;
+	}
+	else if (!ft_strncmp(str, ">>", 2))
+	{
+		msh->fd_out = open(str + 2, O_CREAT | O_WRONLY | O_APPEND, 0644);
+		// if (fd == -1)
+		// 	return (ft_error_open());
+		//dup2(fd, STDOUT_FILENO);
+	}
+	else if (!ft_strncmp(str, ">", 1))
+	{
+		msh->fd_out = open(str + 1, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+		if (fd == -1)
+			return (ft_error_open()); 
+		//dup2(fd, STDOUT_FILENO);
+	}
+	else if (!ft_strncmp(str, "<", 1))
+	{
+		msh->fd_in = open(str + 1, O_RDONLY);
+		if (fd == -1)
+			return (ft_in_open_err());
+		//dup2(fd, STDIN_FILENO);
+	}
+	//else
+	//	check = 1;
+	//if (!check)
+	//	close(fd);
+	return (0);
+} */
+
+int	ft_redirects(t_list *cmd, t_msh *msh)
 {
 	int	i;
 
 	i = 0;
 	while (((t_prs *)(cmd->content))->red[i])
 	{
-		if (ft_redir_one(((t_prs *)(cmd->content))->red[i]))
+		if (ft_redir_one(((t_prs *)(cmd->content))->red[i], msh))
 			return (1);
 		i++;
 	}

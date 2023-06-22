@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:46:44 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/22 09:50:58 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/22 14:38:07 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,11 @@ int	main(int ac, char **av, char **env)
 	msh.cmd = &cmd;
 	(void)ac;
 	(void)av;
+
+	msh.std[0] = dup(0);
+	msh.std[1] = dup(1);
+	msh.fd[0] = -2;
+	msh.fd[1] = -2;
 
 	signal(CTRL_C, ft_sighandler);
 	signal(CTRL_D, ft_sighandler);
