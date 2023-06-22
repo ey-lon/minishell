@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:47:15 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/20 11:25:16 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/21 16:23:15 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdbool.h>
 # include <sys/types.h>
 # include <sys/stat.h>
+# include <sys/wait.h>
 # include <fcntl.h>
 
 # define CTRL_C SIGINT
@@ -40,6 +41,14 @@ typedef struct s_var
 	char	*value;
 	int		exp;
 }	t_var;
+
+typedef struct s_msh
+{
+	t_list	**vars;
+	t_list	**cmd;
+	int		fd_in;
+	int		fd_out;
+}	t_msh;
 
 //cmd_err_check-----------------------------------------------------------------
 int		ft_check_cmd_err(char *str);
@@ -96,12 +105,12 @@ char	*ft_cd_relative(char *old_pwd, char *str);
 void	ft_export(t_list **vars, char **args);
 void	ft_unset(t_list **vars, char **args);
 void	ft_echo(char **args);
-void	ft_exit(t_list **vars);
+void	ft_exit(t_msh *msh);
 
 //execution---------------------------------------------------------------------
-int		ft_pipes(t_list **cmd, t_list **vars, int fd_out);
+int		ft_pipes(t_list **cmd, t_msh *msh, int fd_out);
 int		ft_redirects(t_list *cmd);
-int		ft_execution(char **wrd, t_list **vars);
+int		ft_execution(char **wrd, t_msh *msh);
 
 //free_stuff--------------------------------------------------------------------
 void	ft_free_varslst(t_list **lst);

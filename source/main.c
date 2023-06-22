@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:46:44 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/20 11:14:05 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/22 09:50:58 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ int	main(int ac, char **av, char **env)
 	char	*str;
 	t_list	*cmd;
 	t_list	*vars;
+	t_msh	msh;
 
+	msh.vars = &vars;
+	msh.cmd = &cmd;
 	(void)ac;
 	(void)av;
 
@@ -54,7 +57,7 @@ int	main(int ac, char **av, char **env)
 			//ft_print_lst(cmd);
 			//-----------------------------------------
 
-			ft_pipes(&cmd, &vars, 1);
+			ft_pipes(&cmd, &msh, 1);
 			ft_free_cmdlst(&cmd);
 		}
 		else
