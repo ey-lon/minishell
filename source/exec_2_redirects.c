@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:02:20 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/22 12:20:37 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/23 09:38:35 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,19 @@ int	ft_redir_one(char *str, t_msh *msh)
 	}
 	else if (!ft_strncmp(str, ">>", 2))
 	{
-		if (msh->fd[1] != 1)
+		if (msh->fd[1] > -1)
 			close(msh->fd[1]);
 		msh->fd[1] = open(str + 2, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	}
 	else if (!ft_strncmp(str, ">", 1))
 	{
-		if (msh->fd[1] != 1)
+		if (msh->fd[1] > -1)
 			close(msh->fd[1]);
 		msh->fd[1] = open(str + 1, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	}
 	else if (!ft_strncmp(str, "<", 1))
 	{
-		if (msh->fd[0] != 0)
+		if (msh->fd[0] > -1)
 			close(msh->fd[0]);
 		msh->fd[0] = open(str + 1, O_RDONLY);
 	}
