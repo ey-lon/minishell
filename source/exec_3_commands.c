@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 09:54:25 by aconta            #+#    #+#             */
-/*   Updated: 2023/06/23 10:39:41 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/23 10:57:14 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,6 @@ static void	ft_execute_cmd(char *cmd_path, char **cmd_w_flag, t_list **vars)
 			ft_free_mat(env);
 		exit(0);
 	}
-	/* if (WIFEXITED(exit_code))
-	{
-		return ;
-	} */
-	//WIFEXITED(exit_code);
 	waitpid(pid, &exit_code, 0);
 }
 

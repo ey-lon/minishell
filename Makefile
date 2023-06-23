@@ -63,16 +63,14 @@ OBJ_S = $(SRC:.c=.o)
 OBJ_S := $(addprefix $(OBJ_F),$(OBJ_S))
 
 $(OBJ_F)%.o : $(SRC_F)%.c
+	mkdir -p $(OBJ_F)
 	$(CC) $(FLAGS) -c $< -o $@
 
 #rules-----------------------------------------
 
 all: $(NAME)
 
-objects:
-	mkdir $(OBJ_F)
-
-$(NAME): libcomp objects $(OBJ_S)
+$(NAME): libcomp $(OBJ_S)
 	$(CC) $(FLAGS) $(OBJ_S) $(LIBFT) $(FLAGS_2) -o $(NAME)
 	echo "$(TCOL)$(NAME) $(CMP)"
 
@@ -88,7 +86,7 @@ fclean:	clean libfclean
 
 re: fclean all
 
-bonus:
+bonus: $(NAME)
 
 libcomp:
 		@make -C $(LBT_F)
@@ -99,6 +97,6 @@ libclean:
 libfclean:
 		@make fclean -C $(LBT_F)
 
-.PHONY: all $(NAME) re clean fclean bonus
+.PHONY: all $(NAME) re clean fclean bonus libcomp libclean libfclean
 
 .SILENT:

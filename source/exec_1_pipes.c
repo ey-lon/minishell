@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 10:39:29 by aconta            #+#    #+#             */
-/*   Updated: 2023/06/23 10:47:37 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/23 11:20:20 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int ft_handle_node(t_list *cmd, t_msh *msh, int fd_in, int fd_out)
 		exit(0);
 	}
 	waitpid(pid, &exit_code, 0);
+	close(fd_in);
 	return (0);
 }
 
@@ -64,7 +65,7 @@ int ft_pipes(t_list **cmd, t_msh *msh, int fd_out)
 
     if (!(*cmd)->next)
 	{
-		fd[0] = msh->std[0];
+		fd[0] = dup(msh->std[0]);
 		fd[1] = -2;
 	}
 	else
@@ -76,3 +77,4 @@ int ft_pipes(t_list **cmd, t_msh *msh, int fd_out)
 		close(fd[1]);
     return (ft_handle_node(*cmd, msh, fd[0], fd_out));
 }
+
