@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 09:54:25 by aconta            #+#    #+#             */
-/*   Updated: 2023/06/26 15:58:00 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/26 17:54:47 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,10 @@ void	ft_executable(char **cmd_w_flag, t_list **vars)
 	{
 		ft_execute_cmd(*cmd_w_flag, cmd_w_flag, vars);
 	}
-	else if (!ft_strchr(*cmd_w_flag, '/'))
+	else if (!ft_try_path(cmd_w_flag, vars))
 	{
-		ft_try_path(cmd_w_flag, vars);
-	}
-	else
 		ft_putstr_fd("Command not found\n", 2);
+	}
 }
 
 int	ft_execution(char **wrd, t_msh *msh)

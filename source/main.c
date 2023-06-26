@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:46:44 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/26 15:11:33 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/26 16:14:38 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,6 @@ int	main(int ac, char **av, char **env)
 			free(str);
 		}
 	}
+	ft_free_varslst(&vars);
 	return (0);
 }

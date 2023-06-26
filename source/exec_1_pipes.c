@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 10:39:29 by aconta            #+#    #+#             */
-/*   Updated: 2023/06/26 15:07:45 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/26 16:32:56 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ int ft_handle_node(t_list *cmd, t_msh *msh, int fd_in, int fd_out)
 		ft_redirects(cmd, msh);
 		ft_choose_redir(msh, fd_in, fd_out);
 		ret = ft_execution(((t_prs *)(cmd->content))->wrd, msh);
-		ft_reset_redir(msh);
+		ft_free_varslst(msh->vars);
+		ft_free_cmdlst(msh->cmd);
 		exit(ret);
 	}
 	waitpid(pid, &exit_code, 0);

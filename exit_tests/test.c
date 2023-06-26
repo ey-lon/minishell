@@ -2,9 +2,6 @@
 
 int	main(void)
 {
-	char	str[5];
-
-	if (str[6] != str[7])
-		str[8] = str[9];
+	printf ("test\n");
 	return (0);
 }
