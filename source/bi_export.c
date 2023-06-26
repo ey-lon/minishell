@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 16:06:47 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/13 10:26:58 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/26 15:53:29 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,15 @@ void	ft_export(t_list **vars, char **args)
 		while (args[i])
 		{
 			len = ft_strlen_mod(args[i], '=');
-			var_name = ft_substr(args[i], 0, len);
-			var = ((ft_find_var(vars, var_name)));
-			free(var_name);
-			ft_export_var(vars, var, args[i], len);
+			if (len)
+			{
+				var_name = ft_substr(args[i], 0, len);
+				var = ((ft_find_var(vars, var_name)));
+				free(var_name);
+				ft_export_var(vars, var, args[i], len);
+			}
 			i++;
-		}	
+		}
 	}
 	else
 		ft_print_exp(vars);

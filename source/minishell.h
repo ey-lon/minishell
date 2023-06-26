@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:47:15 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/22 14:12:35 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/26 15:03:55 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_msh
 	t_list	**cmd;
 	int		fd[2];
 	int		std[2];
+	int		exit;
 }	t_msh;
 
 //cmd_err_check-----------------------------------------------------------------
@@ -105,12 +106,16 @@ char	*ft_cd_relative(char *old_pwd, char *str);
 void	ft_export(t_list **vars, char **args);
 void	ft_unset(t_list **vars, char **args);
 void	ft_echo(char **args);
-void	ft_exit(t_msh *msh);
+int		ft_exit(t_msh *msh);
 
 //execution---------------------------------------------------------------------
-int		ft_pipes(t_list **cmd, t_msh *msh, int fd_out);
+int		ft_pipes(t_list **cmd, t_msh *msh);
 int		ft_redirects(t_list *cmd, t_msh *msh);
 int		ft_execution(char **wrd, t_msh *msh);
+
+//redirects
+void	ft_choose_redir(t_msh *msh, int fd_in, int fd_out);
+void	ft_reset_redir(t_msh *msh);
 
 //free_stuff--------------------------------------------------------------------
 void	ft_free_varslst(t_list **lst);

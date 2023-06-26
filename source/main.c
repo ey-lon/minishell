@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:46:44 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/22 14:38:07 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/26 15:11:33 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 
+	msh.exit = 0;
 	msh.std[0] = dup(0);
 	msh.std[1] = dup(1);
 	msh.fd[0] = -2;
@@ -45,10 +46,9 @@ int	main(int ac, char **av, char **env)
 	signal(CTRL_C, ft_sighandler);
 	signal(CTRL_D, ft_sighandler);
 	signal(CTRL_BS, ft_sighandler);
-
 	vars = NULL;
 	ft_clone_env(&vars, env);	
-	while (1)
+	while (!msh.exit)
 	{
 		cmd = NULL;
 		str = readline("$>");
@@ -62,7 +62,7 @@ int	main(int ac, char **av, char **env)
 			//ft_print_lst(cmd);
 			//-----------------------------------------
 
-			ft_pipes(&cmd, &msh, 1);
+			msh.exit = ft_pipes(&cmd, &msh);
 			ft_free_cmdlst(&cmd);
 		}
 		else

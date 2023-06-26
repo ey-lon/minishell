@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_3_commands.c                                  :+:      :+:    :+:   */
+/*   exec_4_commands.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 09:54:25 by aconta            #+#    #+#             */
-/*   Updated: 2023/06/23 10:57:14 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/26 15:58:00 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int	ft_execution(char **wrd, t_msh *msh)
 
 	ret = 0;
 	if (!*wrd || !**wrd)
-		return (1);
+		return (0);
 	if (!ft_strncmp(*wrd, "echo", 5))
 		ft_echo(&wrd[1]);
 	else if (!ft_strncmp(*wrd, "env", 4))
@@ -112,8 +112,8 @@ int	ft_execution(char **wrd, t_msh *msh)
 	else if (!ft_strncmp(*wrd, "unset", 6))
 		ft_unset(msh->vars, &wrd[1]);
 	else if (!ft_strncmp(*wrd, "exit", 5))
-		ft_exit(msh);
-	else if (ft_strchr(*wrd, '='))
+		ret = ft_exit(msh);
+	else if (ft_strchr(*wrd, '=') && *wrd[0] != '=')
 	{
 		ft_handle_var(msh->vars, *wrd);
 		ret = ft_execution(wrd + 1, msh);
