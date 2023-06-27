@@ -23,7 +23,7 @@ int	ft_single_node(t_list *cmd, t_msh *msh, int fd_in, int fd_out)
 	return (ret);
 }
 
-int ft_handle_node(t_list *cmd, t_msh *msh, int fd_in, int fd_out)
+int	ft_handle_node(t_list *cmd, t_msh *msh, int fd_in, int fd_out)
 {
 	int		pid;
 	int		exit_code;
@@ -44,23 +44,23 @@ int ft_handle_node(t_list *cmd, t_msh *msh, int fd_in, int fd_out)
 	return (0);
 }
 
-int ft_pipes_handler(t_list **cmd, t_msh *msh, int fd_out)
+int	ft_pipes_handler(t_list **cmd, t_msh *msh, int fd_out)
 {
-    int fd[2];
+	int	fd[2];
 
-    if (!(*cmd)->next)
+	if (!(*cmd)->next)
 	{
 		fd[0] = dup(msh->std[0]);
 		fd[1] = -2;
 	}
 	else
-    {
-        pipe(fd);
-        ft_pipes_handler(&(*cmd)->next, msh, fd[1]);
-    }
+	{
+		pipe(fd);
+		ft_pipes_handler(&(*cmd)->next, msh, fd[1]);
+	}
 	if (fd[1] > -1)
 		close(fd[1]);
-    return (ft_handle_node(*cmd, msh, fd[0], fd_out));
+	return (ft_handle_node(*cmd, msh, fd[0], fd_out));
 }
 
 int	ft_pipes(t_list **cmd, t_msh *msh)

@@ -24,7 +24,6 @@
 # include <fcntl.h>
 
 # define CTRL_C SIGINT
-# define CTRL_D SIGSEGV
 # define CTRL_BS SIGQUIT
 
 # define SPACES "\t\n\v\f\r "

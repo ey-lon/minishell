@@ -48,6 +48,29 @@ int	ft_cd_no_args(t_list **vars)
 	return (ret);
 }
 
+//tilde works except in the case of ~[user]
+int	ft_cd_tilde(t_list **vars, char *str)
+{
+	t_list	*home;
+	int		ret;
+	char	*path;
+
+	ret = 1;
+	if (!str[1])
+		ret = ft_cd_no_args(vars);
+	else if (str[1] == '/')
+	{
+		home = (ft_find_var(vars, "HOME"));
+		if (home)
+		{
+			path = ft_strjoin(((t_var *)(home->content))->value, &str[1]);
+			ret = ft_cd_1_arg(vars, path);
+			free(path);
+		}
+	}
+	return (ret);
+}
+
 int	ft_cd(t_list **vars, char **args)
 {
 	int	ret;
@@ -57,11 +80,8 @@ int	ft_cd(t_list **vars, char **args)
 		return (printf("cd: too many arguments\n") * 0 + 1);
 	else if (!args[0] || (args[0][0] == '~' && !args[0][1]))
 		ret = ft_cd_no_args(vars);
-	else if (args[0][0] == '~' && args[0][1] == '/')
-	{
-		if (!ft_cd_no_args(vars))
-			ret = ft_cd_1_arg(vars, &args[0][2]);
-	}
+	else if (args[0][0] == '~')
+		ret = ft_cd_tilde(vars, args[0]);
 	else
 		ret = ft_cd_1_arg(vars, args[0]);
 	return (ret);

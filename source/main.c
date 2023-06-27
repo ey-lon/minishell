@@ -12,65 +12,70 @@
 
 #include "minishell.h"
 
+int	g_exit = 0;
+
 void	ft_sighandler(int signal)
 {
 	if (signal == CTRL_BS)
 		;
-	else if (signal == CTRL_D)
-	{
-		ft_putstr_fd("exit", 1);
-		exit(0);
-	}
 	else if (signal == CTRL_C)
-		ft_putstr_fd("\n$>", 1);
+	{
+		write(2, "\n", 1);
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+	}
+}
+
+void	ft_init(t_msh *msh, t_list **vars, t_list **cmd, char **env)
+{
+	msh->exit = 0;
+	msh->std[0] = dup(0);
+	msh->std[1] = dup(1);
+	msh->fd[0] = -2;
+	msh->fd[1] = -2;
+	*vars = NULL;
+	*cmd = NULL;
+	ft_clone_env(vars, env);
+	msh->vars = vars;
+	msh->cmd = cmd;
+}
+
+void	ft_loop(t_msh *msh)
+{
+	char	*str;
+
+	while (!msh->exit && !g_exit)
+	{
+		str = readline("$>");
+		add_history(str);
+		if (!ft_check_cmd_err(str))
+		{
+			ft_parsing(msh->cmd, str, msh->vars);
+			free(str);
+			//ft_print_lst(cmd); //(stampa di prova)
+			msh->exit = ft_pipes(msh->cmd, msh);
+			ft_free_cmdlst(msh->cmd);
+			*msh->cmd = NULL;
+		}
+		else
+			free(str);
+	}
+	ft_free_varslst(msh->vars);
 }
 
 int	main(int ac, char **av, char **env)
 {
-	char	*str;
 	t_list	*cmd;
 	t_list	*vars;
 	t_msh	msh;
 
-	msh.vars = &vars;
-	msh.cmd = &cmd;
 	(void)ac;
 	(void)av;
-
-	msh.exit = 0;
-	msh.std[0] = dup(0);
-	msh.std[1] = dup(1);
-	msh.fd[0] = -2;
-	msh.fd[1] = -2;
-
 	signal(CTRL_C, ft_sighandler);
-	signal(CTRL_D, ft_sighandler);
 	signal(CTRL_BS, ft_sighandler);
-	vars = NULL;
-	ft_clone_env(&vars, env);	
-	while (!msh.exit)
-	{
-		cmd = NULL;
-		str = readline("$>");
-		if (!ft_check_cmd_err(str))
-		{
-			ft_parsing(&cmd, str, &vars);
-			add_history(str);
-			free(str);
-
-			//stampa di controllo del parsing----------
-			//ft_print_lst(cmd);
-			//-----------------------------------------
-
-			msh.exit = ft_pipes(&cmd, &msh);
-			ft_free_cmdlst(&cmd);
-		}
-		else
-		{
-			add_history(str);
-			free(str);
-		}
-	}
-	ft_free_varslst(&vars);
+	ft_init(&msh, &vars, &cmd, env);
+	ft_loop(&msh);
+	ft_putstr_fd("exit\n", 1);
 	return (0);
 }
