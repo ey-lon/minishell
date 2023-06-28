@@ -110,7 +110,7 @@ int	ft_execution(char **wrd, t_msh *msh)
 	else if (!ft_strncmp(*wrd, "unset", 6))
 		ft_unset(msh->vars, &wrd[1]);
 	else if (!ft_strncmp(*wrd, "exit", 5))
-		ret = ft_exit(msh);
+		ret = ft_exit(msh, &wrd[1]);
 	else if (ft_strchr(*wrd, '=') && *wrd[0] != '=')
 	{
 		ft_handle_var(msh->vars, *wrd);

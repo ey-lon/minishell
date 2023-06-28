@@ -6,15 +6,11 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:02:20 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/26 14:11:52 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/28 11:41:18 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/* 
-void	ft_heredoc()
- */
 
 /*
 int	ft_in_open_err(void)
@@ -34,8 +30,15 @@ int	ft_redir_one(char *str, t_msh *msh)
 {
 	if (!ft_strncmp(str, "<<", 2))
 	{
-		//heredoc
-		;
+		if (msh->fd[0] > -1)
+			close(msh->fd[0]);
+		msh->fd[0] = ft_heredoc(&str[2], msh);
+	}
+	else if (!ft_strncmp(str, "<", 1))
+	{
+		if (msh->fd[0] > -1)
+			close(msh->fd[0]);
+		msh->fd[0] = open(str + 1, O_RDONLY);
 	}
 	else if (!ft_strncmp(str, ">>", 2))
 	{
@@ -48,12 +51,6 @@ int	ft_redir_one(char *str, t_msh *msh)
 		if (msh->fd[1] > -1)
 			close(msh->fd[1]);
 		msh->fd[1] = open(str + 1, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	}
-	else if (!ft_strncmp(str, "<", 1))
-	{
-		if (msh->fd[0] > -1)
-			close(msh->fd[0]);
-		msh->fd[0] = open(str + 1, O_RDONLY);
 	}
 	return (0);
 }

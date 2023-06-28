@@ -12,12 +12,19 @@
 
 #include "minishell.h"
 
-int	ft_exit(t_msh *msh)
+int	ft_exit(t_msh *msh, char **args)
 {
 	int	ret;
 
 	ret = 0;
 	if (!(*(msh->cmd))->next)
-		ret = 1;
+	{
+		if (args[0] && args[1])
+			ft_putstr_fd("exit: too many arguments\n", 2);
+		else if (*args)
+			ret = ft_atoi(*args);
+		else
+			ret = 1; 
+	}
 	return (ret);
 }

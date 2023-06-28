@@ -6,19 +6,15 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:46:44 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/26 16:14:38 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/28 12:00:30 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	g_exit = 0;
-
 void	ft_sighandler(int signal)
 {
-	if (signal == CTRL_BS)
-		;
-	else if (signal == CTRL_C)
+	if (signal == CTRL_C)
 	{
 		write(2, "\n", 1);
 		rl_replace_line("", 0);
@@ -29,23 +25,23 @@ void	ft_sighandler(int signal)
 
 void	ft_init(t_msh *msh, t_list **vars, t_list **cmd, char **env)
 {
-	msh->exit = 0;
-	msh->std[0] = dup(0);
-	msh->std[1] = dup(1);
-	msh->fd[0] = -2;
-	msh->fd[1] = -2;
 	*vars = NULL;
 	*cmd = NULL;
 	ft_clone_env(vars, env);
 	msh->vars = vars;
 	msh->cmd = cmd;
+	msh->exit = 0;
+	msh->std[0] = dup(0);
+	msh->std[1] = dup(1);
+	msh->fd[0] = -2;
+	msh->fd[1] = -2;
 }
 
 void	ft_loop(t_msh *msh)
 {
 	char	*str;
 
-	while (!msh->exit && !g_exit)
+	while (!msh->exit)
 	{
 		str = readline("$>");
 		add_history(str);
@@ -73,7 +69,7 @@ int	main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 	signal(CTRL_C, ft_sighandler);
-	signal(CTRL_BS, ft_sighandler);
+	signal(CTRL_BS, SIG_IGN);
 	ft_init(&msh, &vars, &cmd, env);
 	ft_loop(&msh);
 	ft_putstr_fd("exit\n", 1);

@@ -54,7 +54,8 @@ SRC =	main.c \
 		exec_1_pipes.c \
 		exec_2_redirection.c \
 		exec_3_file_redir.c \
-		exec_4_commands.c
+		exec_4_commands.c \
+		heredoc.c
 
 #----------------------------------------------
 
