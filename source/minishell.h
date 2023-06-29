@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:47:15 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/29 15:57:23 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/29 16:05:29 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,9 @@ typedef struct s_msh
 	bool	exit;
 }	t_msh;
 
+//PRINT-------------------------------------------------------------------------
+void	ft_print_lst(t_list *lst);
+
 //cmd_err_check-----------------------------------------------------------------
 int		ft_check_cmd_err(char *str);
 
@@ -80,9 +83,6 @@ void	ft_free_mat(char **mat);
 char	*ft_rm_chars(char *str, char *rm, int len);
 int		ft_count_chars(char *str, char *c, int n);
 int		ft_strlen_mod(char *str, char end);
-
-//PRINT-------------------------------------------------------------------------
-void	ft_print_lst(t_list *lst);
 
 //variables---------------------------------------------------------------------
 int		ft_variable_cmd(t_list **vars, char *str);
