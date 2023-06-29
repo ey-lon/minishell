@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:47:15 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/29 12:02:13 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/29 15:57:23 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,15 @@ typedef struct s_msh
 	t_list	**cmd;
 	int		fd[2];
 	int		std[2];
-	int		exit;
+	int		exit_code;
+	bool	exit;
 }	t_msh;
 
 //cmd_err_check-----------------------------------------------------------------
 int		ft_check_cmd_err(char *str);
 
 //PARSING-----------------------------------------------------------------------
-void	ft_parsing(t_list **lst, char *str, t_list **vars);
+void	ft_parsing(char *str, t_msh *msh);
 //words & redirects (count & lenght)
 int		ft_red_count(char *str);
 int		ft_wrd_count(char *str);
@@ -62,10 +63,10 @@ int		ft_red_len(char *str);
 int		ft_wrd_len(char *str);
 int		ft_char_char_len(char *str, char c);
 //expand_vars-------------------------------------------------------------------
-void	ft_check_expand(t_list **lst, t_list **vars);
+void	ft_check_expand(t_msh *msh);
 char	*ft_get_var_cont(char *var_name, t_list **vars);
-int		ft_quotes_vars_len(char *str, t_list **vars);
-void	ft_quotes_vars_cpy(char *line, char *str, t_list **vars);
+int		ft_quotes_vars_len(char *str, t_msh *msh);
+void	ft_quotes_vars_cpy(char *line, char *str, t_msh *msh);
 
 //history-----------------------------------------------------------------------
 int		ft_add_str_to_history(char *str, t_list **hst);
@@ -84,6 +85,7 @@ int		ft_strlen_mod(char *str, char end);
 void	ft_print_lst(t_list *lst);
 
 //variables---------------------------------------------------------------------
+int		ft_variable_cmd(t_list **vars, char *str);
 t_list	*ft_find_var(t_list **vars, char *var_name);
 void	ft_handle_var(t_list **vars, char *str);
 void	ft_add_var(t_list **vars, char *str, int exp);

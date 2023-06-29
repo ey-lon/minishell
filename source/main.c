@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:46:44 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/29 09:58:11 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/29 14:48:51 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	ft_init(t_msh *msh, t_list **vars, t_list **cmd, char **env)
 	msh->vars = vars;
 	msh->cmd = cmd;
 	msh->exit = 0;
+	msh->exit_code = 0;
 	msh->std[0] = dup(0);
 	msh->std[1] = dup(1);
 	msh->fd[0] = -2;
@@ -50,12 +51,14 @@ void	ft_loop(t_msh *msh)
 			break ;
 		else if (!ft_check_cmd_err(str))
 		{
-			ft_parsing(msh->cmd, str, msh->vars);
+			ft_parsing(str, msh);
 			//ft_print_lst(cmd); //(stampa di prova)
-			msh->exit = ft_pipes(msh->cmd, msh);
+			msh->exit_code = ft_pipes(msh->cmd, msh);
 			ft_free_cmdlst(msh->cmd);
 			*msh->cmd = NULL;
 		}
+		else
+			msh->exit_code = 2;
 		add_history(str);
 		free(str);
 	}
@@ -70,11 +73,9 @@ int	main(int ac, char **av, char **env)
 
 	(void)ac;
 	(void)av;
-	/* signal(CTRL_C, ft_sighandler);
-	signal(CTRL_BS, SIG_IGN); */
 	ft_init(&msh, &vars, &cmd, env);
 	ft_loop(&msh);
 	ft_putstr_fd("exit\n", 1);
-	exit(msh.exit);
+	exit(msh.exit_code);
 	return (0);
 }

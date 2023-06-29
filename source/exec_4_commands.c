@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 09:54:25 by aconta            #+#    #+#             */
-/*   Updated: 2023/06/29 12:00:57 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/29 15:55:04 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,8 @@ int	ft_execution(char **wrd, t_msh *msh)
 		ft_unset(msh->vars, &wrd[1]);
 	else if (!ft_strncmp(*wrd, "exit", 5))
 		ret = ft_exit(msh, &wrd[1]);
-	else if (ft_strchr(*wrd, '=') && *wrd[0] != '=')
-	{
-		ft_handle_var(msh->vars, *wrd);
+	else if (ft_variable_cmd(msh->vars, *wrd))
 		ret = ft_execution(wrd + 1, msh);
-	}
 	else
 		ft_executable(wrd, msh->vars);
 	return (ret);

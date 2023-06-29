@@ -6,13 +6,13 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 10:49:26 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/29 11:48:25 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/29 13:54:32 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_child_butcher(int pid)
+void	ft_child_kill(int pid)
 {
 	static int	pid_to_kill = 0;
 
@@ -31,7 +31,7 @@ void	ft_heredoc_sighandler(int signal)
 {
 	if (signal == CTRL_C)
 	{
-		ft_child_butcher(0);
+		ft_child_kill(0);
 	}
 }
 
@@ -72,7 +72,7 @@ int	ft_heredoc(const char *delimiter, t_msh *msh)
 	heredoc_path = "/tmp/.heredoc";
 	unlink(heredoc_path);
 	pid = fork();
-	ft_child_butcher(pid);
+	ft_child_kill(pid);
 	if (!pid)
 	{
 		ft_heredoc_write(heredoc_path, delimiter);

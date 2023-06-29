@@ -43,7 +43,8 @@ SRC =	main.c \
 		parsing_3.c \
 		parsing_4.c \
 		parsing_5.c \
-		variables.c \
+		variables_1.c \
+		variables_2.c \
 		bi_echo.c \
 		bi_env.c \
 		bi_export.c \

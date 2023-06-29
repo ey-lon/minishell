@@ -1,35 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bi_exit.c                                          :+:      :+:    :+:   */
+/*   variables_1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/31 10:23:28 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/29 14:38:43 by abettini         ###   ########.fr       */
+/*   Created: 2023/06/29 15:52:07 by abettini          #+#    #+#             */
+/*   Updated: 2023/06/29 16:00:14 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_exit(t_msh *msh, char **args)
+int	ft_is_variable_cmd(char *str)
 {
-	unsigned char	ret;
+	int	check;
+	int	i;
 
-	ret = 0;
-	if (!(*(msh->cmd))->next)
+	if (!ft_strchr(str, '='))
+		return (0);
+	check = 1;
+	i = 0;
+	if (ft_isalpha(str[i]))
 	{
-		if (args[0] && args[1])
-			ft_putstr_fd("exit: too many arguments\n", 2);
-		else
+		i++;
+		while (str[i] != '=' && check == 1)
 		{
-			ret = 1;
-			msh->exit = 1;
-			if (*args)
-				msh->exit_code = ft_atoi(*args) % 256;
+			if (ft_isalnum(str[i]))
+				i++;
 			else
-				msh->exit_code = 1;
+				check = 0;
 		}
 	}
-	return (ret);
+	else
+		check = 0;
+	return (check);
+}
+
+int	ft_variable_cmd(t_list **vars, char *str)
+{
+	int	check;
+
+	check = 0;
+	if (ft_is_variable_cmd(str))
+	{
+		ft_handle_var(vars, str);
+		check = 1;
+	}
+	return (check);
 }

@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 11:01:18 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/29 11:43:48 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/29 14:17:46 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,42 +36,42 @@ char	*ft_get_var_cont(char *var_name, t_list **vars)
 //- measure the lenght of the content of the variable
 //- allocate memory
 //- copies content of the variable in a new string
-char	*ft_quotes_vars(char *str, t_list **vars)
+char	*ft_quotes_vars(char *str, t_msh *msh)
 {
 	int		len;
 	char	*line;
 
-	len = ft_quotes_vars_len(str, vars);
+	len = ft_quotes_vars_len(str, msh);
 	line = malloc(sizeof(char) * (len + 1));
 	if (!line)
 		return (NULL);
 	line[len] = '\0';
-	ft_quotes_vars_cpy(line, str, vars);
+	ft_quotes_vars_cpy(line, str, msh);
 	free(str);
 	return (line);
 }
 //----------------------------------------------------------------------------
 
-void	ft_check_expand(t_list **lst, t_list **vars)
+void	ft_check_expand(t_msh *msh)
 {
 	t_prs	*tmp;
 	t_list	*scr;
 	int		y;
 
-	scr = *lst;
+	scr = *(msh->cmd);
 	while (scr)
 	{
 		tmp = (t_prs *)scr->content;
 		y = 0;
 		while (tmp->wrd[y])
 		{
-			tmp->wrd[y] = ft_quotes_vars(tmp->wrd[y], vars);
+			tmp->wrd[y] = ft_quotes_vars(tmp->wrd[y], msh);
 			y++;
 		}
 		y = 0;
 		while (tmp->red[y])
 		{
-			tmp->red[y] = ft_quotes_vars(tmp->red[y], vars);
+			tmp->red[y] = ft_quotes_vars(tmp->red[y], msh);
 			y++;
 		}
 		scr = scr->next;

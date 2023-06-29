@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 16:27:35 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/29 11:43:33 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/29 14:36:43 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ int	ft_var_name_len(char *str)
 	int	i;
 
 	i = 0;
-	if (ft_isalpha(str[i]))
+	if (*str == '?')
+		return (1);
+	else if (ft_isalpha(str[i]))
 	{
 		i++;
 		while (ft_isalnum(str[i]))
@@ -30,14 +32,24 @@ int	ft_var_name_len(char *str)
 //FT_QUOTES_VARS_LEN------------------------------------------------------------
 //calculate the leanght of line
 //considering the content of the variables
-static int	ft_var_cont_len(char *str, t_list **vars)
+static int	ft_var_cont_len(char *str, t_msh *msh)
 {
 	char	*var_name;
+	char	*exit;
 	int		len;
 
-	var_name = ft_substr(str, 0, ft_var_name_len(str));
-	len = ft_strlen(ft_get_var_cont(var_name, vars));
-	free(var_name);
+	if (*str == '?')
+	{
+		exit = ft_itoa(msh->exit_code);
+		len = ft_strlen(exit);
+		free(exit);
+	}
+	else
+	{
+		var_name = ft_substr(str, 0, ft_var_name_len(str));
+		len = ft_strlen(ft_get_var_cont(var_name, msh->vars));
+		free(var_name);
+	}
 	return (len);
 }
 
@@ -50,7 +62,7 @@ static int	ft_stat_len(int check, int *stat)
 	return (0);
 }
 
-int	ft_quotes_vars_len(char *str, t_list **vars)
+int	ft_quotes_vars_len(char *str, t_msh *msh)
 {
 	int		i;
 	int		len;
@@ -67,7 +79,7 @@ int	ft_quotes_vars_len(char *str, t_list **vars)
 			len += ft_stat_len(1, &stat);
 		else if (str[i] == '$' && stat != 1)
 		{
-			len += ft_var_cont_len(&str[i + 1], vars);
+			len += ft_var_cont_len(&str[i + 1], msh);
 			i += 1 + ft_var_name_len(&str[i + 1]);
 		}
 		else if (++i)

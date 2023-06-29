@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 11:37:38 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/29 11:49:38 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/29 14:51:59 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,27 @@ int	ft_var_name_len(char *str);
 //copies the content of the variables into line
 //(only if not inside single quotes)
 //and copies all the rest into line
-static int	ft_var_cpy(char *line, char *str, t_list **vars)
+static int	ft_var_cpy(char *line, char *str, t_msh *msh)
 {
 	char	*var_name;
 	char	*var_cont;
 	int		var_len;
 
-	var_name = ft_substr(str, 0, ft_var_name_len(str));
-	var_cont = ft_get_var_cont(var_name, vars);
-	free(var_name);
-	var_len = ft_strlen(var_cont);
-	ft_strlcpy(line, var_cont, var_len + 1);
+	if (*str == '?')
+	{
+		var_cont = ft_itoa(msh->exit_code);
+		var_len = ft_strlen(var_cont);
+		ft_strlcpy(line, var_cont, var_len + 1);
+		free(var_cont);
+	}
+	else
+	{
+		var_name = ft_substr(str, 0, ft_var_name_len(str));
+		var_cont = ft_get_var_cont(var_name, msh->vars);
+		free(var_name);
+		var_len = ft_strlen(var_cont);
+		ft_strlcpy(line, var_cont, var_len + 1);
+	}
 	return (var_len);
 }
 
@@ -44,7 +54,7 @@ int	ft_stat_cpy(int check, int *stat, char c, char *dest)
 	return (0); 
 }
 
-void	ft_quotes_vars_cpy(char *line, char *str, t_list **vars)
+void	ft_quotes_vars_cpy(char *line, char *str, t_msh *msh)
 {
 	int		i;
 	int		len;
@@ -61,7 +71,7 @@ void	ft_quotes_vars_cpy(char *line, char *str, t_list **vars)
 			len += ft_stat_cpy(1, &stat, '\'', &(line[len]));
 		else if (str[i] == '$' && stat != 1)
 		{
-			len += ft_var_cpy(&line[len], &str[i + 1], vars);
+			len += ft_var_cpy(&line[len], &str[i + 1], msh);
 			i += 1 + ft_var_name_len(&str[i + 1]);
 		}
 		else

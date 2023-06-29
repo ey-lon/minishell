@@ -6,13 +6,13 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 16:06:47 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/26 15:53:29 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/29 15:50:01 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ft_export_var(t_list **vars, t_list *var, char *str, int len)
+static void	ft_set_export_var(t_list **vars, t_list *var, char *str, int len)
 {
 	if (var)
 	{
@@ -49,11 +49,49 @@ static void	ft_print_exp(t_list **vars)
 	}
 }
 
-void	ft_export(t_list **vars, char **args)
+static int	ft_exp_check(char *str)
+{
+	int	check;
+	int	i;
+
+	check = 0;
+	i = 0;
+	if (ft_isalpha(str[i]))
+	{
+		i++;
+		while (str[i] && str[i] != '=' && !check)
+		{
+			if (ft_isalnum(str[i]))
+				i++;
+			else
+				check = 1;
+		}
+	}
+	else
+		check = 1;
+	if (check)
+		printf("export: `%s': not a valid identifier\n", str);
+	return (check);
+}
+
+static void	ft_export_var(t_list **vars, char *str)
 {
 	t_list	*var;
 	char	*var_name;
 	int		len;
+
+	len = ft_strlen_mod(str, '=');
+	if (len)
+	{
+		var_name = ft_substr(str, 0, len);
+		var = ((ft_find_var(vars, var_name)));
+		free(var_name);
+		ft_set_export_var(vars, var, str, len);
+	}
+}
+
+void	ft_export(t_list **vars, char **args)
+{
 	int		i;
 
 	if (args && *args)
@@ -61,13 +99,9 @@ void	ft_export(t_list **vars, char **args)
 		i = 0;
 		while (args[i])
 		{
-			len = ft_strlen_mod(args[i], '=');
-			if (len)
+			if (!ft_exp_check(args[i]))
 			{
-				var_name = ft_substr(args[i], 0, len);
-				var = ((ft_find_var(vars, var_name)));
-				free(var_name);
-				ft_export_var(vars, var, args[i], len);
+				ft_export_var(vars, args[i]);
 			}
 			i++;
 		}
