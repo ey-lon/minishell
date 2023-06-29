@@ -42,6 +42,7 @@ SRC =	main.c \
 		parsing_2.c \
 		parsing_3.c \
 		parsing_4.c \
+		parsing_5.c \
 		variables.c \
 		bi_echo.c \
 		bi_env.c \
@@ -55,6 +56,7 @@ SRC =	main.c \
 		exec_2_redirection.c \
 		exec_3_file_redir.c \
 		exec_4_commands.c \
+		exec_5_trypath.c \
 		heredoc.c
 
 #----------------------------------------------

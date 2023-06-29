@@ -6,29 +6,17 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 09:54:25 by aconta            #+#    #+#             */
-/*   Updated: 2023/06/26 17:54:47 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/29 12:00:57 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	**ft_get_path(t_list **vars)
-{
-	char	**arr_paths;
-	t_list	*tmp;
-
-	arr_paths = NULL;
-	tmp = ft_find_var(vars, "PATH");
-	if (tmp)
-		arr_paths = ft_split(((t_var *)(tmp->content))->value, ':');
-	return (arr_paths);
-}
-
-static void	ft_execute_cmd(char *cmd_path, char **cmd_w_flag, t_list **vars)
+void	ft_execute_cmd(char *cmd_path, char **cmd_w_flag, t_list **vars)
 {
 	char	**env;
 	int		pid;
-	int		exit_code;
+	int		status;
 
 	pid = fork();
 	if (!pid)
@@ -44,38 +32,7 @@ static void	ft_execute_cmd(char *cmd_path, char **cmd_w_flag, t_list **vars)
 			ft_free_mat(env);
 		exit(0);
 	}
-	waitpid(pid, &exit_code, 0);
-}
-
-int	ft_try_path(char **cmd_w_flag, t_list **vars)
-{
-	char	**arr_paths;
-	char	*cmd_path;
-	char	*add_slash;
-	int		i;
-	int		check;
-
-	check = 0;
-	arr_paths = ft_get_path(vars);
-	if (arr_paths)
-	{
-		i = 0;
-		while (arr_paths[i] && !check)
-		{
-			add_slash = ft_strjoin(arr_paths[i], "/");
-			cmd_path = ft_strjoin(add_slash, cmd_w_flag[0]);
-			free(add_slash);
-			if (!access(cmd_path, F_OK))
-			{
-				ft_execute_cmd(cmd_path, cmd_w_flag, vars);
-				check = 1;
-			}
-			free(cmd_path);
-			i++;
-		}
-		ft_free_mat(arr_paths);
-	}
-	return (check);
+	waitpid(pid, &status, 0);
 }
 
 void	ft_executable(char **cmd_w_flag, t_list **vars)

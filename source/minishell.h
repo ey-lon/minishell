@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:47:15 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/28 11:41:39 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/29 12:02:13 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,8 @@ int		ft_exit(t_msh *msh, char **args);
 int		ft_pipes(t_list **cmd, t_msh *msh);
 int		ft_redirects(t_list *cmd, t_msh *msh);
 int		ft_execution(char **wrd, t_msh *msh);
+int		ft_try_path(char **cmd_w_flag, t_list **vars);
+void	ft_execute_cmd(char *cmd_path, char **cmd_w_flag, t_list **vars);
 
 //redirects
 void	ft_choose_redir(t_msh *msh, int fd_in, int fd_out);

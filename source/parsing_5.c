@@ -1,56 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_4.c                                        :+:      :+:    :+:   */
+/*   parsing_5.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/29 16:27:35 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/29 11:43:33 by abettini         ###   ########.fr       */
+/*   Created: 2023/06/29 11:37:38 by abettini          #+#    #+#             */
+/*   Updated: 2023/06/29 11:49:38 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//measure the lenght of the name of the variable
-int	ft_var_name_len(char *str)
-{
-	int	i;
+int	ft_var_name_len(char *str);
 
-	i = 0;
-	if (ft_isalpha(str[i]))
-	{
-		i++;
-		while (ft_isalnum(str[i]))
-			i++;
-	}
-	return (i);
-}
-
-//FT_QUOTES_VARS_LEN------------------------------------------------------------
-//calculate the leanght of line
-//considering the content of the variables
-static int	ft_var_cont_len(char *str, t_list **vars)
+//FT_QUOTES_VARS_CPY------------------------------------------------------------
+//copies the content of the variables into line
+//(only if not inside single quotes)
+//and copies all the rest into line
+static int	ft_var_cpy(char *line, char *str, t_list **vars)
 {
 	char	*var_name;
-	int		len;
+	char	*var_cont;
+	int		var_len;
 
 	var_name = ft_substr(str, 0, ft_var_name_len(str));
-	len = ft_strlen(ft_get_var_cont(var_name, vars));
+	var_cont = ft_get_var_cont(var_name, vars);
 	free(var_name);
-	return (len);
+	var_len = ft_strlen(var_cont);
+	ft_strlcpy(line, var_cont, var_len + 1);
+	return (var_len);
 }
 
-static int	ft_stat_len(int check, int *stat)
+int	ft_stat_cpy(int check, int *stat, char c, char *dest)
 {
 	if (!*stat || *stat == check)
 		*stat = check - *stat;
 	else
+	{
+		*dest = c;
 		return (1);
-	return (0);
+	}
+	return (0); 
 }
 
-int	ft_quotes_vars_len(char *str, t_list **vars)
+void	ft_quotes_vars_cpy(char *line, char *str, t_list **vars)
 {
 	int		i;
 	int		len;
@@ -62,16 +56,15 @@ int	ft_quotes_vars_len(char *str, t_list **vars)
 	while (str[i])
 	{
 		if (str[i] == '\"' && ++i)
-			len += ft_stat_len(2, &stat);
+			len += ft_stat_cpy(2, &stat, '\"', &(line[len]));
 		else if (str[i] == '\'' && ++i)
-			len += ft_stat_len(1, &stat);
+			len += ft_stat_cpy(1, &stat, '\'', &(line[len]));
 		else if (str[i] == '$' && stat != 1)
 		{
-			len += ft_var_cont_len(&str[i + 1], vars);
+			len += ft_var_cpy(&line[len], &str[i + 1], vars);
 			i += 1 + ft_var_name_len(&str[i + 1]);
 		}
-		else if (++i)
-			len++;
+		else
+			line[len++] = str[i++];
 	}
-	return (len);
 }
