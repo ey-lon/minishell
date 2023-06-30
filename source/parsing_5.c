@@ -6,11 +6,13 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 11:37:38 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/29 14:51:59 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/30 10:43:03 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int g_exit_code;
 
 int	ft_var_name_len(char *str);
 
@@ -26,7 +28,7 @@ static int	ft_var_cpy(char *line, char *str, t_msh *msh)
 
 	if (*str == '?')
 	{
-		var_cont = ft_itoa(msh->exit_code);
+		var_cont = ft_itoa(g_exit_code);
 		var_len = ft_strlen(var_cont);
 		ft_strlcpy(line, var_cont, var_len + 1);
 		free(var_cont);

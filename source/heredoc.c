@@ -6,11 +6,13 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 10:49:26 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/29 13:54:32 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/30 11:02:52 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int	g_exit_code;
 
 void	ft_child_kill(int pid)
 {
@@ -32,6 +34,7 @@ void	ft_heredoc_sighandler(int signal)
 	if (signal == CTRL_C)
 	{
 		ft_child_kill(0);
+		g_exit_code = 130;
 	}
 }
 
@@ -69,6 +72,7 @@ int	ft_heredoc(const char *delimiter, t_msh *msh)
 	int		pid;
 	int		status;
 
+	g_exit_code = 0;
 	heredoc_path = "/tmp/.heredoc";
 	unlink(heredoc_path);
 	pid = fork();
@@ -82,6 +86,8 @@ int	ft_heredoc(const char *delimiter, t_msh *msh)
 	}
 	signal(CTRL_C, ft_heredoc_sighandler);
 	waitpid(pid, &status, 0);
+	if (g_exit_code == 130)
+		return (-3);
 	if (!WEXITSTATUS(pid))
 		return (-1);
 	fd = open(heredoc_path, O_RDONLY);

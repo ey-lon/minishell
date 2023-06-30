@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:47:15 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/29 16:05:29 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/30 12:23:21 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct s_msh
 	t_list	**cmd;
 	int		fd[2];
 	int		std[2];
-	int		exit_code;
+	//int		exit_code;
 	bool	exit;
 }	t_msh;
 
@@ -104,8 +104,8 @@ void	ft_env(t_list **vars);
 int		ft_pwd(t_list **vars);
 int		ft_cd(t_list **vars, char **args);
 char	*ft_cd_relative(char *old_pwd, char *str);
-void	ft_export(t_list **vars, char **args);
-void	ft_unset(t_list **vars, char **args);
+int		ft_export(t_list **vars, char **args);
+int		ft_unset(t_list **vars, char **args);
 void	ft_echo(char **args);
 int		ft_exit(t_msh *msh, char **args);
 
@@ -114,7 +114,7 @@ int		ft_pipes(t_list **cmd, t_msh *msh);
 int		ft_redirects(t_list *cmd, t_msh *msh);
 int		ft_execution(char **wrd, t_msh *msh);
 int		ft_try_path(char **cmd_w_flag, t_list **vars);
-void	ft_execute_cmd(char *cmd_path, char **cmd_w_flag, t_list **vars);
+int		ft_execute_cmd(char *cmd_path, char **cmd_w_flag, t_list **vars);
 
 //redirects
 void	ft_choose_redir(t_msh *msh, int fd_in, int fd_out);

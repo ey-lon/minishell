@@ -6,11 +6,13 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 16:27:35 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/29 14:36:43 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/30 10:42:27 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int g_exit_code;
 
 //measure the lenght of the name of the variable
 int	ft_var_name_len(char *str)
@@ -40,7 +42,7 @@ static int	ft_var_cont_len(char *str, t_msh *msh)
 
 	if (*str == '?')
 	{
-		exit = ft_itoa(msh->exit_code);
+		exit = ft_itoa(g_exit_code);
 		len = ft_strlen(exit);
 		free(exit);
 	}

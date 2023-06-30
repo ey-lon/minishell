@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 09:42:05 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/21 11:07:21 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/30 12:29:39 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,12 @@ int	ft_cd_no_args(t_list **vars)
 	return (ret);
 }
 
+/* WIFEXITED()
+	WEXITSTATUS()
+WIFSIGNALED()
+	WSTOPSIG();
+ */
+
 //tilde works except in the case of ~[user]
 int	ft_cd_tilde(t_list **vars, char *str)
 {
@@ -77,7 +83,7 @@ int	ft_cd(t_list **vars, char **args)
 
 	ret = 1;
 	if (args[0] && args[1])
-		return (printf("cd: too many arguments\n") * 0 + 1);
+		return (printf("minishell: cd: too many arguments\n") * 0 + 1);
 	else if (!args[0] || (args[0][0] == '~' && !args[0][1]))
 		ret = ft_cd_no_args(vars);
 	else if (args[0][0] == '~')

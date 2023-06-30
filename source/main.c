@@ -6,11 +6,13 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:46:44 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/29 14:48:51 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/30 10:44:31 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	g_exit_code = 0;
 
 void	ft_sighandler(int signal)
 {
@@ -20,6 +22,7 @@ void	ft_sighandler(int signal)
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
+		g_exit_code = 130;
 	}
 }
 
@@ -31,7 +34,7 @@ void	ft_init(t_msh *msh, t_list **vars, t_list **cmd, char **env)
 	msh->vars = vars;
 	msh->cmd = cmd;
 	msh->exit = 0;
-	msh->exit_code = 0;
+	//msh->exit_code = 0;
 	msh->std[0] = dup(0);
 	msh->std[1] = dup(1);
 	msh->fd[0] = -2;
@@ -53,12 +56,12 @@ void	ft_loop(t_msh *msh)
 		{
 			ft_parsing(str, msh);
 			//ft_print_lst(cmd); //(stampa di prova)
-			msh->exit_code = ft_pipes(msh->cmd, msh);
+			g_exit_code = ft_pipes(msh->cmd, msh);
 			ft_free_cmdlst(msh->cmd);
 			*msh->cmd = NULL;
 		}
 		else
-			msh->exit_code = 2;
+			g_exit_code = 2;
 		add_history(str);
 		free(str);
 	}
@@ -76,6 +79,6 @@ int	main(int ac, char **av, char **env)
 	ft_init(&msh, &vars, &cmd, env);
 	ft_loop(&msh);
 	ft_putstr_fd("exit\n", 1);
-	exit(msh.exit_code);
+	exit(g_exit_code);
 	return (0);
 }

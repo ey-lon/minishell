@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 16:06:47 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/29 15:50:01 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/30 12:29:49 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static int	ft_exp_check(char *str)
 	else
 		check = 1;
 	if (check)
-		printf("export: `%s': not a valid identifier\n", str);
+		printf("minishell: export: `%s': not a valid identifier\n", str);
 	return (check);
 }
 
@@ -90,10 +90,12 @@ static void	ft_export_var(t_list **vars, char *str)
 	}
 }
 
-void	ft_export(t_list **vars, char **args)
+int	ft_export(t_list **vars, char **args)
 {
 	int		i;
+	int		ret;
 
+	ret = 0;
 	if (args && *args)
 	{
 		i = 0;
@@ -103,9 +105,12 @@ void	ft_export(t_list **vars, char **args)
 			{
 				ft_export_var(vars, args[i]);
 			}
+			else
+				ret = 1;
 			i++;
 		}
 	}
 	else
 		ft_print_exp(vars);
+	return (ret);
 }
