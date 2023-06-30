@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 09:42:05 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/30 12:29:39 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:28:34 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,14 @@
 int	ft_cd_1_arg(t_list **vars, char *str)
 {
 	t_list	*pwd;
+	int ret;
 
+	ret = 1;
 	ft_check_pwd(vars);
 	pwd = (ft_find_var(vars, "PWD"));
 	if (*str && !chdir(str))
 	{
+		ret = 0;
 		ft_update_oldpwd(vars);
 		if (str[0] == '/')
 		{
@@ -33,7 +36,7 @@ int	ft_cd_1_arg(t_list **vars, char *str)
 	}
 	else if (*str)
 		perror("cd");
-	return (0);
+	return (ret);
 }
 
 int	ft_cd_no_args(t_list **vars)

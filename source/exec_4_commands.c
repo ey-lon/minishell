@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 09:54:25 by aconta            #+#    #+#             */
-/*   Updated: 2023/06/30 12:20:56 by abettini         ###   ########.fr       */
+/*   Updated: 2023/06/30 15:50:53 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	ft_executable(char **cmd_w_flag, t_list **vars)
 
 	if (ft_check_dir(*cmd_w_flag))
 		ret = 126;
-	if (ft_strchr(*cmd_w_flag, '/') && !access(*cmd_w_flag, F_OK))
+	else if (ft_strchr(*cmd_w_flag, '/') && !access(*cmd_w_flag, F_OK))
 	{
 		if (access(*cmd_w_flag, X_OK))
 			ret = printf("minishell: %s: Permission denied\n", *cmd_w_flag) \
