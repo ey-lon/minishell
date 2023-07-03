@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 11:59:48 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/29 12:04:35 by abettini         ###   ########.fr       */
+/*   Updated: 2023/07/03 12:12:16 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,30 +40,27 @@ static char	*ft_path_join(char *path, char *cmd)
 	return (ret);
 }
 
-int	ft_try_path(char **cmd_w_flag, t_list **vars)
+int	ft_try_path(char **cmd_w_flag, t_msh *msh)
 {
 	char	**arr_paths;
 	char	*cmd_path;
 	int		i;
-	int		check;
+	int		ret;
 
-	check = 0;
-	arr_paths = ft_get_path(vars);
+	ret = 127;
+	arr_paths = ft_get_path(msh->vars);
 	if (arr_paths)
 	{
 		i = 0;
-		while (arr_paths[i] && !check)
+		while (arr_paths[i] && ret == 127)
 		{
 			cmd_path = ft_path_join(arr_paths[i], cmd_w_flag[0]);
 			if (!access(cmd_path, F_OK))
-			{
-				ft_execute_cmd(cmd_path, cmd_w_flag, vars);
-				check = 1;
-			}
+				ret = ft_execute_cmd(cmd_path, cmd_w_flag, msh);
 			free(cmd_path);
 			i++;
 		}
 		ft_free_mat(arr_paths);
 	}
-	return (check);
+	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 10:23:28 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/30 15:48:51 by abettini         ###   ########.fr       */
+/*   Updated: 2023/07/03 10:08:35 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	ft_exit(t_msh *msh, char **args)
 	else if (args[0] && ft_exit_check(*args))
 	{
 		ret = 2;
-		printf("bash: exit: %s: numeric argument required\n", *args);
+		ft_dprintf(2, "bash: exit: %s: numeric argument required\n", *args);
 	}
 	else if (args[0] && args[1])
 	{

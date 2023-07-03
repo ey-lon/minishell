@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 16:27:35 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/30 10:42:27 by abettini         ###   ########.fr       */
+/*   Updated: 2023/07/03 11:21:42 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,9 @@ static int	ft_var_cont_len(char *str, t_msh *msh)
 	char	*exit;
 	int		len;
 
-	if (*str == '?')
+	if (!*str || (*str != '?' && !ft_isalnum(*str)))
+		return (1);
+	else if (*str == '?')
 	{
 		exit = ft_itoa(g_exit_code);
 		len = ft_strlen(exit);

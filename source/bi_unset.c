@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 17:10:37 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/30 12:32:57 by abettini         ###   ########.fr       */
+/*   Updated: 2023/07/03 10:08:59 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static int	ft_unset_check(char *str)
 	else
 		check = 1;
 	if (check)
-		printf("minishell: unset: `%s': not a valid identifier\n", str);
+		ft_dprintf(2, "minishell: unset: `%s': not a valid identifier\n", str);
 	return (check);
 }
 

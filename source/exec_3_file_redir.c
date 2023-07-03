@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:02:20 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/30 12:19:48 by abettini         ###   ########.fr       */
+/*   Updated: 2023/07/03 10:09:25 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_redir_one(char *str, t_msh *msh)
 			close(msh->fd[0]);
 		msh->fd[0] = open(str + 1, O_RDONLY);
 		if (msh->fd[0] == -1)
-			printf("minishell: %s: No such file or directory\n", str + 1);
+			ft_dprintf(2, "minishell: %s: No such file or directory\n", str + 1);
 	}
 	else if (!ft_strncmp(str, ">>", 2))
 	{
@@ -40,7 +40,7 @@ int	ft_redir_one(char *str, t_msh *msh)
 			close(msh->fd[1]);
 		msh->fd[1] = open(str + 1, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		if (msh->fd[1] == -1)
-			printf("minishell: %s: No such file or directory\n", str + 1);
+			ft_dprintf(2, "minishell: %s: No such file or directory\n", str + 1);
 	}
 	return (0);
 }

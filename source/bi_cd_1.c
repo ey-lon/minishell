@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 09:42:05 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/30 16:28:34 by abettini         ###   ########.fr       */
+/*   Updated: 2023/07/03 10:07:48 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	ft_cd(t_list **vars, char **args)
 
 	ret = 1;
 	if (args[0] && args[1])
-		return (printf("minishell: cd: too many arguments\n") * 0 + 1);
+		return (ft_dprintf(2, "minishell: cd: too many arguments\n") * 0 + 1);
 	else if (!args[0] || (args[0][0] == '~' && !args[0][1]))
 		ret = ft_cd_no_args(vars);
 	else if (args[0][0] == '~')

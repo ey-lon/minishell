@@ -6,7 +6,7 @@
 #    By: abettini <abettini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/07 14:36:43 by abettini          #+#    #+#              #
-#    Updated: 2023/05/06 10:27:45 by abettini         ###   ########.fr        #
+#    Updated: 2023/07/03 09:53:36 by abettini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ LP1F = libft_part_1/
 LP2F = libft_part_2/
 LP3F = libft_lists/
 PTFF = ft_printf/
+DPTFF = ft_dprintf/
 GNLF = get_next_line/
 
 #LIBFT-----------------------------------------
@@ -104,6 +105,21 @@ PTF :=	ft_printf.c \
 	ft_ptf_flags_utils.c \
 	ft_ptf_utils.c
 
+#FT_DPRINTF-----------------------------------
+
+DPTF := ft_dprintf.c \
+	ft_dptf_chr.c \
+	ft_dptf_str.c \
+	ft_dptf_dec.c \
+	ft_dptf_uns.c \
+	ft_dptf_hex.c \
+	ft_dptf_ptr.c \
+	ft_dptf_unknown.c \
+	ft_dptf_flags.c \
+	ft_dptf_flags_set.c \
+	ft_dptf_flags_utils.c \
+	ft_dptf_utils.c
+
 #GET_NEXT_LINE---------------------------------
 
 GNL :=	get_next_line.c
@@ -115,6 +131,7 @@ PT1 := $(addprefix $(LP1F),$(PT1))
 PT2 := $(addprefix $(LP2F),$(PT2))
 BNS := $(addprefix $(LP3F),$(BNS))
 PTF := $(addprefix $(PTFF),$(PTF))
+DPTF := $(addprefix $(DPTFF),$(DPTF))
 GNL := $(addprefix $(GNLF),$(GNL))
 
 #object_files----------------------------------
@@ -123,6 +140,7 @@ OBJ_S = $(PT1:.c=.o) \
 	$(PT2:.c=.o) \
 	$(BNS:.c=.o) \
 	$(PTF:.c=.o) \
+	$(DPTF:.c=.o) \
 	$(GNL:.c=.o)
 
 %.o:%.c

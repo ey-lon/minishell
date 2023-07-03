@@ -1,39 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bi_echo.c                                          :+:      :+:    :+:   */
+/*   ft_dptf_chr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/30 17:36:28 by abettini          #+#    #+#             */
-/*   Updated: 2023/07/03 11:27:59 by abettini         ###   ########.fr       */
+/*   Created: 2022/10/18 14:23:55 by abettini          #+#    #+#             */
+/*   Updated: 2023/07/03 10:12:55 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libftdprintf.h"
 
-void	ft_echo(char **args)
+int	ft_dprint_chr(int fd, int c, t_ptf ptf)
 {
-	int		i;
-	int		j;
-	bool	flag;
+	int	print_len;
 
-	i = 0;
-	flag = 0;
-	if (*args && !ft_strncmp(*args, "-n", 3))
-		flag = ++i;
-	while (args[i])
-	{
-		j = 0;
-		while (args[i][j])
-		{
-			write(1, &args[i][j], 1);
-			j++;
-		}
-		i++;
-		if (args[i])
-			write(1, " ", 1);
-	}
-	if (!flag)
-		write(1, "\n", 1);
+	print_len = 0;
+	if (!ft_flag_check(ptf.flags, PTF_MINUS))
+		print_len += ft_dprint_special(fd, ptf.pad, ptf.pad_count - 1);
+	print_len += write(fd, &c, 1);
+	if (ft_flag_check(ptf.flags, PTF_MINUS))
+		print_len += ft_dprint_special(fd, ptf.pad, ptf.pad_count - 1);
+	return (print_len);
 }

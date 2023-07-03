@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:46:44 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/30 15:10:00 by abettini         ###   ########.fr       */
+/*   Updated: 2023/07/03 11:36:32 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	ft_loop(t_msh *msh)
 		else if (*str && !ft_check_cmd_err(str))
 		{
 			ft_parsing(str, msh);
-			//ft_print_lst(cmd); //(stampa di prova)
+			//ft_print_lst(*msh->cmd); //(stampa di prova)
 			g_exit_code = ft_pipes(msh->cmd, msh);
 			ft_free_cmdlst(msh->cmd);
 			*msh->cmd = NULL;

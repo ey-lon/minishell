@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 11:37:38 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/30 10:43:03 by abettini         ###   ########.fr       */
+/*   Updated: 2023/07/03 11:22:03 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ static int	ft_var_cpy(char *line, char *str, t_msh *msh)
 	char	*var_cont;
 	int		var_len;
 
-	if (*str == '?')
+	if (!*str || (*str != '?' && !ft_isalnum(*str)))
+		var_len = ft_strlcpy(line, "$", 2);
+	else if (*str == '?')
 	{
 		var_cont = ft_itoa(g_exit_code);
 		var_len = ft_strlen(var_cont);
