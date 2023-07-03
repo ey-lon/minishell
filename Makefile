@@ -77,17 +77,16 @@ all: $(NAME)
 
 $(NAME): libcomp $(OBJ_S)
 	$(CC) $(FLAGS) $(OBJ_S) $(LIBFT) $(FLAGS_2) -o $(NAME)
-	echo "$(TCOL)$(NAME) $(CMP)"
+	echo "$(CYAN)make [$(NAME)]$(NOCOL)"
 
 clean:	libclean
 	$(RM) $(OBJ_S)
 	$(RM) $(OBJ_F)
+	echo "$(CYAN)make clean [$(NAME)]$(NOCOL)"
 
 fclean:	clean libfclean
-		if [ -f $(NAME) ]; then\
-			$(RM) $(NAME);\
-			echo "$(TCOL)$(NAME) $(RMD)";\
-		fi
+		$(RM) $(NAME)
+		echo "$(CYAN)make fclean [$(NAME)]$(NOCOL)"
 
 re: fclean all
 

@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:46:44 by abettini          #+#    #+#             */
-/*   Updated: 2023/07/03 11:36:32 by abettini         ###   ########.fr       */
+/*   Updated: 2023/07/03 15:06:52 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	ft_init(t_msh *msh, t_list **vars, t_list **cmd, char **env)
 	msh->vars = vars;
 	msh->cmd = cmd;
 	msh->exit = 0;
-	//msh->exit_code = 0;
 	msh->std[0] = dup(0);
 	msh->std[1] = dup(1);
 	msh->fd[0] = -2;

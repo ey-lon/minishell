@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 16:10:50 by abettini          #+#    #+#             */
-/*   Updated: 2023/07/03 11:17:05 by abettini         ###   ########.fr       */
+/*   Updated: 2023/07/03 14:53:42 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,15 +142,16 @@ int	ft_check_cmd_err(char *str)
 	int	i;
 	int	stat;
 
-	return (0);
 	stat = 0;
 	i = 0;
 	while (str[i])
 	{
 		stat = ft_stat_update(stat, str[i]);
+		if (!stat && (str[i] == '\'' || str[i] == '\"'))
+			i++;
 		if (!stat)
 		{
-			if (ft_syntax(str))
+			if (ft_syntax(&str[i]))
 				return (1);
 			else
 			{

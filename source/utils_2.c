@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:11:23 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/09 10:10:55 by abettini         ###   ########.fr       */
+/*   Updated: 2023/07/03 16:14:50 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,36 @@ int	ft_strlen_mod(char *str, char end)
 	while (str && str[i] && str[i] != end)
 		i++;
 	return (i);
+}
+
+int	ft_llong_limit_check(char *str)
+{
+	long long	res;
+	int			sign;
+	int			i;
+	int			dig_n;	
+
+	dig_n = 0;
+	res = 0;
+	sign = 1;
+	i = 0;
+	if (str[i] == '-')
+		sign = -1;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	if (ft_strlen(&str[i]) < 19)
+		return (0);
+	else if (ft_strlen(&str[i]) > 19)
+		return (1);
+	while (str[i] >= '0' && str[i] <= '9' && dig_n < 18)
+	{
+		res = res * 10 + str[i] - '0';
+		i++;
+		dig_n++;
+	}
+	if (res > LLONG_MAX / 10)
+		return (1);
+	else if ((sign == 1 && str[i] - '0' < 8) || (sign == -1 && str[i] - '0' <= 8))
+		return (0);
+	return (1);
 }

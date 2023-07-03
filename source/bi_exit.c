@@ -6,13 +6,13 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 10:23:28 by abettini          #+#    #+#             */
-/*   Updated: 2023/07/03 10:08:35 by abettini         ###   ########.fr       */
+/*   Updated: 2023/07/03 16:15:31 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_exit_check(char *str)
+int	ft_digit_check(char *str)
 {
 	int	i;
 	int	check;
@@ -43,7 +43,7 @@ int	ft_exit(t_msh *msh, char **args)
 		msh->exit = 1;
 	if (!*args)
 		ret = 0;
-	else if (args[0] && ft_exit_check(*args))
+	else if (args[0] && (ft_digit_check(*args) || ft_llong_limit_check(*args)))
 	{
 		ret = 2;
 		ft_dprintf(2, "bash: exit: %s: numeric argument required\n", *args);

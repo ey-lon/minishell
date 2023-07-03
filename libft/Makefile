@@ -6,7 +6,7 @@
 #    By: abettini <abettini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/07 14:36:43 by abettini          #+#    #+#              #
-#    Updated: 2023/07/03 09:53:36 by abettini         ###   ########.fr        #
+#    Updated: 2023/07/03 16:19:36 by abettini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -151,25 +151,16 @@ OBJ_S = $(PT1:.c=.o) \
 all: $(NAME)
 
 $(NAME): $(OBJ_S)
-	if [ -f $(NAME) ]; then\
-		echo "$(TCOL)$(NAME) $(ALC)";\
-	else\
-		ar -rcs $@ $^;\
-		echo "$(TCOL)$(NAME) $(CMP)";\
-	fi
-
+	ar -rcs $@ $^
+	echo "$(CYAN)make [$(NAME)]$(NOCOL)"
 
 clean:
-	if [ `find . -name "*.o" | wc -l` != 0 ]; then\
-		$(RM) $(OBJ_S);\
-		echo "$(TCOL)object files ($(NAME)) $(RMD)";\
-	fi
+	$(RM) $(OBJ_S);\
+	echo "$(CYAN)make clean [$(NAME)]$(NOCOL)"
 
 fclean: clean
-	if [ -f $(NAME) ]; then\
-		$(RM) $(NAME);\
-		echo "$(TCOL)$(NAME) $(RMD)";\
-	fi
+	$(RM) $(NAME)
+	echo "$(CYAN)make fclean [$(NAME)]$(NOCOL)"
 
 re: fclean all
 

@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:47:15 by abettini          #+#    #+#             */
-/*   Updated: 2023/07/03 11:56:48 by abettini         ###   ########.fr       */
+/*   Updated: 2023/07/03 15:30:12 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void	ft_free_mat(char **mat);
 char	*ft_rm_chars(char *str, char *rm, int len);
 int		ft_count_chars(char *str, char *c, int n);
 int		ft_strlen_mod(char *str, char end);
+int		ft_llong_limit_check(char *str);
 
 //variables---------------------------------------------------------------------
 int		ft_variable_cmd(t_list **vars, char *str);
@@ -113,8 +114,8 @@ int		ft_exit(t_msh *msh, char **args);
 int		ft_pipes(t_list **cmd, t_msh *msh);
 int		ft_redirects(t_list *cmd, t_msh *msh);
 int		ft_execution(char **wrd, t_msh *msh);
-int		ft_try_path(char **cmd_w_flag, t_msh *msh);
-int		ft_execute_cmd(char *cmd_path, char **cmd_w_flag, t_msh *msh);
+int		ft_try_path(char **cmd_f, t_msh *msh);
+int		ft_execute_cmd(char *cmd_path, char **cmd_f, t_msh *msh);
 
 //redirects
 void	ft_choose_redir(t_msh *msh, int fd_in, int fd_out);

@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 11:59:48 by abettini          #+#    #+#             */
-/*   Updated: 2023/07/03 12:12:16 by abettini         ###   ########.fr       */
+/*   Updated: 2023/07/03 15:20:11 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static char	*ft_path_join(char *path, char *cmd)
 	return (ret);
 }
 
-int	ft_try_path(char **cmd_w_flag, t_msh *msh)
+int	ft_try_path(char **cmd_f, t_msh *msh)
 {
 	char	**arr_paths;
 	char	*cmd_path;
@@ -54,13 +54,15 @@ int	ft_try_path(char **cmd_w_flag, t_msh *msh)
 		i = 0;
 		while (arr_paths[i] && ret == 127)
 		{
-			cmd_path = ft_path_join(arr_paths[i], cmd_w_flag[0]);
+			cmd_path = ft_path_join(arr_paths[i], cmd_f[0]);
 			if (!access(cmd_path, F_OK))
-				ret = ft_execute_cmd(cmd_path, cmd_w_flag, msh);
+				ret = ft_execute_cmd(cmd_path, cmd_f, msh);
 			free(cmd_path);
 			i++;
 		}
 		ft_free_mat(arr_paths);
 	}
+	if (ret == 127)
+		ft_dprintf(2, "minishell: %s: command not found\n", *cmd_f);
 	return (ret);
 }

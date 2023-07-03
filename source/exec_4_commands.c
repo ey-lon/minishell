@@ -6,13 +6,13 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 09:54:25 by aconta            #+#    #+#             */
-/*   Updated: 2023/07/03 12:39:12 by abettini         ###   ########.fr       */
+/*   Updated: 2023/07/03 15:23:19 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_execute_cmd(char *cmd_path, char **cmd_w_flag, t_msh *msh)
+int	ft_execute_cmd(char *cmd_path, char **cmd_f, t_msh *msh)
 {
 	char	**env;
 	int		pid;
@@ -22,7 +22,7 @@ int	ft_execute_cmd(char *cmd_path, char **cmd_w_flag, t_msh *msh)
 	if (!pid)
 	{
 		env = ft_env_matrix(msh->vars);
-		if (execve(cmd_path, cmd_w_flag, env) == -1)
+		if (execve(cmd_path, cmd_f, env) == -1)
 		{
 			free(cmd_path);
 			ft_free_mat(env);
@@ -48,31 +48,31 @@ int	ft_check_dir(char *str)
 	if(test)
 	{
 		closedir(test);
-		ft_dprintf(2, "minishell: %s: Is a directory\n", str);
 		check = 1;
 	}
 	return (check);
 }
 
-int	ft_executable(char **cmd_w_flag, t_msh *msh)
+int	ft_executable(char **cmd_f, t_msh *msh)
 {
 	int	ret;
 
 	ret = 127;
-	if (ft_check_dir(*cmd_w_flag))
-		ret = 126;
-	else if (ft_strchr(*cmd_w_flag, '/') && !access(*cmd_w_flag, F_OK))
+	if (ft_strchr(*cmd_f, '/') && cmd_f[0][ft_strlen(*cmd_f) - 1] != '/' \
+		&& !access(*cmd_f, F_OK) && !ft_check_dir(*cmd_f))
 	{
-		if (access(*cmd_w_flag, X_OK))
+		if (access(*cmd_f, X_OK))
 			ret = ft_dprintf(2, "minishell: %s: Permission denied\n", \
-				*cmd_w_flag) * 0 + 126;
+				*cmd_f) * 0 + 126;
 		else
-			ret = ft_execute_cmd(*cmd_w_flag, cmd_w_flag, msh);
+			ret = ft_execute_cmd(*cmd_f, cmd_f, msh);
 	}
-	else if (!ft_strchr(*cmd_w_flag, '/'))
-		ret = ft_try_path(cmd_w_flag, msh);
-	if (ret == 127)
-		ft_dprintf(2, "minishell: %s: command not found\n", *cmd_w_flag);
+	else if (!ft_strchr(*cmd_f, '/'))
+		ret = ft_try_path(cmd_f, msh);
+	else if (ft_check_dir(*cmd_f))
+		ret = ft_dprintf(2, "minishell: %s: Is a directory\n", *cmd_f) * 0 + 126;
+	else
+		ft_dprintf(2, "minishell: %s: No such file or directory\n", *cmd_f);
 	return (ret);
 }
 
