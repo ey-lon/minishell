@@ -6,11 +6,12 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 09:54:25 by aconta            #+#    #+#             */
-/*   Updated: 2023/07/03 15:23:19 by abettini         ###   ########.fr       */
+/*   Updated: 2023/07/03 17:38:38 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <dirent.h>
 
 int	ft_execute_cmd(char *cmd_path, char **cmd_f, t_msh *msh)
 {
@@ -36,8 +37,6 @@ int	ft_execute_cmd(char *cmd_path, char **cmd_f, t_msh *msh)
 	return (status);
 }
 
-# include <dirent.h>
-
 int	ft_check_dir(char *str)
 {
 	DIR	*test;
@@ -45,7 +44,7 @@ int	ft_check_dir(char *str)
 
 	check = 0;
 	test = opendir(str);
-	if(test)
+	if (test)
 	{
 		closedir(test);
 		check = 1;
@@ -76,6 +75,26 @@ int	ft_executable(char **cmd_f, t_msh *msh)
 	return (ret);
 }
 
+int	ft_execution_p2(char **wrd, t_msh *msh)
+{
+	int	ret;
+
+	ret = 0;
+	if (!ft_strncmp(*wrd, "cd", 3))
+		ret = ft_cd(msh->vars, &wrd[1]);
+	else if (!ft_strncmp(*wrd, "export", 7))
+		ret = ft_export(msh->vars, &wrd[1]);
+	else if (!ft_strncmp(*wrd, "unset", 6))
+		ret = ft_unset(msh->vars, &wrd[1]);
+	else if (!ft_strncmp(*wrd, "exit", 5))
+		ret = ft_exit(msh, &wrd[1]);
+	else if (ft_variable_cmd(msh->vars, *wrd))
+		ret = ft_execution(wrd + 1, msh);
+	else
+		ret = ft_executable(wrd, msh);
+	return (ret);
+}
+
 int	ft_execution(char **wrd, t_msh *msh)
 {
 	int	ret;
@@ -89,19 +108,9 @@ int	ft_execution(char **wrd, t_msh *msh)
 		ft_echo(&wrd[1]);
 	else if (!ft_strncmp(*wrd, "env", 4))
 		ft_env(msh->vars);
-	else if (!ft_strncmp(*wrd, "cd", 3))
-		ret = ft_cd(msh->vars, &wrd[1]);
 	else if (!ft_strncmp(*wrd, "pwd", 4))
 		ft_pwd(msh->vars);
-	else if (!ft_strncmp(*wrd, "export", 7))
-		ret = ft_export(msh->vars, &wrd[1]);
-	else if (!ft_strncmp(*wrd, "unset", 6))
-		ft_unset(msh->vars, &wrd[1]);
-	else if (!ft_strncmp(*wrd, "exit", 5))
-		ret = ft_exit(msh, &wrd[1]);
-	else if (ft_variable_cmd(msh->vars, *wrd))
-		ret = ft_execution(wrd + 1, msh);
 	else
-		ret = ft_executable(wrd, msh);
+		ret = ft_execution_p2(wrd, msh);
 	return (ret);
 }

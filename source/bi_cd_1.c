@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 09:42:05 by abettini          #+#    #+#             */
-/*   Updated: 2023/07/03 10:07:48 by abettini         ###   ########.fr       */
+/*   Updated: 2023/07/03 17:23:06 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_cd_1_arg(t_list **vars, char *str)
 {
 	t_list	*pwd;
-	int ret;
+	int		ret;
 
 	ret = 1;
 	ft_check_pwd(vars);
@@ -50,12 +50,6 @@ int	ft_cd_no_args(t_list **vars)
 		ret = ft_cd_1_arg(vars, ((t_var *)(home->content))->value);
 	return (ret);
 }
-
-/* WIFEXITED()
-	WEXITSTATUS()
-WIFSIGNALED()
-	WSTOPSIG();
- */
 
 //tilde works except in the case of ~[user]
 int	ft_cd_tilde(t_list **vars, char *str)

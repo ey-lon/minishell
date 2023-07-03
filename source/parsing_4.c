@@ -6,13 +6,13 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 16:27:35 by abettini          #+#    #+#             */
-/*   Updated: 2023/07/03 11:21:42 by abettini         ###   ########.fr       */
+/*   Updated: 2023/07/03 17:28:08 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern int g_exit_code;
+extern int	g_exit_code;
 
 //measure the lenght of the name of the variable
 int	ft_var_name_len(char *str)

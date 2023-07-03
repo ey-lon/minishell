@@ -4,7 +4,7 @@
    ...
    ...
    fun:readline
-   fun:main
+   fun:ft_loop
 }
 
 {
@@ -22,6 +22,5 @@
    ...
    ...
    fun:add_history
-   ...
-   fun:main
+   fun:ft_loop
 }

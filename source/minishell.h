@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:47:15 by abettini          #+#    #+#             */
-/*   Updated: 2023/07/03 15:30:12 by abettini         ###   ########.fr       */
+/*   Updated: 2023/07/03 17:13:54 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ typedef struct s_msh
 	t_list	**cmd;
 	int		fd[2];
 	int		std[2];
-	//int		exit_code;
 	bool	exit;
 }	t_msh;
 

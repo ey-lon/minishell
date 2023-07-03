@@ -6,13 +6,31 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:02:20 by abettini          #+#    #+#             */
-/*   Updated: 2023/07/03 10:09:25 by abettini         ###   ########.fr       */
+/*   Updated: 2023/07/03 17:32:02 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_redir_one(char *str, t_msh *msh)
+void	ft_redir_one_p2(char *str, t_msh *msh)
+{
+	if (!ft_strncmp(str, ">>", 2))
+	{
+		if (msh->fd[1] > -1)
+			close(msh->fd[1]);
+		msh->fd[1] = open(str + 2, O_CREAT | O_WRONLY | O_APPEND, 0644);
+	}
+	else if (!ft_strncmp(str, ">", 1))
+	{
+		if (msh->fd[1] > -1)
+			close(msh->fd[1]);
+		msh->fd[1] = open(str + 1, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+		if (msh->fd[1] == -1)
+			ft_dprintf(2, "minishell: %s: No such file or directory\n", str + 1);
+	}
+}
+
+void	ft_redir_one(char *str, t_msh *msh)
 {
 	if (!ft_strncmp(str, "<<", 2))
 	{
@@ -28,21 +46,8 @@ int	ft_redir_one(char *str, t_msh *msh)
 		if (msh->fd[0] == -1)
 			ft_dprintf(2, "minishell: %s: No such file or directory\n", str + 1);
 	}
-	else if (!ft_strncmp(str, ">>", 2))
-	{
-		if (msh->fd[1] > -1)
-			close(msh->fd[1]);
-		msh->fd[1] = open(str + 2, O_CREAT | O_WRONLY | O_APPEND, 0644);
-	}
-	else if (!ft_strncmp(str, ">", 1))
-	{
-		if (msh->fd[1] > -1)
-			close(msh->fd[1]);
-		msh->fd[1] = open(str + 1, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-		if (msh->fd[1] == -1)
-			ft_dprintf(2, "minishell: %s: No such file or directory\n", str + 1);
-	}
-	return (0);
+	else
+		ft_redir_one_p2(str, msh);
 }
 
 int	ft_redirects(t_list *cmd, t_msh *msh)

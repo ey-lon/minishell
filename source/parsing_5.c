@@ -6,13 +6,13 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 11:37:38 by abettini          #+#    #+#             */
-/*   Updated: 2023/07/03 11:22:03 by abettini         ###   ########.fr       */
+/*   Updated: 2023/07/03 17:28:20 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern int g_exit_code;
+extern int	g_exit_code;
 
 int	ft_var_name_len(char *str);
 

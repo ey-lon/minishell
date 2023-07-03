@@ -34,7 +34,8 @@ SRC =	main.c \
 		utils.c \
 		utils_2.c \
 		free_struct.c \
-		cdm_err_check.c \
+		cdm_err_check_1.c \
+		cdm_err_check_2.c \
 		env_clone.c \
 		print_cmd_nodes.c \
 		history.c \

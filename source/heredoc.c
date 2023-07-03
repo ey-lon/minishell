@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 10:49:26 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/30 11:02:52 by abettini         ###   ########.fr       */
+/*   Updated: 2023/07/03 18:10:46 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,13 @@ void	ft_heredoc_write(char *heredoc_path, const char *delimiter)
 	{
 		ft_putstr_fd("> ", 1);
 		str = get_next_line(0);
-		if (!str || !*str)
+		if (!str)
+		{
+			ft_dprintf(2, "minishell: warning: here-document at \
+				line 1 delimited by end-of-file (wanted `%s')", delimiter);
 			break ;
-		if (!ft_strncmp(str, delimiter, len) && str[len] == '\n')
+		}
+		else if (!ft_strncmp(str, delimiter, len) && str[len] == '\n')
 		{
 			free(str);
 			break ;
@@ -94,7 +98,7 @@ int	ft_heredoc(const char *delimiter, t_msh *msh)
 	return (fd);
 }
 
-	/* if (WIFEXITED(status))
-		WEXITSTATUS(status);
-	else if (WIFSIGNALED(status))
-		WTERMSIG(status);// + 128; */
+/* if (WIFEXITED(status))
+	WEXITSTATUS(status);
+else if (WIFSIGNALED(status))
+	WTERMSIG(status);// + 128; */
