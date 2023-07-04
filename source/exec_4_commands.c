@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 09:54:25 by aconta            #+#    #+#             */
-/*   Updated: 2023/07/03 17:38:38 by abettini         ###   ########.fr       */
+/*   Updated: 2023/07/04 11:49:31 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ int	ft_execute_cmd(char *cmd_path, char **cmd_f, t_msh *msh)
 		}
 	}
 	waitpid(pid, &status, 0);
-	status = WEXITSTATUS(status);
+	if (WIFEXITED(status))
+		status = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		status = WTERMSIG(status) + 128;
 	return (status);
 }
 
