@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 17:25:05 by abettini          #+#    #+#             */
-/*   Updated: 2023/07/03 17:27:06 by abettini         ###   ########.fr       */
+/*   Updated: 2023/07/04 11:00:52 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,9 @@ int	ft_check_weird_2(char *str, char c)
 			check = 1;
 		i++;
 	}
-	if (check)
-		return (1);
-	return (0);
+	if (str[i] == '\'' || str[i] == '\"')
+		check = 0;
+	return (check);
 }
 
 int	ft_check_weird_3(char *str, char c)

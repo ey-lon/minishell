@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 10:49:26 by abettini          #+#    #+#             */
-/*   Updated: 2023/07/04 10:46:29 by abettini         ###   ########.fr       */
+/*   Updated: 2023/07/04 10:49:37 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_heredoc_sighandler(int signal)
 	}
 }
 
-int	ft_heredoc_ctrld(char *str, char *delimiter)
+int	ft_heredoc_ctrld(char *str, const char *delimiter)
 {
 	if (!str)
 	{
