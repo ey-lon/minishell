@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 16:10:50 by abettini          #+#    #+#             */
-/*   Updated: 2023/07/04 10:27:19 by abettini         ###   ########.fr       */
+/*   Updated: 2023/07/04 10:41:16 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ int	ft_syntax(char *str)
 
 int	ft_no_cmd_b4_pipe_check(char *str)
 {
-	int	i;
-	int	check;
+	int		i;
+	int		check;
 	char	*err_msg;
 
 	err_msg = "minishell: syntax error near unexpected token ";

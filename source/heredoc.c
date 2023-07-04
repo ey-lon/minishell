@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 10:49:26 by abettini          #+#    #+#             */
-/*   Updated: 2023/07/03 18:10:46 by abettini         ###   ########.fr       */
+/*   Updated: 2023/07/04 10:46:29 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,17 @@ void	ft_heredoc_sighandler(int signal)
 	}
 }
 
+int	ft_heredoc_ctrld(char *str, char *delimiter)
+{
+	if (!str)
+	{
+		ft_dprintf(2, "minishell: warning: here-document at line 1 delimited");
+		ft_dprintf(2, " by end-of-file (wanted `%s')\n", delimiter);
+		return (1);
+	}
+	return (0);
+}
+
 void	ft_heredoc_write(char *heredoc_path, const char *delimiter)
 {
 	int		heredoc_fd;
@@ -52,12 +63,8 @@ void	ft_heredoc_write(char *heredoc_path, const char *delimiter)
 	{
 		ft_putstr_fd("> ", 1);
 		str = get_next_line(0);
-		if (!str)
-		{
-			ft_dprintf(2, "minishell: warning: here-document at \
-				line 1 delimited by end-of-file (wanted `%s')", delimiter);
+		if (ft_heredoc_ctrld(str, delimiter))
 			break ;
-		}
 		else if (!ft_strncmp(str, delimiter, len) && str[len] == '\n')
 		{
 			free(str);
