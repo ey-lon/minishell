@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 10:23:28 by abettini          #+#    #+#             */
-/*   Updated: 2023/07/05 10:24:28 by abettini         ###   ########.fr       */
+/*   Updated: 2023/07/05 12:10:02 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,11 @@ int	ft_exit(t_msh *msh, char **args)
 	}
 	else if (args[0] && args[1])
 	{
+		msh->exit = 0;
 		ret = 1;
 		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
 	}
 	else
-	{
 		ret = ft_atoi(*args) % 256;
-	}
 	return (ret);
 }

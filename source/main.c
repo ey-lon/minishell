@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:46:44 by abettini          #+#    #+#             */
-/*   Updated: 2023/07/03 17:14:01 by abettini         ###   ########.fr       */
+/*   Updated: 2023/07/05 12:03:11 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,9 @@ void	ft_loop(t_msh *msh)
 	}
 	ft_free_varslst(msh->vars);
 }
+
+//(prints the list of nodes (after parsing))
+//ft_print_list(*msh->cmd);
 
 int	main(int ac, char **av, char **env)
 {
