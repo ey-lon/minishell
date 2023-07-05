@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:02:20 by abettini          #+#    #+#             */
-/*   Updated: 2023/07/03 17:32:02 by abettini         ###   ########.fr       */
+/*   Updated: 2023/07/05 10:49:38 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	ft_redir_one_p2(char *str, t_msh *msh)
 		if (msh->fd[1] > -1)
 			close(msh->fd[1]);
 		msh->fd[1] = open(str + 2, O_CREAT | O_WRONLY | O_APPEND, 0644);
+		if (msh->fd[1] == -1)
+			ft_dprintf(2, "minishell: %s: Permission denied\n", str + 1);
 	}
 	else if (!ft_strncmp(str, ">", 1))
 	{
@@ -26,7 +28,7 @@ void	ft_redir_one_p2(char *str, t_msh *msh)
 			close(msh->fd[1]);
 		msh->fd[1] = open(str + 1, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		if (msh->fd[1] == -1)
-			ft_dprintf(2, "minishell: %s: No such file or directory\n", str + 1);
+			ft_dprintf(2, "minishell: %s: Permission denied\n", str + 1);
 	}
 }
 

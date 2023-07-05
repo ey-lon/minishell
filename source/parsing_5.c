@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 11:37:38 by abettini          #+#    #+#             */
-/*   Updated: 2023/07/03 17:28:20 by abettini         ###   ########.fr       */
+/*   Updated: 2023/07/05 10:18:27 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,17 +63,19 @@ void	ft_quotes_vars_cpy(char *line, char *str, t_msh *msh)
 	int		i;
 	int		len;
 	int		stat;
+	int		hd;
 
+	hd = ft_strncmp(str, "<<", 2);
 	stat = 0;
-	i = 0;
 	len = 0;
+	i = 0;
 	while (str[i])
 	{
 		if (str[i] == '\"' && ++i)
 			len += ft_stat_cpy(2, &stat, '\"', &(line[len]));
 		else if (str[i] == '\'' && ++i)
 			len += ft_stat_cpy(1, &stat, '\'', &(line[len]));
-		else if (str[i] == '$' && stat != 1)
+		else if (str[i] == '$' && stat != 1 && hd)
 		{
 			len += ft_var_cpy(&line[len], &str[i + 1], msh);
 			i += 1 + ft_var_name_len(&str[i + 1]);

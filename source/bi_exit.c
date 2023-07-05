@@ -6,11 +6,13 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 10:23:28 by abettini          #+#    #+#             */
-/*   Updated: 2023/07/03 16:15:31 by abettini         ###   ########.fr       */
+/*   Updated: 2023/07/05 10:24:28 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int	g_exit_code;
 
 int	ft_digit_check(char *str)
 {
@@ -42,7 +44,7 @@ int	ft_exit(t_msh *msh, char **args)
 	if (!(*(msh->cmd))->next)
 		msh->exit = 1;
 	if (!*args)
-		ret = 0;
+		ret = g_exit_code;
 	else if (args[0] && (ft_digit_check(*args) || ft_llong_limit_check(*args)))
 	{
 		ret = 2;
