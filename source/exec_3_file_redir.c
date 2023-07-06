@@ -20,7 +20,7 @@ void	ft_redir_one_p2(char *str, t_msh *msh)
 			close(msh->fd[1]);
 		msh->fd[1] = open(str + 2, O_CREAT | O_WRONLY | O_APPEND, 0644);
 		if (msh->fd[1] == -1)
-			ft_dprintf(2, "minishell: %s: Permission denied\n", str + 1);
+			ft_dprintf(2, "minishell: %s: Permission denied\n", str + 2);
 	}
 	else if (!ft_strncmp(str, ">", 1))
 	{
