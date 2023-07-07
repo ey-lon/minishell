@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 09:54:25 by aconta            #+#    #+#             */
-/*   Updated: 2023/07/05 12:09:44 by abettini         ###   ########.fr       */
+/*   Updated: 2023/07/07 10:15:33 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,9 @@ int	ft_execute_cmd(char *cmd_path, char **cmd_f, t_msh *msh)
 int	ft_check_dir(char *str)
 {
 	DIR	*test;
-	int	check;
 
-	check = 0;
 	test = opendir(str);
-	if (test)
-	{
-		closedir(test);
-		check = 1;
-	}
-	return (check);
+	return (closedir(test) + 1);
 }
 
 int	ft_executable(char **cmd_f, t_msh *msh)

@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:11:01 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/29 11:53:49 by abettini         ###   ########.fr       */
+/*   Updated: 2023/07/07 10:33:43 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,6 @@ void	ft_reset_redir(t_msh *msh)
 		close(msh->fd[1]);
 	msh->fd[1] = -2;
 	dup2(msh->std[1], 1);
-	if (access("/tmp/.heredoc", R_OK))
-		unlink("/tmp/.heredoc");
+	if (access(HEREDOC_PATH, R_OK))
+		unlink(HEREDOC_PATH);
 }

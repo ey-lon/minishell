@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:47:15 by abettini          #+#    #+#             */
-/*   Updated: 2023/07/03 17:13:54 by abettini         ###   ########.fr       */
+/*   Updated: 2023/07/07 10:31:32 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 
 # define CTRL_C SIGINT
 # define CTRL_BS SIGQUIT
+
+# define HEREDOC_PATH ".heredoc"
 
 # define SPACES "\t\n\v\f\r "
 

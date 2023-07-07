@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 10:49:26 by abettini          #+#    #+#             */
-/*   Updated: 2023/07/04 11:50:34 by abettini         ###   ########.fr       */
+/*   Updated: 2023/07/07 10:31:50 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	ft_heredoc(const char *delimiter, t_msh *msh)
 	int		status;
 
 	g_exit_code = 0;
-	heredoc_path = "/tmp/.heredoc";
+	heredoc_path = HEREDOC_PATH;
 	unlink(heredoc_path);
 	pid = fork();
 	ft_child_kill(pid);
