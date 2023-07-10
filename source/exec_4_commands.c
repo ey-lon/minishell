@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 09:54:25 by aconta            #+#    #+#             */
-/*   Updated: 2023/07/07 10:15:33 by abettini         ###   ########.fr       */
+/*   Updated: 2023/07/10 10:12:13 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int	ft_execution(char **wrd, t_msh *msh)
 	else if (!ft_strncmp(*wrd, "env", 4))
 		ft_env(msh->vars);
 	else if (!ft_strncmp(*wrd, "pwd", 4))
-		ft_pwd(msh->vars);
+		ft_pwd();
 	else
 		ret = ft_execution_p2(wrd, msh);
 	return (ret);

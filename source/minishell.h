@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:47:15 by abettini          #+#    #+#             */
-/*   Updated: 2023/07/07 10:31:32 by abettini         ###   ########.fr       */
+/*   Updated: 2023/07/10 10:12:28 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,17 +98,16 @@ void	ft_clone_env(t_list **vars, char **env);
 //env_matrix--------------------------------------------------------------------
 char	**ft_env_matrix(t_list **vars);
 //pwd_check---------------------------------------------------------------------
-void	ft_check_pwd(t_list **vars);
-int		ft_update_oldpwd(t_list **vars);
+void	ft_update_pwd(t_list **vars);
+void	ft_update_oldpwd(t_list **vars, char *str);
 
 //build-ins---------------------------------------------------------------------
+void	ft_pwd(void);
 void	ft_env(t_list **vars);
-int		ft_pwd(t_list **vars);
+void	ft_echo(char **args);
 int		ft_cd(t_list **vars, char **args);
-char	*ft_cd_relative(char *old_pwd, char *str);
 int		ft_export(t_list **vars, char **args);
 int		ft_unset(t_list **vars, char **args);
-void	ft_echo(char **args);
 int		ft_exit(t_msh *msh, char **args);
 
 //execution---------------------------------------------------------------------

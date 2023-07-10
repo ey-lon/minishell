@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 10:14:37 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/16 10:00:30 by abettini         ###   ########.fr       */
+/*   Updated: 2023/07/10 10:10:10 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,4 @@ void	ft_clone_env(t_list **vars, char **env)
 		ft_lstadd_back(vars, ft_lstnew((void *)new));
 		i++;
 	}
-	ft_check_pwd(vars);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bi_cd_1.c                                          :+:      :+:    :+:   */
+/*   bi_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 09:42:05 by abettini          #+#    #+#             */
-/*   Updated: 2023/07/03 17:23:06 by abettini         ###   ########.fr       */
+/*   Updated: 2023/07/10 10:29:19 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,16 @@
 
 int	ft_cd_1_arg(t_list **vars, char *str)
 {
-	t_list	*pwd;
+	char	oldpwd[1024];
 	int		ret;
 
+	getcwd(oldpwd, 1024);
 	ret = 1;
-	ft_check_pwd(vars);
-	pwd = (ft_find_var(vars, "PWD"));
 	if (*str && !chdir(str))
 	{
+		ft_update_oldpwd(vars, oldpwd);
+		ft_update_pwd(vars);
 		ret = 0;
-		ft_update_oldpwd(vars);
-		if (str[0] == '/')
-		{
-			ft_mod_var_value(pwd, "/");
-			((t_var *)(pwd->content))->value = \
-				ft_cd_relative(((t_var *)(pwd->content))->value, str + 1);
-		}
-		else
-			((t_var *)(pwd->content))->value = \
-				ft_cd_relative(((t_var *)(pwd->content))->value, str);
 	}
 	else if (*str)
 		perror("cd");
@@ -48,6 +39,8 @@ int	ft_cd_no_args(t_list **vars)
 	home = (ft_find_var(vars, "HOME"));
 	if (home)
 		ret = ft_cd_1_arg(vars, ((t_var *)(home->content))->value);
+	else
+		ft_dprintf(2, "bash: cd: HOME not set\n");
 	return (ret);
 }
 
@@ -70,6 +63,8 @@ int	ft_cd_tilde(t_list **vars, char *str)
 			ret = ft_cd_1_arg(vars, path);
 			free(path);
 		}
+		else
+			ft_dprintf(2, "bash: cd: HOME not set\n");
 	}
 	return (ret);
 }
@@ -80,7 +75,7 @@ int	ft_cd(t_list **vars, char **args)
 
 	ret = 1;
 	if (args[0] && args[1])
-		return (ft_dprintf(2, "minishell: cd: too many arguments\n") * 0 + 1);
+		ft_dprintf(2, "minishell: cd: too many arguments\n");
 	else if (!args[0] || (args[0][0] == '~' && !args[0][1]))
 		ret = ft_cd_no_args(vars);
 	else if (args[0][0] == '~')

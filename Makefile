@@ -52,8 +52,7 @@ SRC =	main.c \
 		bi_unset.c \
 		bi_exit.c \
 		bi_pwd.c \
-		bi_cd_1.c \
-		bi_cd_2.c \
+		bi_cd.c \
 		exec_1_pipes.c \
 		exec_2_redirection.c \
 		exec_3_file_redir.c \
