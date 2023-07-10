@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 09:42:05 by abettini          #+#    #+#             */
-/*   Updated: 2023/07/10 10:29:19 by abettini         ###   ########.fr       */
+/*   Updated: 2023/07/10 15:43:22 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,17 @@ int	ft_cd_1_arg(t_list **vars, char *str)
 	int		ret;
 
 	getcwd(oldpwd, 1024);
-	ret = 1;
+	ret = 0;
 	if (*str && !chdir(str))
 	{
 		ft_update_oldpwd(vars, oldpwd);
 		ft_update_pwd(vars);
-		ret = 0;
 	}
 	else if (*str)
-		perror("cd");
+	{
+		ft_dprintf(2, "minishell: cd: %s: No such file or directory\n", str);
+		ret = 1;
+	}
 	return (ret);
 }
 
@@ -40,7 +42,7 @@ int	ft_cd_no_args(t_list **vars)
 	if (home)
 		ret = ft_cd_1_arg(vars, ((t_var *)(home->content))->value);
 	else
-		ft_dprintf(2, "bash: cd: HOME not set\n");
+		ft_dprintf(2, "minishell: cd: HOME not set\n");
 	return (ret);
 }
 
@@ -64,7 +66,7 @@ int	ft_cd_tilde(t_list **vars, char *str)
 			free(path);
 		}
 		else
-			ft_dprintf(2, "bash: cd: HOME not set\n");
+			ft_dprintf(2, "minishell: cd: HOME not set\n");
 	}
 	return (ret);
 }

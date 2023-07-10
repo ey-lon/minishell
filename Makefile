@@ -22,6 +22,8 @@ NAME = minishell
 
 LIBFT = libft.a
 
+HEREDOC = ./.heredoc
+
 #paths-----------------------------------------
 
 LBT_F = libft/
@@ -82,6 +84,7 @@ $(NAME): libcomp $(OBJ_S)
 clean:	libclean
 	$(RM) $(OBJ_S)
 	$(RM) $(OBJ_F)
+	$(RM) $(HEREDOC)
 	echo "$(CYAN)make clean [$(NAME)]$(NOCOL)"
 
 fclean:	clean libfclean
