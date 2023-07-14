@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:46:44 by abettini          #+#    #+#             */
-/*   Updated: 2023/07/14 12:57:57 by abettini         ###   ########.fr       */
+/*   Updated: 2023/07/14 13:04:19 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ void	ft_loop(t_msh *msh)
 		}
 		else if (*str)
 			g_exit_code = 2;
-		add_history(str);
+		if (*str)
+			add_history(str);
 		free(str);
 	}
 	ft_free_varslst(msh->vars);
