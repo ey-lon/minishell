@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:46:44 by abettini          #+#    #+#             */
-/*   Updated: 2023/07/10 15:31:51 by abettini         ###   ########.fr       */
+/*   Updated: 2023/07/14 12:57:57 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,5 @@ int	main(int ac, char **av, char **env)
 	ft_init(&msh, &vars, &cmd, env);
 	ft_loop(&msh);
 	ft_putstr_fd("exit\n", 1);
-	exit(g_exit_code);
-	return (0);
+	return (g_exit_code);
 }
