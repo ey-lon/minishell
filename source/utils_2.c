@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:11:23 by abettini          #+#    #+#             */
-/*   Updated: 2023/07/03 17:21:37 by abettini         ###   ########.fr       */
+/*   Updated: 2023/07/19 11:03:49 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,11 @@ int	ft_strlen_mod(char *str, char end)
 	int	i;
 
 	i = 0;
-	while (str && str[i] && str[i] != end)
-		i++;
+	if (str)
+	{
+		while (str[i] && str[i] != end)
+			i++;
+	}
 	return (i);
 }
 
