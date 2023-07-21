@@ -6,26 +6,28 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 12:03:09 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/29 14:16:55 by abettini         ###   ########.fr       */
+/*   Updated: 2023/07/21 17:26:27 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 //removes unnecessary spaces in the redirects
-static char	*ft_red_trim(char *str)
+static char	*ft_red_trim(char *str, int *ind)
 {
 	char	*tmp;
+	int		len;
 	int		i;
 	int		x;
 
+	len = ft_red_len(str);
 	i = 0;
 	while (str[i] == '>' || str[i] == '<')
 		i++;
 	x = i;
 	while (ft_isspace(str[i]))
 		i++;
-	tmp = malloc(ft_red_len(str) - (i - x) + 1);
+	tmp = malloc(len - (i - x) + 1);
 	i = 0;
 	while (str[i] == '>' || str[i] == '<')
 	{
@@ -36,6 +38,19 @@ static char	*ft_red_trim(char *str)
 	while (ft_isspace(str[i]))
 		i++;
 	ft_strlcpy(&tmp[x], &str[i], ft_wrd_len(&str[i]) + 1);
+	*ind += len;
+	return (tmp);
+}
+
+static char	*ft_wrd_trim(char *str, int *ind)
+{
+	int		len;
+	char	*tmp;
+
+	len = ft_wrd_len(str);
+	tmp = malloc(len + 1);
+	ft_strlcpy(tmp, str, len + 1);
+	*ind += len;
 	return (tmp);
 }
 
@@ -53,15 +68,12 @@ static int	ft_fill_cmdlst(t_prs *tmp, char *str, int i)
 			i++;
 		else if (str[i] == '>' || str[i] == '<')
 		{
-			tmp->red[r] = ft_red_trim(&(str[i]));
-			i += ft_red_len(&str[i]);
+			tmp->red[r] = ft_red_trim(&(str[i]), &i);
 			r++;
 		}
 		else if (str[i] != '|')
 		{
-			tmp->wrd[w] = malloc(ft_wrd_len(&str[i]) + 1);
-			ft_strlcpy(tmp->wrd[w], &str[i], ft_wrd_len(&str[i]) + 1);
-			i += ft_wrd_len(&str[i]);
+			tmp->wrd[w] = ft_wrd_trim(&(str[i]), &i);
 			w++;
 		}
 	}
