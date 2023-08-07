@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:47:15 by abettini          #+#    #+#             */
-/*   Updated: 2023/08/07 16:47:59 by abettini         ###   ########.fr       */
+/*   Updated: 2023/08/07 16:59:56 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ int		ft_execution(char **wrd, t_msh *msh);
 int		ft_try_path(char **cmd_f, t_msh *msh);
 int		ft_execute_cmd(char *cmd_path, char **cmd_f, t_msh *msh);
 
-//redirects
+//redirects---------------------------------------------------------------------
 void	ft_choose_redir(t_msh *msh, int fd_in, int fd_out);
 void	ft_reset_redir(t_msh *msh);
 int		ft_heredoc(const char *delimiter, t_msh *msh);
