@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 17:10:37 by abettini          #+#    #+#             */
-/*   Updated: 2023/08/14 10:56:20 by abettini         ###   ########.fr       */
+/*   Updated: 2023/08/14 15:06:46 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,17 @@ static void	ft_unset_var(t_list **vars, char *var_name)
 	t_list	*tmp;
 	int		len;
 
-	len = ft_strlen(var_name);
+	len = ft_strlen(var_name) + 1;
 	scr = *vars;
-	if (scr && !ft_strncmp(var_name, ((t_var *)scr->content)->name, len + 1))
+	if (scr && !ft_strncmp(var_name, ((t_var *)scr->content)->name, len))
 	{
 		*vars = scr->next;
 		ft_free_varsnode(scr);
 	}
-	else
+	else if (scr)
 	{
-		while (scr && scr->next \
-			&& ft_strncmp(var_name, \
-			((t_var *)scr->next->content)->name, len + 1))
+		while (scr && scr->next && ft_strncmp(var_name, \
+			((t_var *)scr->next->content)->name, len))
 			scr = scr->next;
 		if (scr && scr->next)
 		{
