@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 17:10:37 by abettini          #+#    #+#             */
-/*   Updated: 2023/07/03 10:08:59 by abettini         ###   ########.fr       */
+/*   Updated: 2023/08/14 10:56:20 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@ static int	ft_unset_check(char *str)
 
 	check = 0;
 	i = 0;
-	if (ft_isalpha(str[i]))
+	if (ft_isalpha(str[i]) || str[i] == '_')
 	{
 		i++;
 		while (str[i] && !check)
 		{
-			if (ft_isalnum(str[i]))
+			if (ft_isalnum(str[i]) || str[i] == '_')
 				i++;
 			else
 				check = 1;

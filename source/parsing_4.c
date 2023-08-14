@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 16:27:35 by abettini          #+#    #+#             */
-/*   Updated: 2023/07/05 10:18:22 by abettini         ###   ########.fr       */
+/*   Updated: 2023/08/14 11:15:07 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ int	ft_var_name_len(char *str)
 	i = 0;
 	if (*str == '?')
 		return (1);
-	else if (ft_isalpha(str[i]))
+	else if (ft_isalpha(str[i]) || str[i] == '_')
 	{
 		i++;
-		while (ft_isalnum(str[i]))
+		while (ft_isalnum(str[i]) || str[i] == '_')
 			i++;
 	}
 	return (i);
@@ -40,7 +40,7 @@ static int	ft_var_cont_len(char *str, t_msh *msh)
 	char	*exit;
 	int		len;
 
-	if (!*str || (*str != '?' && !ft_isalnum(*str)))
+	if (!*str || (*str != '?' && !ft_isalnum(*str) && *str != '_'))
 		return (1);
 	else if (*str == '?')
 	{

@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 11:37:38 by abettini          #+#    #+#             */
-/*   Updated: 2023/07/05 10:18:27 by abettini         ###   ########.fr       */
+/*   Updated: 2023/08/14 11:12:15 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	ft_var_cpy(char *line, char *str, t_msh *msh)
 	char	*var_cont;
 	int		var_len;
 
-	if (!*str || (*str != '?' && !ft_isalnum(*str)))
+	if (!*str || (*str != '?' && !ft_isalnum(*str) && *str != '_'))
 		var_len = ft_strlcpy(line, "$", 2);
 	else if (*str == '?')
 	{
