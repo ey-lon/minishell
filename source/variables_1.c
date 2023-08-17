@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 15:52:07 by abettini          #+#    #+#             */
-/*   Updated: 2023/08/14 11:13:01 by abettini         ###   ########.fr       */
+/*   Updated: 2023/08/17 15:33:22 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_is_variable_cmd(char *str)
 		return (0);
 	check = 1;
 	i = 0;
-	if (ft_isalpha(str[i]))
+	if (ft_isalpha(str[i]) || str[i] == '_')
 	{
 		i++;
 		while (str[i] != '=' && check == 1)

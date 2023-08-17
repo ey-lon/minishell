@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 10:39:29 by aconta            #+#    #+#             */
-/*   Updated: 2023/08/17 13:25:48 by abettini         ###   ########.fr       */
+/*   Updated: 2023/08/17 13:29:18 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,12 @@ void	ft_update_last_arg(t_list **vars, char **wrd)
 	i = 0;
 	while (wrd[i] && wrd[i + 1])
 		i++;
-	tmp = ft_strjoin("_=", wrd[i]);
-	ft_handle_var(vars, tmp);
-	free(tmp);
+	if (wrd[i])
+	{
+		tmp = ft_strjoin("_=", wrd[i]);
+		ft_handle_var(vars, tmp);
+		free(tmp);
+	}
 }
 
 int	ft_single_node(t_list *cmd, t_msh *msh, int fd_in, int fd_out)
