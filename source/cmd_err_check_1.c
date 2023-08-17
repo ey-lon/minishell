@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 16:10:50 by abettini          #+#    #+#             */
-/*   Updated: 2023/07/10 14:32:50 by abettini         ###   ########.fr       */
+/*   Updated: 2023/08/17 17:05:39 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,13 @@ int	ft_syntax(char *str)
 int	ft_no_cmd_b4_pipe_check(char *str)
 {
 	int		i;
-	int		check;
-	char	*err_msg;
 
-	err_msg = "minishell: syntax error near unexpected token ";
-	check = 0;
 	i = 0;
 	while (ft_isspace(str[i]))
 		i++;
 	if (str[i] == '|')
-		return (ft_dprintf(2, "%s`|'\n", err_msg) * 0 + 1);
+		return (ft_dprintf(2, \
+			"minishell: syntax error near unexpected token `|'\n") * 0 + 1);
 	return (0);
 }
 
@@ -72,10 +69,10 @@ int	ft_check_cmd_err(char *str)
 	int	i;
 	int	stat;
 
-	stat = 0;
-	i = 0;
 	if (ft_no_cmd_b4_pipe_check(str))
 		return (1);
+	stat = 0;
+	i = 0;
 	while (str[i])
 	{
 		stat = ft_stat_update(stat, str[i]);
