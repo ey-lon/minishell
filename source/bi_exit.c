@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 10:23:28 by abettini          #+#    #+#             */
-/*   Updated: 2023/07/05 12:10:02 by abettini         ###   ########.fr       */
+/*   Updated: 2023/08/17 11:02:59 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,13 @@ int	ft_exit(t_msh *msh, char **args)
 
 	if (!(*(msh->cmd))->next)
 		msh->exit = 1;
-	if (!*args)
+	if (!args[0])
 		ret = g_exit_code;
 	else if (args[0] && (ft_digit_check(*args) || ft_llong_limit_check(*args)))
 	{
 		ret = 2;
-		ft_dprintf(2, "bash: exit: %s: numeric argument required\n", *args);
+		ft_dprintf(2, \
+			"minishell: exit: %s: numeric argument required\n", *args);
 	}
 	else if (args[0] && args[1])
 	{
