@@ -104,6 +104,6 @@ libclean:
 libfclean:
 		@make fclean -C $(LBT_F)
 
-.PHONY: all $(NAME) re clean fclean bonus libcomp libclean libfclean
+.PHONY: all re clean fclean bonus libcomp libclean libfclean
 
 .SILENT:
