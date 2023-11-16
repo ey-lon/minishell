@@ -14,3 +14,7 @@ A simplified version of a real shell to learn about processes.
 ```shell
 ./minishell
 ```
+## How to launch with suppression file
+```shell
+valgrind --suppressions=readline.supp ./minishell
+```
