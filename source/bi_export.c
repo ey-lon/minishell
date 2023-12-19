@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 16:06:47 by abettini          #+#    #+#             */
-/*   Updated: 2023/12/19 16:13:05 by abettini         ###   ########.fr       */
+/*   Updated: 2023/12/19 17:18:22 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ static void	ft_print_exp(t_list **vars)
 	{
 		if (((t_var *)tmp->content)->exp > 0)
 		{
-			printf("declare -x %s", \
-				((t_var *)tmp->content)->name);
+			printf("declare -x %s", ((t_var *)tmp->content)->name);
 			if (((t_var *)tmp->content)->exp == 1)
-				printf("=\"%s\"", \
-					((t_var *)tmp->content)->value);
+			{
+				printf("=\"%s\"", ((t_var *)tmp->content)->value);
+			}
 			printf("\n");
 		}
 		tmp = tmp->next;
