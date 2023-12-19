@@ -6,13 +6,13 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 15:52:07 by abettini          #+#    #+#             */
-/*   Updated: 2023/08/17 15:33:22 by abettini         ###   ########.fr       */
+/*   Updated: 2023/12/19 16:35:54 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_is_variable_cmd(char *str)
+static int	ft_is_variable_cmd(char *str)
 {
 	int	check;
 	int	i;

@@ -6,28 +6,14 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 16:06:47 by abettini          #+#    #+#             */
-/*   Updated: 2023/08/14 10:57:43 by abettini         ###   ########.fr       */
+/*   Updated: 2023/12/19 16:13:05 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ft_set_export_var(t_list **vars, t_list *var, char *str, int len)
-{
-	if (var)
-	{
-		((t_var *)(var->content))->exp = 1;
-		if (str[len] == '=')
-		{
-			free(((t_var *)(var->content))->value);
-			((t_var *)(var->content))->value = ft_strdup(&str[len + 1]);
-		}
-	}
-	else if (str[len] == '=')
-		ft_add_var(vars, str, 1);
-	else
-		ft_add_var(vars, str, 2);
-}
+//------------------------------------------------------------------------------
+//print env if export has no args
 
 static void	ft_print_exp(t_list **vars)
 {
@@ -48,6 +34,8 @@ static void	ft_print_exp(t_list **vars)
 		tmp = tmp->next;
 	}
 }
+
+//------------------------------------------------------------------------------
 
 static int	ft_exp_check(char *str)
 {
@@ -74,6 +62,23 @@ static int	ft_exp_check(char *str)
 	return (check);
 }
 
+static void	ft_set_export_var(t_list **vars, t_list *var, char *str, int len)
+{
+	if (var)
+	{
+		((t_var *)(var->content))->exp = 1;
+		if (str[len] == '=')
+		{
+			free(((t_var *)(var->content))->value);
+			((t_var *)(var->content))->value = ft_strdup(&str[len + 1]);
+		}
+	}
+	else if (str[len] == '=')
+		ft_add_var(vars, str, 1);
+	else
+		ft_add_var(vars, str, 2);
+}
+
 static void	ft_export_var(t_list **vars, char *str)
 {
 	t_list	*var;
@@ -90,6 +95,8 @@ static void	ft_export_var(t_list **vars, char *str)
 	}
 }
 
+//------------------------------------------------------------------------------
+
 int	ft_export(t_list **vars, char **args)
 {
 	int		i;
@@ -102,9 +109,7 @@ int	ft_export(t_list **vars, char **args)
 		while (args[i])
 		{
 			if (!ft_exp_check(args[i]))
-			{
 				ft_export_var(vars, args[i]);
-			}
 			else
 				ret = 1;
 			i++;

@@ -1,27 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bi_env.c                                           :+:      :+:    :+:   */
+/*   utils_3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/30 16:07:27 by abettini          #+#    #+#             */
-/*   Updated: 2023/12/19 16:13:45 by abettini         ###   ########.fr       */
+/*   Created: 2023/12/19 11:11:17 by abettini          #+#    #+#             */
+/*   Updated: 2023/12/19 11:12:40 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_env(t_list **vars)
+int	ft_get_status(int status)
 {
-	t_list	*tmp;
+	int	ret;
 
-	tmp = *vars;
-	while (tmp)
-	{
-		if (((t_var *)tmp->content)->exp == 1)
-			printf("%s=%s\n", ((t_var *)tmp->content)->name, \
-				((t_var *)tmp->content)->value);
-		tmp = tmp->next;
-	}
+	ret = 0;
+	if (WIFEXITED(status))
+		ret = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		ret = WTERMSIG(status) + 128;
+	return (ret);
+}
+
+void	ft_close_fds(int fd_1, int fd_2)
+{
+	if (fd_1 > -1)
+		close(fd_1);
+	if (fd_2 > -1)
+		close (fd_2);
 }

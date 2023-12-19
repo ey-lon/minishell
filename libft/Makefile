@@ -6,7 +6,7 @@
 #    By: abettini <abettini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/07 14:36:43 by abettini          #+#    #+#              #
-#    Updated: 2023/07/03 16:19:36 by abettini         ###   ########.fr        #
+#    Updated: 2023/12/19 16:55:29 by abettini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -166,6 +166,6 @@ re: fclean all
 
 #---------------------------------------------
 
-.PHONY: $(NAME) all clean fclean re
+.PHONY: all clean fclean re
 
 .SILENT:

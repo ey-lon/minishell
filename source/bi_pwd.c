@@ -6,12 +6,13 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 09:43:13 by abettini          #+#    #+#             */
-/*   Updated: 2023/07/10 10:11:41 by abettini         ###   ########.fr       */
+/*   Updated: 2023/12/19 16:14:32 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+//----------------------------------------------
 void	ft_update_oldpwd(t_list **vars, char *pwd)
 {
 	t_list	*tmp;

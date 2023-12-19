@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 10:49:26 by abettini          #+#    #+#             */
-/*   Updated: 2023/07/07 10:31:50 by abettini         ###   ########.fr       */
+/*   Updated: 2023/12/19 16:18:34 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 extern int	g_exit_code;
 
-void	ft_child_kill(int pid)
+static void	ft_child_kill(int pid)
 {
 	static int	pid_to_kill = 0;
 
@@ -29,7 +29,7 @@ void	ft_child_kill(int pid)
 		pid_to_kill = pid;
 }
 
-void	ft_heredoc_sighandler(int signal)
+static void	ft_heredoc_sighandler(int signal)
 {
 	if (signal == CTRL_C)
 	{
@@ -38,7 +38,7 @@ void	ft_heredoc_sighandler(int signal)
 	}
 }
 
-int	ft_heredoc_ctrld(char *str, const char *delimiter)
+static int	ft_heredoc_ctrld(char *str, const char *delimiter)
 {
 	if (!str)
 	{
@@ -49,7 +49,7 @@ int	ft_heredoc_ctrld(char *str, const char *delimiter)
 	return (0);
 }
 
-void	ft_heredoc_write(char *heredoc_path, const char *delimiter)
+static void	ft_heredoc_write(char *heredoc_path, const char *delimiter)
 {
 	int		heredoc_fd;
 	char	*str;

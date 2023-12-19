@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_4_commands.c                                  :+:      :+:    :+:   */
+/*   exec_3_commands.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 09:54:25 by aconta            #+#    #+#             */
-/*   Updated: 2023/07/10 10:12:13 by abettini         ###   ########.fr       */
+/*   Updated: 2023/12/19 16:27:12 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,14 @@ int	ft_execute_cmd(char *cmd_path, char **cmd_f, t_msh *msh)
 	pid = fork();
 	if (!pid)
 	{
-		env = ft_env_matrix(msh->vars);
+		env = ft_env_from_list_to_matrix(msh->vars);
 		if (execve(cmd_path, cmd_f, env) == -1)
 		{
 			free(cmd_path);
 			ft_free_mat(env);
 			ft_free_cmdlst(msh->cmd);
 			ft_free_varslst(msh->vars);
+			ft_close_fds(msh->std[0], msh->std[1]);
 			exit(EXIT_FAILURE);
 		}
 	}
@@ -40,7 +41,9 @@ int	ft_execute_cmd(char *cmd_path, char **cmd_f, t_msh *msh)
 	return (status);
 }
 
-int	ft_check_dir(char *str)
+//------------------------------------------------------
+
+static int	ft_check_dir(char *str)
 {
 	DIR	*test;
 
@@ -48,7 +51,7 @@ int	ft_check_dir(char *str)
 	return (closedir(test) + 1);
 }
 
-int	ft_executable(char **cmd_f, t_msh *msh)
+static int	ft_executable(char **cmd_f, t_msh *msh)
 {
 	int	ret;
 
@@ -65,13 +68,16 @@ int	ft_executable(char **cmd_f, t_msh *msh)
 	else if (!ft_strchr(*cmd_f, '/'))
 		ret = ft_try_path(cmd_f, msh);
 	else if (ft_check_dir(*cmd_f))
-		ret = ft_dprintf(2, "minishell: %s: Is a directory\n", *cmd_f) * 0 + 126;
+		ret = ft_dprintf(2, "minishell: %s: Is a directory\n", *cmd_f) \
+			* 0 + 126;
 	else
 		ft_dprintf(2, "minishell: %s: No such file or directory\n", *cmd_f);
 	return (ret);
 }
 
-int	ft_execution_p2(char **wrd, t_msh *msh)
+//------------------------------------------------------
+
+static int	ft_execution_p2(char **wrd, t_msh *msh)
 {
 	int	ret;
 

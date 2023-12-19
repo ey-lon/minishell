@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 10:23:28 by abettini          #+#    #+#             */
-/*   Updated: 2023/08/17 11:02:59 by abettini         ###   ########.fr       */
+/*   Updated: 2023/12/19 16:21:11 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 extern int	g_exit_code;
 
-int	ft_digit_check(char *str)
+static int	ft_digit_check(char *str)
 {
 	int	i;
 	int	check;

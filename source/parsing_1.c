@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 12:03:09 by abettini          #+#    #+#             */
-/*   Updated: 2023/07/21 17:26:27 by abettini         ###   ########.fr       */
+/*   Updated: 2023/12/19 12:30:26 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ static void	ft_first_split(t_list **lst, char *str)
 	while (str[i])
 	{
 		tmp = malloc(sizeof(t_prs));
-		ft_lstadd_front(lst, ft_lstnew((void *)tmp));
+		ft_lstadd_back(lst, ft_lstnew((void *)tmp));
 		rc = ft_red_count(&str[i]);
 		wc = ft_wrd_count(&str[i]);
 		tmp->wrd = malloc(sizeof(char *) * (wc + 1));

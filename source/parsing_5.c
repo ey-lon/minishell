@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 11:37:38 by abettini          #+#    #+#             */
-/*   Updated: 2023/08/14 11:12:15 by abettini         ###   ########.fr       */
+/*   Updated: 2023/12/19 16:23:51 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	ft_var_cpy(char *line, char *str, t_msh *msh)
 	return (var_len);
 }
 
-int	ft_stat_cpy(int check, int *stat, char c, char *dest)
+static int	ft_stat_cpy(int check, int *stat, char c, char *dest)
 {
 	if (!*stat || *stat == check)
 		*stat = check - *stat;
@@ -55,7 +55,7 @@ int	ft_stat_cpy(int check, int *stat, char c, char *dest)
 		*dest = c;
 		return (1);
 	}
-	return (0); 
+	return (0);
 }
 
 void	ft_quotes_vars_cpy(char *line, char *str, t_msh *msh)

@@ -6,11 +6,14 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 16:10:50 by abettini          #+#    #+#             */
-/*   Updated: 2023/08/17 17:59:22 by abettini         ###   ########.fr       */
+/*   Updated: 2023/12/19 16:16:59 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+//------------------------------------------------------------------------------
+//cmd_err_check_2
 
 int	ft_max_consec_char(char *str, char c);
 
@@ -20,7 +23,9 @@ int	ft_check_weird_2(char *str, char c);
 
 int	ft_check_weird_3(char *str, char c);
 
-int	ft_syntax(char *str)
+//------------------------------------------------------------------------------
+
+static int	ft_syntax(char *str)
 {
 	char	*err_msg;
 
@@ -42,7 +47,7 @@ int	ft_syntax(char *str)
 	return (0);
 }
 
-int	ft_no_cmd_b4_pipe_check(char *str)
+static int	ft_no_cmd_b4_pipe_check(char *str)
 {
 	int		i;
 
@@ -55,7 +60,7 @@ int	ft_no_cmd_b4_pipe_check(char *str)
 	return (0);
 }
 
-int	ft_stat_update(int stat, char c)
+static int	ft_stat_update(int stat, char c)
 {
 	if (stat != 1 && c == '\"')
 		stat = 2 - stat;

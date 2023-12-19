@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:47:15 by abettini          #+#    #+#             */
-/*   Updated: 2023/08/07 16:59:56 by abettini         ###   ########.fr       */
+/*   Updated: 2023/12/19 16:46:34 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,12 @@ typedef struct s_msh
 	bool	exit;
 }	t_msh;
 
-//PRINT-------------------------------------------------------------------------
-void	ft_print_lst(t_list *lst);
-
 //cmd_err_check-----------------------------------------------------------------
 int		ft_check_cmd_err(char *str);
 
 //PARSING-----------------------------------------------------------------------
 void	ft_parsing(char *str, t_msh *msh);
-//words & redirects (count & lenght)
+//words & redirects (count & lenght)--------------------------------------------
 int		ft_red_count(char *str);
 int		ft_wrd_count(char *str);
 int		ft_red_len(char *str);
@@ -72,20 +69,6 @@ char	*ft_get_var_cont(char *var_name, t_list **vars);
 int		ft_quotes_vars_len(char *str, t_msh *msh);
 void	ft_quotes_vars_cpy(char *line, char *str, t_msh *msh);
 
-//history-----------------------------------------------------------------------
-int		ft_add_str_to_history(char *str, t_list **hst);
-int		ft_print_history(t_list *hst);
-
-//utils-------------------------------------------------------------------------
-int		ft_is_special(char c);
-int		ft_isspace(char c);
-void	ft_free_mat(char **mat);
-//utils_2-----------------------------------------------------------------------
-char	*ft_rm_chars(char *str, char *rm, int len);
-int		ft_count_chars(char *str, char *c, int n);
-int		ft_strlen_mod(char *str, char end);
-int		ft_llong_limit_check(char *str);
-
 //variables---------------------------------------------------------------------
 int		ft_variable_cmd(t_list **vars, char *str);
 t_list	*ft_find_var(t_list **vars, char *var_name);
@@ -93,10 +76,10 @@ void	ft_handle_var(t_list **vars, char *str);
 void	ft_add_var(t_list **vars, char *str, int exp);
 void	ft_mod_var_value(t_list *vars, char *str);
 
-//clone_env-(env_list)----------------------------------------------------------
-void	ft_clone_env(t_list **vars, char **env);
-//env_matrix--------------------------------------------------------------------
-char	**ft_env_matrix(t_list **vars);
+//clone_env---------------------------------------------------------------------
+t_list	*ft_env_from_matrix_to_list(char **env);
+char	**ft_env_from_list_to_matrix(t_list **vars);
+
 //pwd_check---------------------------------------------------------------------
 void	ft_update_pwd(t_list **vars);
 void	ft_update_oldpwd(t_list **vars, char *str);
@@ -126,5 +109,31 @@ int		ft_heredoc(const char *delimiter, t_msh *msh);
 void	ft_free_varslst(t_list **lst);
 void	ft_free_varsnode(t_list *vars);
 void	ft_free_cmdlst(t_list **lst);
+
+//utils_1-----------------------------------------------------------------------
+int		ft_is_special(char c);
+int		ft_isspace(char c);
+void	ft_free_mat(char **mat);
+//utils_2-----------------------------------------------------------------------
+char	*ft_rm_chars(char *str, char *rm, int len);
+int		ft_count_chars(char *str, char *c, int n);
+int		ft_strlen_mod(char *str, char end);
+int		ft_llong_limit_check(char *str);
+//utils_3-----------------------------------------------------------------------
+void	ft_close_fds(int fd_1, int fd_2);
+int		ft_get_status(int status);
+
+//history-----------------------------------------------------------------------
+//[deprecated]
+/*
+int		ft_add_str_to_history(char *str, t_list **hst);
+int		ft_print_history(t_list *hst);
+*/
+
+//PRINT-------------------------------------------------------------------------
+//[deprecated]
+/*
+void	ft_print_lst(t_list *lst);
+*/
 
 #endif

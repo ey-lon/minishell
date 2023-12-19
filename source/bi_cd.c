@@ -6,13 +6,13 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 09:42:05 by abettini          #+#    #+#             */
-/*   Updated: 2023/07/10 15:43:22 by abettini         ###   ########.fr       */
+/*   Updated: 2023/12/19 16:20:56 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_cd_1_arg(t_list **vars, char *str)
+static int	ft_cd_1_arg(t_list **vars, char *str)
 {
 	char	oldpwd[1024];
 	int		ret;
@@ -32,7 +32,7 @@ int	ft_cd_1_arg(t_list **vars, char *str)
 	return (ret);
 }
 
-int	ft_cd_no_args(t_list **vars)
+static int	ft_cd_no_args(t_list **vars)
 {
 	t_list	*home;
 	int		ret;
@@ -47,7 +47,7 @@ int	ft_cd_no_args(t_list **vars)
 }
 
 //tilde works except in the case of ~[user]
-int	ft_cd_tilde(t_list **vars, char *str)
+static int	ft_cd_tilde(t_list **vars, char *str)
 {
 	t_list	*home;
 	int		ret;

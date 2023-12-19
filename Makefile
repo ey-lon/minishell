@@ -33,14 +33,13 @@ OBJ_F = obj/
 #files-----------------------------------------
 
 SRC =	main.c \
-		utils.c \
+		utils_1.c \
 		utils_2.c \
+		utils_3.c \
 		free_struct.c \
 		cmd_err_check_1.c \
 		cmd_err_check_2.c \
 		env_clone.c \
-		print_cmd_nodes.c \
-		history.c \
 		parsing_1.c \
 		parsing_2.c \
 		parsing_3.c \
@@ -56,10 +55,9 @@ SRC =	main.c \
 		bi_pwd.c \
 		bi_cd.c \
 		exec_1_pipes.c \
-		exec_2_redirection.c \
-		exec_3_file_redir.c \
-		exec_4_commands.c \
-		exec_5_trypath.c \
+		exec_2_redirections.c \
+		exec_3_commands.c \
+		exec_4_trypath.c \
 		heredoc.c
 
 #----------------------------------------------

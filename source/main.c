@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:46:44 by abettini          #+#    #+#             */
-/*   Updated: 2023/08/10 11:40:50 by abettini         ###   ########.fr       */
+/*   Updated: 2023/12/19 16:39:57 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	g_exit_code = 0;
 
-void	ft_sighandler(int signal)
+static void	ft_sighandler(int signal)
 {
 	if (signal == CTRL_C)
 	{
@@ -26,21 +26,20 @@ void	ft_sighandler(int signal)
 	}
 }
 
-void	ft_init(t_msh *msh, t_list **vars, t_list **cmd, char **env)
+static void	ft_init(t_msh *msh, t_list **vars, t_list **cmd, char **env)
 {
-	*vars = NULL;
 	*cmd = NULL;
-	ft_clone_env(vars, env);
+	*vars = ft_env_from_matrix_to_list(env);
 	msh->vars = vars;
 	msh->cmd = cmd;
 	msh->exit = 0;
-	msh->std[0] = dup(0);
-	msh->std[1] = dup(1);
+	msh->std[0] = dup(STDIN_FILENO);
+	msh->std[1] = dup(STDOUT_FILENO);
 	msh->fd[0] = -2;
 	msh->fd[1] = -2;
 }
 
-void	ft_loop(t_msh *msh)
+static void	ft_loop(t_msh *msh)
 {
 	char	*str;
 
@@ -82,6 +81,7 @@ int	main(int ac, char **av, char **env)
 	ft_init(&msh, &vars, &cmd, env);
 	ft_loop(&msh);
 	ft_putstr_fd("exit\n", 1);
+	ft_close_fds(msh.std[0], msh.std[1]);
 	return (g_exit_code);
 }
 
