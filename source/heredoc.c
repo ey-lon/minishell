@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 10:49:26 by abettini          #+#    #+#             */
-/*   Updated: 2023/12/19 16:18:34 by abettini         ###   ########.fr       */
+/*   Updated: 2023/12/19 17:21:47 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,3 @@ int	ft_heredoc(const char *delimiter, t_msh *msh)
 	fd = open(heredoc_path, O_RDONLY);
 	return (fd);
 }
-
-/* if (WIFEXITED(status))
-	status = WEXITSTATUS(status);
-else if (WIFSIGNALED(status))
-	staus = WTERMSIG(status) + 128; */
