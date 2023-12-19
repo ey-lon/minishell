@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:47:15 by abettini          #+#    #+#             */
-/*   Updated: 2023/12/19 16:46:34 by abettini         ###   ########.fr       */
+/*   Updated: 2023/12/19 17:13:29 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ int		ft_strlen_mod(char *str, char end);
 int		ft_llong_limit_check(char *str);
 //utils_3-----------------------------------------------------------------------
 void	ft_close_fds(int fd_1, int fd_2);
-int		ft_get_status(int status);
+int		ft_get_exit_code(int status);
 
 //history-----------------------------------------------------------------------
 //[deprecated]

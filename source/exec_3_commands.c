@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 09:54:25 by aconta            #+#    #+#             */
-/*   Updated: 2023/12/19 16:27:12 by abettini         ###   ########.fr       */
+/*   Updated: 2023/12/19 17:13:29 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	ft_execute_cmd(char *cmd_path, char **cmd_f, t_msh *msh)
 	char	**env;
 	int		pid;
 	int		status;
+	int		ret;
 
 	pid = fork();
 	if (!pid)
@@ -34,11 +35,8 @@ int	ft_execute_cmd(char *cmd_path, char **cmd_f, t_msh *msh)
 		}
 	}
 	waitpid(pid, &status, 0);
-	if (WIFEXITED(status))
-		status = WEXITSTATUS(status);
-	else if (WIFSIGNALED(status))
-		status = WTERMSIG(status) + 128;
-	return (status);
+	ret = ft_get_exit_code(status);
+	return (ret);
 }
 
 //------------------------------------------------------

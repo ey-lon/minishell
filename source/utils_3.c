@@ -6,13 +6,13 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 11:11:17 by abettini          #+#    #+#             */
-/*   Updated: 2023/12/19 11:12:40 by abettini         ###   ########.fr       */
+/*   Updated: 2023/12/19 17:13:17 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_get_status(int status)
+int	ft_get_exit_code(int status)
 {
 	int	ret;
 

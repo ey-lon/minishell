@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 10:39:29 by aconta            #+#    #+#             */
-/*   Updated: 2023/12/19 16:42:49 by abettini         ###   ########.fr       */
+/*   Updated: 2023/12/19 17:13:29 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static int	ft_handle_node(t_list *cmd, t_msh *msh, int pipe_in, int pipe_out)
 	}
 	waitpid(pid, &status, 0);
 	ft_close_fds(pipe_in, pipe_out);
-	ret = ft_get_status(status);
+	ret = ft_get_exit_code(status);
 	return (ret);
 }
 
