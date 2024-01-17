@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 09:42:05 by abettini          #+#    #+#             */
-/*   Updated: 2023/12/19 16:20:56 by abettini         ###   ########.fr       */
+/*   Updated: 2023/12/21 12:16:15 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,13 @@ static int	ft_cd_no_args(t_list **vars)
 	ret = 1;
 	home = (ft_find_var(vars, "HOME"));
 	if (home)
+	{
 		ret = ft_cd_1_arg(vars, ((t_var *)(home->content))->value);
+	}
 	else
+	{
 		ft_dprintf(2, "minishell: cd: HOME not set\n");
+	}
 	return (ret);
 }
 
@@ -55,7 +59,9 @@ static int	ft_cd_tilde(t_list **vars, char *str)
 
 	ret = 1;
 	if (!str[1])
+	{
 		ret = ft_cd_no_args(vars);
+	}
 	else if (str[1] == '/')
 	{
 		home = (ft_find_var(vars, "HOME"));
@@ -66,7 +72,9 @@ static int	ft_cd_tilde(t_list **vars, char *str)
 			free(path);
 		}
 		else
+		{
 			ft_dprintf(2, "minishell: cd: HOME not set\n");
+		}
 	}
 	return (ret);
 }
@@ -77,12 +85,20 @@ int	ft_cd(t_list **vars, char **args)
 
 	ret = 1;
 	if (args[0] && args[1])
+	{
 		ft_dprintf(2, "minishell: cd: too many arguments\n");
+	}
 	else if (!args[0] || (args[0][0] == '~' && !args[0][1]))
+	{
 		ret = ft_cd_no_args(vars);
+	}
 	else if (args[0][0] == '~')
+	{
 		ret = ft_cd_tilde(vars, args[0]);
+	}
 	else
+	{
 		ret = ft_cd_1_arg(vars, args[0]);
+	}
 	return (ret);
 }
