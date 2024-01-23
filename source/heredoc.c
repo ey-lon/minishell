@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 10:49:26 by abettini          #+#    #+#             */
-/*   Updated: 2023/12/19 17:21:47 by abettini         ###   ########.fr       */
+/*   Updated: 2024/01/23 14:51:11 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,8 @@ int	ft_heredoc(const char *delimiter, t_msh *msh)
 	if (!pid)
 	{
 		ft_heredoc_write(heredoc_path, delimiter);
-		ft_free_cmdlst(msh->cmd);
-		ft_free_varslst(msh->vars);
+		ft_lstclear(msh->cmd, ft_free_cmdnode);
+		ft_lstclear(msh->vars, ft_free_varsnode);
 		exit(1);
 	}
 	signal(CTRL_C, ft_heredoc_sighandler);

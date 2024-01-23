@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 10:39:29 by aconta            #+#    #+#             */
-/*   Updated: 2024/01/17 12:03:18 by abettini         ###   ########.fr       */
+/*   Updated: 2024/01/23 14:51:59 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,16 @@
 
 static void	ft_update_last_arg(t_list **vars, char **wrd)
 {
-	char	*tmp;
 	int		i;
 
 	i = 0;
 	while (wrd[i] && wrd[i + 1])
+	{
 		i++;
+	}
 	if (wrd[i])
 	{
-		tmp = ft_strjoin("_=", wrd[i]);
-		ft_handle_var(vars, tmp);
-		free(tmp);
+		ft_handle_var_by_name(vars, "_", wrd[i]);
 	}
 }
 
@@ -72,8 +71,8 @@ static int	ft_handle_node(t_list *cmd, t_msh *msh, int fd_in, int pipe_fd_out)
 			ret = 1;
 		ft_close_fds(fd_in, pipe_fd_out);
 		ft_close_fds(msh->std[0], msh->std[1]);
-		ft_free_varslst(msh->vars);
-		ft_free_cmdlst(msh->cmd);
+		ft_lstclear(msh->vars, ft_free_varsnode);
+		ft_lstclear(msh->cmd, ft_free_cmdnode);
 		exit(ret);
 	}
 	waitpid(pid, &status, 0);

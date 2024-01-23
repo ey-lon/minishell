@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_5_trypath.c                                   :+:      :+:    :+:   */
+/*   exec_4_trypath.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 11:59:48 by abettini          #+#    #+#             */
-/*   Updated: 2023/07/03 15:20:11 by abettini         ###   ########.fr       */
+/*   Updated: 2024/01/23 12:17:23 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@
 static char	**ft_get_path(t_list **vars)
 {
 	char	**arr_paths;
-	t_list	*tmp;
+	t_var	*tmp;
 
 	arr_paths = NULL;
 	tmp = ft_find_var(vars, "PATH");
 	if (tmp)
-		arr_paths = ft_split(((t_var *)(tmp->content))->value, ':');
+		arr_paths = ft_split(tmp->value, ':');
 	return (arr_paths);
 }
 

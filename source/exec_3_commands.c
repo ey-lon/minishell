@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 09:54:25 by aconta            #+#    #+#             */
-/*   Updated: 2023/12/19 17:13:29 by abettini         ###   ########.fr       */
+/*   Updated: 2024/01/23 14:54:29 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int	ft_execute_cmd(char *cmd_path, char **cmd_f, t_msh *msh)
 		{
 			free(cmd_path);
 			ft_free_mat(env);
-			ft_free_cmdlst(msh->cmd);
-			ft_free_varslst(msh->vars);
+			ft_lstclear(msh->cmd, ft_free_cmdnode);
+			ft_lstclear(msh->vars, ft_free_varsnode);
 			ft_close_fds(msh->std[0], msh->std[1]);
 			exit(EXIT_FAILURE);
 		}

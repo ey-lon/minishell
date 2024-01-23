@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:47:15 by abettini          #+#    #+#             */
-/*   Updated: 2023/12/19 17:13:29 by abettini         ###   ########.fr       */
+/*   Updated: 2024/01/23 16:09:05 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,24 +65,21 @@ int		ft_wrd_len(char *str);
 int		ft_char_char_len(char *str, char c);
 //expand_vars-------------------------------------------------------------------
 void	ft_check_expand(t_msh *msh);
-char	*ft_get_var_cont(char *var_name, t_list **vars);
+char	*ft_get_var_cont(char *name, t_list **vars);
 int		ft_quotes_vars_len(char *str, t_msh *msh);
 void	ft_quotes_vars_cpy(char *line, char *str, t_msh *msh);
 
 //variables---------------------------------------------------------------------
 int		ft_variable_cmd(t_list **vars, char *str);
-t_list	*ft_find_var(t_list **vars, char *var_name);
-void	ft_handle_var(t_list **vars, char *str);
-void	ft_add_var(t_list **vars, char *str, int exp);
-void	ft_mod_var_value(t_list *vars, char *str);
+void	ft_mod_var_value(t_var *var, char *str);
+t_var	*ft_find_var(t_list **vars, char *name);
+t_var	*ft_add_var_by_name(t_list **vars, char *name, char *value);
+void	ft_handle_var_by_name(t_list **vars, char *name, char *value);
+void	ft_handle_var_by_str(t_list **vars, char *str);
 
 //clone_env---------------------------------------------------------------------
 t_list	*ft_env_from_matrix_to_list(char **env);
 char	**ft_env_from_list_to_matrix(t_list **vars);
-
-//pwd_check---------------------------------------------------------------------
-void	ft_update_pwd(t_list **vars);
-void	ft_update_oldpwd(t_list **vars, char *str);
 
 //build-ins---------------------------------------------------------------------
 void	ft_pwd(void);
@@ -106,9 +103,10 @@ void	ft_reset_redir(t_msh *msh);
 int		ft_heredoc(const char *delimiter, t_msh *msh);
 
 //free_stuff--------------------------------------------------------------------
-void	ft_free_varslst(t_list **lst);
-void	ft_free_varsnode(t_list *vars);
-void	ft_free_cmdlst(t_list **lst);
+//void	ft_free_varslst(t_list **lst);
+//void	ft_free_cmdlst(t_list **lst);
+void	ft_free_varsnode(void *vars);
+void	ft_free_cmdnode(void *vars);
 
 //utils_1-----------------------------------------------------------------------
 int		ft_is_special(char c);
@@ -123,17 +121,26 @@ int		ft_llong_limit_check(char *str);
 void	ft_close_fds(int fd_1, int fd_2);
 int		ft_get_exit_code(int status);
 
+/*
+
 //history-----------------------------------------------------------------------
 //[deprecated]
-/*
 int		ft_add_str_to_history(char *str, t_list **hst);
 int		ft_print_history(t_list *hst);
-*/
 
 //PRINT-------------------------------------------------------------------------
 //[deprecated]
-/*
 void	ft_print_lst(t_list *lst);
+
+//update_pwd--------------------------------------------------------------------
+//[deprecated]
+void	ft_update_pwd(t_list **vars);
+void	ft_update_oldpwd(t_list **vars, char *str);
+
+//vars--------------------------------------------------------------------------
+//[deprecated]
+void	ft_add_var_by_str(t_list **vars, char *str, int exp);
+
 */
 
 #endif

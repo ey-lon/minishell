@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 15:32:12 by abettini          #+#    #+#             */
-/*   Updated: 2023/06/29 15:57:48 by abettini         ###   ########.fr       */
+/*   Updated: 2024/01/23 15:49:07 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,31 +15,33 @@
 //FT_FIND_VAR-------------------------------------------------------------------
 //looks for the variable:
 // - in the vars list
-t_list	*ft_find_var(t_list **vars, char *var_name)
+t_var	*ft_find_var(t_list **vars, char *name)
 {
 	t_list	*tmp;
 	int		len;
 
-	len = ft_strlen(var_name);
+	len = ft_strlen(name);
 	tmp = *vars;
-	while (tmp && ft_strncmp(var_name, ((t_var *)tmp->content)->name, len + 1))
+	while (tmp && ft_strncmp(name, ((t_var *)tmp->content)->name, len + 1))
 		tmp = tmp->next;
 	if (tmp)
-		return (tmp);
+		return ((t_var *)tmp->content);
 	return (NULL);
 }
 
-void	ft_mod_var_value(t_list *vars, char *str)
+void	ft_mod_var_value(t_var *var, char *str)
 {
-	if (vars)
+	if (var)
 	{
-		if (((t_var *)(vars->content))->value)
-			free(((t_var *)(vars->content))->value);
-		((t_var *)(vars->content))->value = ft_strdup(str);
+		if (var->value)
+			free(var->value);
+		var->value = ft_strdup(str);
 	}
 }
 
-void	ft_add_var(t_list **vars, char *str, int exp)
+/*
+//[deprecated]
+void	ft_add_var_by_str(t_list **vars, char *str, int exp)
 {
 	t_var	*new;
 	int		len;
@@ -54,23 +56,50 @@ void	ft_add_var(t_list **vars, char *str, int exp)
 	new->value = ft_substr(str, len, ft_strlen(str) - len);
 	new->exp = exp;
 	ft_lstadd_back(vars, ft_lstnew((void *)new));
+} */
+
+t_var	*ft_add_var_by_name(t_list **vars, char *name, char *value)
+{
+	t_var	*new;
+
+	new = malloc(sizeof(t_var));
+	if (!new)
+		return (NULL);
+	new->name = ft_strdup(name);
+	new->value = ft_strdup(value);
+	new->exp = 0;
+	ft_lstadd_back(vars, ft_lstnew((void *)new));
+	return (new);
 }
 
-void	ft_handle_var(t_list **vars, char *str)
+void	ft_handle_var_by_name(t_list **vars, char *name, char *value)
 {
-	t_list	*tmp;
+	t_var	*tmp;
+	char	*str;
+
+	tmp = ft_find_var(vars, name);
+	if (tmp)
+	{
+		ft_mod_var_value(tmp, value);
+	}
+	else
+	{
+		str = ft_strjoin(name, value);
+		ft_add_var_by_name(vars, name, value);
+		free(str);
+	}
+}
+
+void	ft_handle_var_by_str(t_list **vars, char *str)
+{
 	int		len;
-	char	*var_name;
+	char	*name;
 
 	len = ft_strlen_mod(str, '=');
 	if (len)
 	{
-		var_name = ft_substr(str, 0, len);
-		tmp = ft_find_var(vars, var_name);
-		free(var_name);
-		if (!tmp)
-			ft_add_var(vars, str, 0);
-		else
-			ft_mod_var_value(tmp, &str[len + 1]);
+		name = ft_substr(str, 0, len);
+		ft_handle_var_by_name(vars, name, &str[len + 1]);
+		free(name);
 	}
 }

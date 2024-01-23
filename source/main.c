@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:46:44 by abettini          #+#    #+#             */
-/*   Updated: 2023/12/19 16:39:57 by abettini         ###   ########.fr       */
+/*   Updated: 2024/01/23 14:52:18 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	ft_loop(t_msh *msh)
 		{
 			ft_parsing(str, msh);
 			g_exit_code = ft_pipes(msh->cmd, msh);
-			ft_free_cmdlst(msh->cmd);
+			ft_lstclear(msh->cmd, ft_free_cmdnode);
 			*msh->cmd = NULL;
 		}
 		else if (*str)
@@ -63,7 +63,7 @@ static void	ft_loop(t_msh *msh)
 			add_history(str);
 		free(str);
 	}
-	ft_free_varslst(msh->vars);
+	ft_lstclear(msh->vars, ft_free_varsnode);
 	rl_clear_history();
 }
 

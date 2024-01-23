@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 15:52:07 by abettini          #+#    #+#             */
-/*   Updated: 2023/12/19 16:35:54 by abettini         ###   ########.fr       */
+/*   Updated: 2024/01/23 10:24:38 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	ft_variable_cmd(t_list **vars, char *str)
 	check = 0;
 	if (ft_is_variable_cmd(str))
 	{
-		ft_handle_var(vars, str);
+		ft_handle_var_by_str(vars, str);
 		check = 1;
 	}
 	return (check);

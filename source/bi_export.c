@@ -6,7 +6,7 @@
 /*   By: abettini <abettini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 16:06:47 by abettini          #+#    #+#             */
-/*   Updated: 2023/12/19 17:18:22 by abettini         ###   ########.fr       */
+/*   Updated: 2024/01/23 15:41:18 by abettini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,36 +62,39 @@ static int	ft_exp_check(char *str)
 	return (check);
 }
 
-static void	ft_set_export_var(t_list **vars, t_list *var, char *str, int len)
+static void	ft_add_and_export(t_list **vars, char *name, char *value, int exp)
 {
+	t_var	*var;
+
+	var = ft_add_var_by_name(vars, name, value);
 	if (var)
 	{
-		((t_var *)(var->content))->exp = 1;
-		if (str[len] == '=')
-		{
-			free(((t_var *)(var->content))->value);
-			((t_var *)(var->content))->value = ft_strdup(&str[len + 1]);
-		}
+		var->exp = exp;
 	}
-	else if (str[len] == '=')
-		ft_add_var(vars, str, 1);
-	else
-		ft_add_var(vars, str, 2);
 }
 
 static void	ft_export_var(t_list **vars, char *str)
 {
-	t_list	*var;
-	char	*var_name;
+	t_var	*var;
+	char	*name;
 	int		len;
 
 	len = ft_strlen_mod(str, '=');
 	if (len)
 	{
-		var_name = ft_substr(str, 0, len);
-		var = ((ft_find_var(vars, var_name)));
-		free(var_name);
-		ft_set_export_var(vars, var, str, len);
+		name = ft_substr(str, 0, len);
+		var = ((ft_find_var(vars, name)));
+		if (var)
+		{
+			var->exp = 1;
+			if (str[len] == '=')
+				ft_mod_var_value(var, &str[len + 1]);
+		}
+		else if (str[len] == '=')
+			ft_add_and_export(vars, name, &str[len + 1], 1);
+		else
+			ft_add_and_export(vars, name, "", 2);
+		free(name);
 	}
 }
 
@@ -116,6 +119,22 @@ int	ft_export(t_list **vars, char **args)
 		}
 	}
 	else
+	{
 		ft_print_exp(vars);
+	}
 	return (ret);
 }
+
+/*
+//[depracated]
+static void	ft_export_var_by_name(t_list **vars, char *name, int exp)
+{
+	t_var	*var;
+
+	var = ft_find_var(vars, name);
+	if (var)
+	{
+		var->exp = exp;
+	}
+}
+*/
